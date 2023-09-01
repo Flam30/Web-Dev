@@ -63,12 +63,14 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ### Purpose
 
-2-5 sentences describing what the system does
+The system will provide users with a place to find centralized information about various events in an area, for which they can buy tickets. Organizers create events in the system, offering a certain number of available tickets, a location, and a description (date, location etc.) of the event. These events can be seen by the client users and tickets can be acquired through the system.
 
 ### Pages
 
-* Home: 1-3 sentences describing what the page displays and what a user can do
-* Shopping cart: ...
+* Home: it will show the user different events, along with their descriptions. It will allow the user to go to an event's ticket purchasing page, as well as click for more information. Can access the account information page from here
+* Event page: it will show more detailed information about the event, as well as the organizer's information. It will also allow the user to go to the ticket purchasing page and back to the home page
+* Ticket purchasing page: allows the user to purchase their ticket. Asks for their information to reserve the ticket (possibly autofilled using the user's account?). It will also show how many tickets are still available for purchase
+* Account information page: displays the information of the user such as user ID, name, DOB, account email, and other information they added when creating the account
 
 ### Entity-Relationship (ER) Diagram
 
