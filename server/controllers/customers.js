@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/customer');
-const customer = require('../models/customer');
+var Customer = require('../models/customer');
 
 app.post('/api/customers', async function(req, res, next) {
     var customer = new Customer(req.body);
