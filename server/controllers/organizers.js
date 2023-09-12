@@ -2,10 +2,15 @@ var express = require('express');
 var router = express.Router();
 var Organizer = require('../models/organizers');
 
-router.post('/api/organizer', function(req, res, next){
+router.post('/api/organizers', async function(req, res, next){
     var organizer = new Organizer(req.body);
-    res.send(organizer);
-});
+    try {
+        await organizer.save();
+        res.status(201).json(organizer);
+    } catch (err) {
+        next(err);
+    }
+})
 
 router.get('/api/organizers', async (req, res, next) => {
     try {
