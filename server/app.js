@@ -5,8 +5,11 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 
+// password encoding
+const password = encodeURIComponent("admin");
+
 // Variables
-var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
+var mongoURI = process.env.MONGODB_URI || `mongodb+srv://admin:${password}@cluster0.46ugdxm.mongodb.net/?retryWrites=true&w=majority`;
 var port = process.env.PORT || 3000;
 
 // Connect to MongoDB
