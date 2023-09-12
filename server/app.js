@@ -5,6 +5,8 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 var usersController = require('./controllers/users');
+var customersController = require('./controllers/customers');
+var eventsConroller = require('./controllers/events');
 
 // password encoding
 const password = encodeURIComponent("admin");
@@ -40,6 +42,8 @@ app.get('/api', function(req, res) {
 });
 
 app.use(usersController);
+app.use(customersController);
+app.use(eventsConroller);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
