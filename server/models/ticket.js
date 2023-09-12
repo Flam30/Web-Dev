@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ticketSchema = new Schema({
-    ticketId: {type: Number},
+    id: {type: Number},
     type: {type: String},
     seat: {type: String},
     price: {type: Number},
