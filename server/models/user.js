@@ -7,7 +7,6 @@ var userSchema = new Schema({
     mail: String,
     address: String,
     phoneNumber: String,
-    dateOfBirth: Date
 });
 
 module.exports = mongoose.model('users', userSchema);

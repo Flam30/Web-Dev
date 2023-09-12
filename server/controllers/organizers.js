@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Organizer = require('../models/organizers');
+var Organizer = require('../models/organizer');
 
 router.post('/api/organizers', async function(req, res, next){
     var organizer = new Organizer(req.body);
