@@ -74,7 +74,7 @@ The system will provide users with a place to find centralized information about
 
 ### Entity-Relationship (ER) Diagram
 
-![ER Diagram](./images/eer-diagram.png)
+![ER Diagram](./images/eer-diagram.jpg)
 
 ## Teaser (MS3)
 
