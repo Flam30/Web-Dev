@@ -39,7 +39,6 @@ router.get('/api/users/:id', async function(req, res, next){
 });
 
 router.delete('/api/users/:id', async function(req, res, next){
-    console.log('here');
     var id = req.params.id;
     try {
         const user = await User.findOneAndDelete({_id: id});

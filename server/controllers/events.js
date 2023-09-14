@@ -25,4 +25,44 @@ router.get('/api/events', async (req, res, next) => {
     }
 });
 
+router.get('/api/events/:id', async function(req, res, next){
+    var id = req.params.id;
+    try {
+        const event = await Event.findById(id);
+        if (event === null) {
+            return res.status(404).json({'message': 'Event not found!'});
+        }
+        res.json(event);
+    } catch (err) {
+        return next(err);
+    }
+});
+
+router.patch('/api/events/:id', async function(req, res, next){
+    console.log('here');
+    var id = req.params.id;
+    try {
+        const event = await Event.findOneAndUpdate({_id: id}, req.body, { new: true });
+        if (event === null) {
+            return res.status(404).json({'message': 'Event not found!'});
+        }
+        res.json(event);
+    } catch (err) {
+        return next(err);
+    }
+});
+
+router.delete('/api/events/:id', async function(req, res, next){
+    var id = req.params.id;
+    try {
+        const event = await Event.findOneAndDelete({_id: id});
+        if (event === null) {
+            return res.status(404).json({'message': 'Event not found!'});
+        }
+        res.json(event);
+    } catch (err) {
+        return next(err);
+    }
+});
+
 module.exports = router;
