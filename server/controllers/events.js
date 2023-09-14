@@ -12,6 +12,16 @@ router.post('/api/events', async function(req, res, next) {
     }
 });
 
+router.delete('/api/events', async function(req, res, next) {
+    var event = new Event(req.body);
+    try {
+        await Event.deleteMany(event);
+        res.status(201).json(event);
+    } catch (err) {
+        next(err);
+    }
+});
+
 router.get('/api/events', async (req, res, next) => {
     try {
         const events = await Event.find({});
@@ -43,6 +53,19 @@ router.patch('/api/events/:id', async function(req, res, next){
     var id = req.params.id;
     try {
         const event = await Event.findOneAndUpdate({_id: id}, req.body, { new: true });
+        if (event === null) {
+            return res.status(404).json({'message': 'Event not found!'});
+        }
+        res.json(event);
+    } catch (err) {
+        return next(err);
+    }
+});
+
+router.put('/api/events/:id', async function(req, res, next){
+    var id = req.params.id;
+    try {
+        const event = await Event.findOneAndReplace({_id: id});
         if (event === null) {
             return res.status(404).json({'message': 'Event not found!'});
         }
