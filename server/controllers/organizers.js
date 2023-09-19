@@ -76,7 +76,6 @@ router.put('/api/organizers/:id', async function(req, res, next){
 });
 
 router.delete('/api/organizers/:id', async function(req, res, next){
-    var id = req.params.id;
     try {
         const organizer = await Organizer.findOneAndDelete({name: req.params.id}, req.body, {new: true});
         if (organizer === null) {
