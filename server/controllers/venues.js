@@ -14,7 +14,7 @@ router.post('/api/venues', async function(req, res, next) {
 });
 
 // GET /venues - get all venues
-router.get('api/venues', async (req, res, next) => {
+router.get('/api/venues', async (req, res, next) => {
     try {
         const venues = await Venue.find({});
         if(venues.length === 0) {
