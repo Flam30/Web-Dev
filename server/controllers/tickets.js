@@ -75,3 +75,5 @@ router.delete('/api/organizers/:organizerId/events/:eventId/tickets/:ticketId', 
         return next(err);
     }
 });
+
+module.exports = router;
