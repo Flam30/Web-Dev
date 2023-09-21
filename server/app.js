@@ -6,12 +6,11 @@ var cors = require('cors');
 var history = require('connect-history-api-fallback');
 
 // version 1 controllers
-var usersControllerV1 = require('./v1/users.js');
-var customerControllerV1 = require('./v1/customers.js');
-var eventsControllerV1 = require('./v1/events.js');
-var organizersControllerV1 = require('./v1/organizers.js');
-var venuesControllerV1 = require('./v1/venues.js');
-var ticketsControllerV1 = require('./v1/tickets.js');
+var usersControllerV1 = require('./controllers/v1/users');
+var eventsControllerV1 = require('./controllers/v1/events');
+var organizersControllerV1 = require('./controllers/v1/organizers');
+var venuesControllerV1 = require('./controllers/v1/venues');
+var ticketsControllerV1 = require('./controllers/v1/tickets');
 
 // password encoding
 const password = encodeURIComponent("admin");
