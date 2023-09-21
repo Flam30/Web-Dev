@@ -3,7 +3,7 @@ var router = express.Router();
 var Venue = require('../../models/venue');   // this was changed?
 
 // POST /venues - add a collection of venues
-router.post('/api/v1/venues', async function(req, res, next) {
+router.post('/api/venues', async function(req, res, next) {
     var venue = new Venue(req.body);
     try {
         await venue.save();
@@ -14,7 +14,7 @@ router.post('/api/v1/venues', async function(req, res, next) {
 });
 
 // GET /venues - get all venues
-router.get('/api/v1/venues', async (req, res, next) => {
+router.get('/api/venues', async (req, res, next) => {
     try {
         const venues = await Venue.find({});
         if(venues.length === 0) {
@@ -27,7 +27,7 @@ router.get('/api/v1/venues', async (req, res, next) => {
 });
 
 // GET /venues/:id - get a venue
-router.get('/api/v1/venues/:id', async (req, res, next) => {
+router.get('/api/venues/:id', async (req, res, next) => {
     var id = req.params.id;
     try {
         const venues = await Venue.findById(id);
@@ -42,7 +42,7 @@ router.get('/api/v1/venues/:id', async (req, res, next) => {
 });
 
 // DELETE /venues - delete a collection of venues
-router.delete('/api/v1/venues', async function(req, res, next){
+router.delete('/api/venues', async function(req, res, next){
     console.log('here');
     try {
         const venue = await Venue.deleteMany();
@@ -56,7 +56,7 @@ router.delete('/api/v1/venues', async function(req, res, next){
 });
 
 // DELETE /venues/:id - delete a specific venue
-router.delete('/api/v1/venues/:id', async function(req, res, next){
+router.delete('/api/venues/:id', async function(req, res, next){
     console.log('here');
     var id = req.params.id;
     try {

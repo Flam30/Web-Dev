@@ -4,7 +4,7 @@ var Event = require('../models/ticket');
 
 
 // POST /organizers/:id/events/:id/tickets - add tickets to an event
-router.post('/api/v1/organizers/:organizerId/events/:eventId/tickets', async function(req, res, next) {
+router.post('/api/organizers/:organizerId/events/:eventId/tickets', async function(req, res, next) {
 
     // fix foreign keys with organizers and events
     // var organizerId = req.params.organizerId;
@@ -21,7 +21,7 @@ router.post('/api/v1/organizers/:organizerId/events/:eventId/tickets', async fun
 
 
 // GET /organizers/:id/events/:id/tickets - get specific event's tickets
-router.get('/api/v1/organizers/:id/events/:id/tickets', async (req, res, next) => {
+router.get('/api/organizers/:id/events/:id/tickets', async (req, res, next) => {
     
     // fix foreign keys with organizers and events
     // var organizerId = req.params.organizerId;
@@ -40,7 +40,7 @@ router.get('/api/v1/organizers/:id/events/:id/tickets', async (req, res, next) =
 });
 
 // GET /organizers/:id/events/:id/tickets/:id - get a specific ticket from an event
-router.get('/api/v1/organizers/:organizerId/events/:eventId/tickets/:ticketId', async (req, res, next) => {
+router.get('/api/organizers/:organizerId/events/:eventId/tickets/:ticketId', async (req, res, next) => {
     
     // fix foreign keys with organizers and events
     // var organizerId = req.params.organizerId;
@@ -60,7 +60,7 @@ router.get('/api/v1/organizers/:organizerId/events/:eventId/tickets/:ticketId', 
 });
 
 // DELETE /organizers/:id/events/:id/tickets/:id - delete a specific ticket from an event
-router.delete('/api/v1/organizers/:organizerId/events/:eventId/tickets/:ticketId', async function(req, res, next){
+router.delete('/api/organizers/:organizerId/events/:eventId/tickets/:ticketId', async function(req, res, next){
     console.log('here');
     // var organizerId = req.params.organizerId;
     // var eventId = req.params.eventId;

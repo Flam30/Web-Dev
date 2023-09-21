@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Organizer = require('../models/organizer');
 
-router.get('/api/v1/organizers', async (req, res, next) => {
+router.get('/api/organizers', async (req, res, next) => {
     try {
         const organizers = await Organizer.find({});
         if (organizers.length === 0) {
@@ -15,7 +15,7 @@ router.get('/api/v1/organizers', async (req, res, next) => {
     }
 });
 
-router.get('/api/v1/organizers/:id', async function(req, res, next){
+router.get('/api/organizers/:id', async function(req, res, next){
     try {
         const organizer = await Organizer.findOne({name: req.params.id});
         if (organizer === null) {
@@ -27,7 +27,7 @@ router.get('/api/v1/organizers/:id', async function(req, res, next){
     }
 });
 
-router.post('/api/v1/organizers', async function(req, res, next){
+router.post('/api/organizers', async function(req, res, next){
     var organizer = new Organizer(req.body);
     try {
         await organizer.save();
@@ -38,7 +38,7 @@ router.post('/api/v1/organizers', async function(req, res, next){
 });
 
 //{... req.body, { new: true } do we need these two here? or up there ^^^ ?
-router.put('/api/v1/organizers/:id', async function(req, res, next){
+router.put('/api/organizers/:id', async function(req, res, next){
     try {
         const organizer = await Organizer.findOneAndReplace({name: req.params.id}, req.body, {new: true});
         if (organizer === null) {
@@ -50,7 +50,7 @@ router.put('/api/v1/organizers/:id', async function(req, res, next){
     }
 });
 
-router.patch('/api/v1/organizers/:id', async function(req, res, next){
+router.patch('/api/organizers/:id', async function(req, res, next){
     console.log('here');
     try {
         const organizer = await Organizer.findOneAndUpdate({name: req.params.id}, req.body, {new: true});
@@ -64,7 +64,7 @@ router.patch('/api/v1/organizers/:id', async function(req, res, next){
     }
 });
 
-router.delete('/api/v1/organizers', async function(req, res, next) {
+router.delete('/api/organizers', async function(req, res, next) {
     var organizer = new Organizer(req.body);
     try {
         await Organizer.deleteMany(organizer);
@@ -74,7 +74,7 @@ router.delete('/api/v1/organizers', async function(req, res, next) {
     }
 });
 
-router.delete('/api/v1/organizers/:id', async function(req, res, next){
+router.delete('/api/organizers/:id', async function(req, res, next){
     try {
         const organizer = await Organizer.findOneAndDelete({name: req.params.id}, req.body, {new: true});
         if (organizer === null) {
