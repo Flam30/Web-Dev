@@ -7,6 +7,7 @@ var history = require('connect-history-api-fallback');
 
 // version 1 controllers
 var usersControllerV1 = require('./v1/users.js');
+var customerControllerV1 = require('./v1/customers.js');
 var eventsControllerV1 = require('./v1/events.js');
 var organizersControllerV1 = require('./v1/organizers.js');
 var venuesControllerV1 = require('./v1/venues.js');
