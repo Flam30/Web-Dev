@@ -8,6 +8,8 @@ var usersController = require('./controllers/users');
 var customersController = require('./controllers/customers');
 var eventsController = require('./controllers/events');
 var organizersController = require('./controllers/organizers');
+var loginController = require('./controllers/auth');
+var passport = require('passport');
 
 
 // password encoding
@@ -16,6 +18,7 @@ const password = encodeURIComponent("admin");
 // Variables
 var mongoURI = process.env.MONGODB_URI || `mongodb+srv://admin:${password}@cluster0.46ugdxm.mongodb.net/?retryWrites=true&w=majority`;
 var port = process.env.PORT || 3000;
+const User = require('./models/user');
 
 // Connect to MongoDB
 mongoose.connect(mongoURI).catch(function(err) {
@@ -43,10 +46,17 @@ app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
 });
 
+app.use(passport.initialize());
+//app.use(passport.session());
 app.use(usersController);
+app.use(loginController);
 app.use(customersController);
 app.use(eventsController);
 app.use(organizersController);
+
+
+const LocalStrategy = require('passport-local').Strategy;
+passport.use(new LocalStrategy(User.authenticate()));
 
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
