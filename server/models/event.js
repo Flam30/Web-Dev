@@ -5,7 +5,7 @@ var eventSchema = new Schema({
     id: {type: Number, unique: true, required: true},
     organizer: {type: Schema.Types.ObjectId, ref: 'organizers', required: true},
     name: {type: String},
-    //venue: {type: Schema.Types.ObjectId, ref: 'venues', required: true},
+    venue: {type: Schema.Types.ObjectId, ref: 'venues', required: true},
     ageLimit: {type: Number},
     date: {type: Date}
 });

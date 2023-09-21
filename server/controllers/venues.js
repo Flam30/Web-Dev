@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Venue = require('../../models/venue');   // this was changed?
+var Venue = require('../models/venue');
 
 // POST /venues - add a collection of venues
 router.post('/api/venues', async function(req, res, next) {
