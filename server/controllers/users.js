@@ -26,9 +26,21 @@ router.get('/api/users', async (req, res, next) => {
 });
 
 router.get('/api/users/:id', async function(req, res, next){
-    var id = req.params.id;
     try {
-        const user = await User.findById(id);
+        const user = await User.findOne({username: req.params.id});
+        if (user === null) {
+            return res.status(404).json({'message': 'User not found!'});
+        }
+        res.json(user);
+    } catch (err) {
+        return next(err);
+    }
+});
+
+router.patch('/api/users/:id', async function(req, res, next){
+    console.log('here');
+    try {
+        const user = await User.findOneAndUpdate({username: req.params.id}, req.body, {new: true});
         if (user === null) {
             return res.status(404).json({'message': 'User not found!'});
         }
@@ -39,9 +51,8 @@ router.get('/api/users/:id', async function(req, res, next){
 });
 
 router.delete('/api/users/:id', async function(req, res, next){
-    var id = req.params.id;
     try {
-        const user = await User.findOneAndDelete({_id: id});
+        const user = await User.findOneAndDelete({username: req.params.id}, req.body, {new: true});
         if (user === null) {
             return res.status(404).json({'message': 'User not found!'});
         }
