@@ -72,7 +72,7 @@
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"organizers"
@@ -151,7 +151,7 @@
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"organizers"
@@ -223,7 +223,7 @@
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"organizers",
@@ -299,7 +299,7 @@
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"organizers",
@@ -375,7 +375,7 @@
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"organizers",
@@ -441,7 +441,7 @@
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"users"
@@ -504,7 +504,7 @@
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"users"
@@ -567,7 +567,7 @@
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"users",
@@ -642,7 +642,7 @@
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"users",
@@ -708,7 +708,7 @@
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"users",
@@ -751,7 +751,7 @@
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"users",
