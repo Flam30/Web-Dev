@@ -1,4 +1,5 @@
 var express = require('express');
+var passport = require('passport');
 var mongoose = require('mongoose');
 var morgan = require('morgan');
 var path = require('path');
@@ -10,7 +11,6 @@ var customersController = require('./controllers/customers');
 var eventsController = require('./controllers/events');
 var organizersController = require('./controllers/organizers');
 var loginController = require('./controllers/auth');
-var passport = require('passport');
 
 
 // password encoding
@@ -51,20 +51,20 @@ const LocalStrategy = require('passport-local').Strategy;
 passport.use(User.createStrategy());
 
 app.use(session({
-    secret: "test"
+    secret: "test" //Change this to an env key later
 }))
+
+// Initializing passport and user sessions
 app.use(passport.initialize());
 app.use(passport.session());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
 app.use(usersController);
 app.use(loginController);
 app.use(customersController);
 app.use(eventsController);
 app.use(organizersController);
-
-
-
 
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
