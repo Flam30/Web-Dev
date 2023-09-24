@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var morgan = require('morgan');
 var path = require('path');
 var cors = require('cors');
+var session = require('express-session');
 var history = require('connect-history-api-fallback');
 var usersController = require('./controllers/users');
 var customersController = require('./controllers/customers');
@@ -46,8 +47,16 @@ app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
 });
 
+const LocalStrategy = require('passport-local').Strategy;
+passport.use(User.createStrategy());
+
+app.use(session({
+    secret: "test"
+}))
 app.use(passport.initialize());
-//app.use(passport.session());
+app.use(passport.session());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 app.use(usersController);
 app.use(loginController);
 app.use(customersController);
@@ -55,8 +64,7 @@ app.use(eventsController);
 app.use(organizersController);
 
 
-const LocalStrategy = require('passport-local').Strategy;
-passport.use(new LocalStrategy(User.authenticate()));
+
 
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
