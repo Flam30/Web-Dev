@@ -1428,14 +1428,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/api/users/test",
+									"raw": "{{host}}/api/users/U01",
 									"host": [
 										"{{host}}"
 									],
 									"path": [
 										"api",
 										"users",
-										"test"
+										"U01"
 									]
 								}
 							},
@@ -1597,15 +1597,115 @@
 			]
 		},
 		{
-			"name": "events",
+			"name": "venues",
 			"item": [
 				{
 					"name": "POST",
-					"item": []
+					"item": [
+						{
+							"name": "venues/401",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"401\",\r\n    \"name\": \"Prima Vera\",\r\n    \"location\": \"Malaysia\",\r\n    \"numberOfSeats\": \"120\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/venues",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"venues"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "GET",
 					"item": []
+				},
+				{
+					"name": "PATCH",
+					"item": []
+				},
+				{
+					"name": "PUT",
+					"item": []
+				},
+				{
+					"name": "DELETE",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "events",
+			"item": [
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "events/301",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"301\",\r\n    \"organizer\": \"65142e81f2e75fc71d2cd83e\",\r\n    \"name\": \"Amazing Concert\",\r\n    \"venue\": \"65143a89a50b2774cc72b931\",\r\n    \"ageLimit\": \"18\",\r\n    \"date\": \"2023-06-13\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/events",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"events"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GET",
+					"item": [
+						{
+							"name": "events",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/events",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"events"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "PATCH",
@@ -1626,32 +1726,37 @@
 			"item": [
 				{
 					"name": "POST",
-					"item": []
-				},
-				{
-					"name": "GET",
-					"item": []
-				},
-				{
-					"name": "PATCH",
-					"item": []
-				},
-				{
-					"name": "PUT",
-					"item": []
-				},
-				{
-					"name": "DELETE",
-					"item": []
-				}
-			]
-		},
-		{
-			"name": "venues",
-			"item": [
-				{
-					"name": "POST",
-					"item": []
+					"item": [
+						{
+							"name": "ticket/501",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"501\",\r\n    \"type\": \"Premium\",\r\n    \"seat\": \"12D\",\r\n    \"price\": \"40\",\r\n    \"availability\": \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/events/650318a5050da4417d8a8944/tickets",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"events",
+										"650318a5050da4417d8a8944",
+										"tickets"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "GET",
