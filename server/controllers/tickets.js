@@ -18,7 +18,6 @@ router.post('/api/events/:eventId/tickets', async function(req, res, next) {
     }
 });
 
-
 // GET /events/:eventId/tickets - get specific event's tickets
 router.get('/api/events/:eventId/tickets', async (req, res, next) => {
     var eventId = req.params.eventId;
@@ -39,14 +38,24 @@ router.get('/api/events/:eventId/tickets', async (req, res, next) => {
 router.get('/api/events/:eventId/tickets/:ticketId', async (req, res, next) => {
     var eventId = req.params.eventId;
     var ticketId = req.params.ticketId;
-
     try {
-        const ticket = await Ticket.find({id: ticketId, event: eventId});
+        const ticket = await Ticket.findOne({id: ticketId, event: eventId});
         if (ticket === null) {
             return res.status(404).json({'message': 'Ticket not found!'});
         }
-
-        res.send(ticket);
+        const response = {
+            ticketId,
+            seat: ticket.seat,
+            price: ticket.price,
+            availability: ticket.availability,
+            eventId,
+            _links: {
+                self: { href: `http://localhost3000/api/events/${ticketId}` },
+                collection: { href: `http://localhost3000/api/events/tickets` },
+                event: { href: `http://localhost3000/api/events/${eventId}` },
+            },
+        };
+        res.status(200).json(response);
     } catch (err) {
         return next(err);
     }

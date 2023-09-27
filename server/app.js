@@ -8,6 +8,9 @@ var usersController = require('./controllers/users');
 var customersController = require('./controllers/customers');
 var eventsController = require('./controllers/events');
 var organizersController = require('./controllers/organizers');
+var venuesController = require('./controllers/venues');
+var eventsController = require('./controllers/events');
+var ticketsController = require('./controllers/tickets')
 
 
 // password encoding
@@ -47,6 +50,9 @@ app.use(usersController);
 app.use(customersController);
 app.use(eventsController);
 app.use(organizersController);
+app.use(venuesController);
+app.use(eventsController);
+app.use(ticketsController);
 
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
