@@ -434,12 +434,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/users",
-							"protocol": "http",
+							"raw": "{{host}}/api/users",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"users"
@@ -497,12 +495,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/users",
-							"protocol": "http",
+							"raw": "{{host}}/api/users",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"users"
@@ -560,12 +556,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/users/test",
-							"protocol": "http",
+							"raw": "{{host}}/api/users/test",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"users",
@@ -635,12 +629,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/users/test",
-							"protocol": "http",
+							"raw": "{{host}}/api/users/test",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"users",
@@ -701,12 +693,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/users/test",
-							"protocol": "http",
+							"raw": "{{host}}/api/users/test",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"users",
@@ -744,12 +734,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/users/test",
-							"protocol": "http",
+							"raw": "{{host}}/api/users/test",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"users",
