@@ -70,8 +70,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/organizers",
-							"protocol": "http",
+							"raw": "{{host}}/api/organizers",
 							"host": [
 								"{{host}}"
 							],
@@ -148,8 +147,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{host}}/api/organizers",
-							"protocol": "http",
+							"raw": "{{host}}/api/organizers",
 							"host": [
 								"{{host}}"
 							],
@@ -219,8 +217,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{host}}/api/organizers/Test",
-							"protocol": "http",
+							"raw": "{{host}}/api/organizers/Test",
 							"host": [
 								"{{host}}"
 							],
@@ -294,8 +291,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/organizers/Test",
-							"protocol": "http",
+							"raw": "{{host}}/api/organizers/Test",
 							"host": [
 								"{{host}}"
 							],
@@ -369,8 +365,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{host}}/api/organizers/Tester",
-							"protocol": "http",
+							"raw": "{{host}}/api/organizers/Tester",
 							"host": [
 								"{{host}}"
 							],
