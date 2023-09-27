@@ -5,7 +5,7 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 
-var route = require('./controllers');
+var controllers = require('./controllers');
 
 // version 1 controllers
 // var usersControllerV1 = require('./controllers/v1/users.js');
@@ -47,7 +47,7 @@ app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
 });
 
-app.use('/api', route);
+app.use('/api', controllers);
 // app.use('/users', usersControllerV1);
 // app.use('/events', eventsControllerV1);
 // app.use('/organizers', organizersControllerV1);
