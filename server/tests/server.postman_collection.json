@@ -748,6 +748,45 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "events",
+			"item": []
+		},
+		{
+			"name": "tickets",
+			"item": []
+		},
+		{
+			"name": "venues",
+			"item": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:3000",
+			"type": "string"
 		}
 	]
 }
