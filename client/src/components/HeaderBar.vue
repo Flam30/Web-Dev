@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="navbar">
   <b-navbar toggleable="lg" type="dark" variant="info">
     <b-navbar-brand href="#">(not) Ticketmaster</b-navbar-brand>
 
@@ -26,9 +26,8 @@
 </template>
 
 <style>
-.greeting {
-  color: red;
-  font-weight: bold;
+#navbar {
+  filter: drop-shadow(0px 10px 12px #000000);
 }
 
 </style>
