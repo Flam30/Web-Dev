@@ -22,7 +22,7 @@ export default {
 <template>
 <div>
     <HeaderBar></HeaderBar>
-    <img src="https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?cs=srgb&dl=pexels-wolfgang-2747449.jpg&fm=jpg" alt="Responsive image" id="event-photo">
+    <img src="https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?cs=srgb&dl=pexels-wolfgang-2747449.jpg&fm=jpg" alt="Event cover image" id="event-photo">
     <div id="details-wrapper">
         <div id="title-wrapper">
             <h1>{{ id }}</h1>

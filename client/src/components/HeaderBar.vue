@@ -51,7 +51,7 @@
         </b-form-input>
       </b-form-group>
       <b-button type="submit" variant="success">Log in</b-button>
-      <p>Don't have an account yet? <a href="#">Register here.</a></p>
+      <p>Don't have an account yet? <a href="/register">Register here.</a></p>
     </b-form>
   </b-modal>
 </div>
