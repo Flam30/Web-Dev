@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Organizer = require('../models/organizer');
+var Organizer = require('../../models/organizer');
 
 router.get('/api/v1/organizers', async (req, res, next) => {
     try {

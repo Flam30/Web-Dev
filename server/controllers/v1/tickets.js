@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Event = require('../models/ticket');
+var Event = require('../../models/ticket');
 
 
 // POST /organizers/:id/events/:id/tickets - add tickets to an event
