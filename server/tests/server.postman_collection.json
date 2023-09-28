@@ -371,7 +371,7 @@
 									"    const responseData = pm.response.json();\r",
 									"    \r",
 									"    pm.expect(responseData).to.be.an('object');\r",
-									"    pm.expect(responseData.id).to.exist.and.to.be.a('number');\r",
+									"    pm.expect(responseData.id).to.exist.and.to.be.a('string');\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -420,7 +420,7 @@
 									"    const responseData = pm.response.json();\r",
 									"    \r",
 									"    pm.expect(responseData).to.be.an('object');\r",
-									"    pm.expect(responseData.id).to.exist.and.to.be.a('number');\r",
+									"    pm.expect(responseData.id).to.exist.and.to.be.a('string');\r",
 									"});"
 								],
 								"type": "text/javascript"
