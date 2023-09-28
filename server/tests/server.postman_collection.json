@@ -356,7 +356,7 @@
 					"response": []
 				},
 				{
-					"name": "venues/401",
+					"name": "venues/V01",
 					"event": [
 						{
 							"listen": "test",
@@ -383,7 +383,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"401\",\r\n    \"name\": \"Prima Vera\",\r\n    \"location\": \"Malaysia\",\r\n    \"numberOfSeats\": \"120\"\r\n}",
+							"raw": "{\r\n    \"id\": \"V01\",\r\n    \"name\": \"Prima Vera\",\r\n    \"location\": \"Malaysia\",\r\n    \"numberOfSeats\": \"120\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -405,7 +405,7 @@
 					"response": []
 				},
 				{
-					"name": "venues/402",
+					"name": "venues/V02",
 					"event": [
 						{
 							"listen": "test",
@@ -432,7 +432,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"402\",\r\n    \"name\": \"Mermaid Beach\",\r\n    \"location\": \"Pacific Ocean\",\r\n    \"numberOfSeats\": \"300\"\r\n}",
+							"raw": "{\r\n    \"id\": \"V02\",\r\n    \"name\": \"Mermaid Beach\",\r\n    \"location\": \"Pacific Ocean\",\r\n    \"numberOfSeats\": \"300\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -454,7 +454,7 @@
 					"response": []
 				},
 				{
-					"name": "events/301",
+					"name": "events/E01",
 					"event": [
 						{
 							"listen": "test",
@@ -473,7 +473,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"301\",\r\n    \"organizer\": \"65142e81f2e75fc71d2cd83e\",\r\n    \"name\": \"Amazing Concert\",\r\n    \"venue\": \"65143a89a50b2774cc72b931\",\r\n    \"ageLimit\": \"18\",\r\n    \"date\": \"2023-06-13\"\r\n}",
+							"raw": "{\r\n    \"id\": \"E01\",\r\n    \"organizer\": \"65142e81f2e75fc71d2cd83e\",\r\n    \"name\": \"Amazing Concert\",\r\n    \"venue\": \"65143a89a50b2774cc72b931\",\r\n    \"ageLimit\": \"18\",\r\n    \"date\": \"2023-06-13\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -495,7 +495,7 @@
 					"response": []
 				},
 				{
-					"name": "ticket/501",
+					"name": "ticket/T01",
 					"event": [
 						{
 							"listen": "test",
@@ -514,7 +514,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"501\",\r\n    \"type\": \"Premium\",\r\n    \"seat\": \"12D\",\r\n    \"price\": \"40\",\r\n    \"availability\": \"true\"\r\n}",
+							"raw": "{\r\n    \"id\": \"T01\",\r\n    \"type\": \"Premium\",\r\n    \"seat\": \"12D\",\r\n    \"price\": \"40\",\r\n    \"availability\": \"true\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -522,7 +522,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/events/650318a5050da4417d8a8944/tickets",
+							"raw": "{{host}}/api/v1/events/E01/tickets",
 							"host": [
 								"{{host}}"
 							],
@@ -530,7 +530,7 @@
 								"api",
 								"v1",
 								"events",
-								"650318a5050da4417d8a8944",
+								"E01",
 								"tickets"
 							]
 						}
@@ -750,7 +750,7 @@
 					"response": []
 				},
 				{
-					"name": "Not found",
+					"name": "Organizer not found",
 					"event": [
 						{
 							"listen": "test",
@@ -971,7 +971,7 @@
 					"response": []
 				},
 				{
-					"name": "Not found",
+					"name": "User not found",
 					"event": [
 						{
 							"listen": "test",
@@ -1043,7 +1043,7 @@
 					"response": []
 				},
 				{
-					"name": "venue/401",
+					"name": "venue/V01",
 					"event": [
 						{
 							"listen": "test",
@@ -1061,7 +1061,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/api/v1/venues/401",
+							"raw": "{{host}}/api/v1/venues/V01",
 							"host": [
 								"{{host}}"
 							],
@@ -1069,14 +1069,14 @@
 								"api",
 								"v1",
 								"venues",
-								"401"
+								"V01"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Not found",
+					"name": "Venue not found",
 					"event": [
 						{
 							"listen": "test",
