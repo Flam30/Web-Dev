@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Event = require('.../models/event');
+var Event = require('../../models/event');
 
 router.post('/api/v1/events', async function(req, res, next) {
     var event = new Event(req.body);
