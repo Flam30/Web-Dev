@@ -37,7 +37,7 @@ export default {
       <p>Message from the server:<br/>
       {{ message }}</p>
     </b-jumbotron> -->
-    <h1>Upcoming events</h1>
+    <h1 style="padding: 50px 0 0 10px;">Upcoming events</h1>
     <div id="event-wrapper">
       <EventCard
         name="Test event"
@@ -58,10 +58,6 @@ export default {
 h1{
   text-align: left;
 }
-.btn_message {
-  margin-bottom: 1em;
-}
-
 .event-wrapper{
   display: flex;
   width: 100%;

@@ -14,7 +14,7 @@
       {{ description }}
     </b-card-text>
 
-    <b-button href="#" variant="primary">Details</b-button>
+    <b-button href="/Event/TestEvent" variant="primary">Details</b-button>
   </b-card>
 </div>
 </template>
