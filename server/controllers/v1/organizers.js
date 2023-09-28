@@ -65,10 +65,9 @@ router.patch('/:id', async function(req, res, next){
 });
 
 router.delete('/', async function(req, res, next) {
-    var organizer = new Organizer(req.body);
     try {
-        await Organizer.deleteMany(organizer);
-        res.status(201).json(organizer);
+        await Organizer.deleteMany({});
+        res.status(201).json();
     } catch (err) {
         next(err);
     }

@@ -62,6 +62,14 @@ router.patch('/:id', async function(req, res, next){
     }
 });
 
+router.delete('/', async function(req, res, next) {
+    try {
+        await User.deleteMany({});
+        res.status(201).json();
+    } catch (err) {
+        next(err);
+    }
+});
 
 router.delete('/:id', async function(req, res, next){
     try {

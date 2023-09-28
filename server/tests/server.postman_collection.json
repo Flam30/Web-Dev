@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "81c2140b-2495-401e-9b09-595dc7c8b7b9",
+		"_postman_id": "3464b6b8-f810-45ea-a489-607f828e3c37",
 		"name": "Endpoints",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "29410460"
@@ -473,7 +473,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"E01\",\r\n    \"organizer\": \"65142e81f2e75fc71d2cd83e\",\r\n    \"name\": \"Amazing Concert\",\r\n    \"venue\": \"65143a89a50b2774cc72b931\",\r\n    \"ageLimit\": \"18\",\r\n    \"date\": \"2023-06-13\"\r\n}",
+							"raw": "{\r\n    \"id\": \"E01\",\r\n    \"organizer\": \"{{organizerId}}\",\r\n    \"name\": \"Amazing Concert\",\r\n    \"venue\": \"{{venueId}}\",\r\n    \"ageLimit\": \"18\",\r\n    \"date\": \"2023-06-13\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -514,7 +514,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"T01\",\r\n    \"type\": \"Premium\",\r\n    \"seat\": \"12D\",\r\n    \"price\": \"40\",\r\n    \"availability\": \"true\"\r\n}",
+							"raw": "{\r\n    \"id\": \"T01\",\r\n    \"type\": \"Premium\",\r\n    \"seat\": \"12D\",\r\n    \"price\": \"40\",\r\n    \"availability\": \"true\",\r\n    \"event\": \"{{eventId}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -522,7 +522,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/events/E01/tickets",
+							"raw": "{{host}}/api/v1/events/{{eventId}}/tickets",
 							"host": [
 								"{{host}}"
 							],
@@ -530,7 +530,7 @@
 								"api",
 								"v1",
 								"events",
-								"E01",
+								"{{eventId}}",
 								"tickets"
 							]
 						}
@@ -1870,6 +1870,168 @@
 								"v1",
 								"users",
 								"MEGAPOWER"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tickets",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/events/{{eventId}}/tickets",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"events",
+								"{{eventId}}",
+								"tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "events",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/events",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "venues",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/venues",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"venues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "organizers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/organizers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizers"
 							]
 						}
 					},

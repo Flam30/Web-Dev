@@ -28,11 +28,11 @@ router.get('/', async (req, res, next) => {
 
 // GET /venues/:id - get a venue
 router.get('/:id', async (req, res, next) => {
-    var id = req.params.id;
+    var venueId = req.params.id;
     try {
-        const venues = await Venue.findById(id);
+        const venues = await Venue.find({id: venueId});
         if (venues.length === 0) {
-            return res.status(204).json({'message': 'No venues exist.' });
+            return res.status(404).json({'message': 'No venues exist.' });
         }
 
         res.send(venues);

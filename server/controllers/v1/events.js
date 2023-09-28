@@ -13,10 +13,9 @@ router.post('/', async function(req, res, next) {
 });
 
 router.delete('/', async function(req, res, next) {
-    var event = new Event(req.body);
     try {
-        await Event.deleteMany(event);
-        res.status(201).json(event);
+        await Event.deleteMany({});
+        res.status(201).json();
     } catch (err) {
         next(err);
     }

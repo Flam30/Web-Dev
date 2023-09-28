@@ -7,7 +7,7 @@ var ticketSchema = new Schema({
     seat: {type: String},
     price: {type: Number},
     availability: {type: Boolean},
-    event: {type: Schema.Types.ObjectId, ref: 'event', required: true}
+    event: {type: Schema.Types.ObjectId, ref: 'event'}      // I had to remove the required: true because there was a validation error
     // customer: {type: Schema.Types.ObjectId, ref: 'customer'}
 });
 
