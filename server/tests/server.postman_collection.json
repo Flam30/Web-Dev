@@ -606,7 +606,7 @@
 					"name": "PUT",
 					"item": [
 						{
-							"name": "organizers/Test",
+							"name": "organizers/Tester",
 							"event": [
 								{
 									"listen": "test",
@@ -640,7 +640,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Test\",\r\n    \"email\": \"testing@put.com\",\r\n    \"address\": \"Tristate Area\",\r\n    \"phoneNumber\": \"90\"\r\n}",
+									"raw": "{\r\n    \"name\": \"Tester\",\r\n    \"email\": \"testing@put.com\",\r\n    \"address\": \"Tristate Area\",\r\n    \"phoneNumber\": \"90\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -648,14 +648,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/api/organizers/Test",
+									"raw": "{{host}}/api/organizers/Tester",
 									"host": [
 										"{{host}}"
 									],
 									"path": [
 										"api",
 										"organizers",
-										"Test"
+										"Tester"
 									]
 								}
 							},
