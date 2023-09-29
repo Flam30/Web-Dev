@@ -4,6 +4,12 @@ var morgan = require('morgan');
 var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
+// version 1 controllers
+var customersControllerV1 = require('./controllers/v1/customers');
+var eventsControllerV1 = require('./controllers/v1/events');
+var organizersControllerV1 = require('./controllers/v1/organizers');
+var venuesControllerV1 = require('./controllers/v1/venues');
+var ticketsControllerV1 = require('./controllers/v1/tickets');
 
 // password encoding
 const password = encodeURIComponent("admin");
@@ -37,6 +43,13 @@ app.use(cors());
 app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
 });
+
+// app.use('/api', controllers);
+app.use('/api/v1/customers', customersControllerV1);
+app.use('/api/v1/events', eventsControllerV1);
+app.use('/api/v1/organizers', organizersControllerV1);
+app.use('/api/v1/venues', venuesControllerV1);
+app.use('/api/v1/events/:eventId/tickets', ticketsControllerV1);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
