@@ -4,7 +4,6 @@
 		"name": "Endpoints",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "29410460"
-		"_exporter_id": "29410460"
 	},
 	"item": [
 		{
@@ -89,10 +88,6 @@
 								"exec": [
 									"pm.globals.set(\"organizerId\", pm.response.json()._id);\r",
 									"\r",
-									"\r",
-									"pm.test('Response status code is 201', function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});\r",
 									"\r",
 									"pm.test(\"Response status code is 201\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
