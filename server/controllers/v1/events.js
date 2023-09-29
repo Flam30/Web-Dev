@@ -5,8 +5,6 @@ var mongoose = require('mongoose');
 
 router.post('/', async function(req, res, next) {
     var event = new Event(req.body);
-    event.organizer = new mongoose.Types.ObjectId(req.body.organizer);
-    event.venue = new mongoose.Types.ObjectId(req.body.venue);
     try {
         await event.save();
         res.status(201).json(event);
