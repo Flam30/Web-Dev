@@ -5,6 +5,7 @@ var Venue = require('../../models/venue');
 // POST /venues - add a collection of venues
 router.post('/', async function(req, res, next) {
     var venue = new Venue(req.body);
+    
     try {
         await venue.save();
         res.status(201).json(venue);
@@ -59,6 +60,7 @@ router.delete('/', async function(req, res, next){
 router.delete('/:id', async function(req, res, next){
     console.log('here');
     var id = req.params.id;
+
     try {
         const venue = await Venue.findOneAndDelete({_id: id});
         if (venue === null) {

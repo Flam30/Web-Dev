@@ -4,11 +4,8 @@ var morgan = require('morgan');
 var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
-
-// var controllers = require('./controllers/index');
-
 // version 1 controllers
-var usersControllerV1 = require('./controllers/v1/users.js');
+var usersControllerV1 = require('./controllers/v1/users');
 var eventsControllerV1 = require('./controllers/v1/events');
 var organizersControllerV1 = require('./controllers/v1/organizers');
 var venuesControllerV1 = require('./controllers/v1/venues');
