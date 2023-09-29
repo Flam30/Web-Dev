@@ -2,10 +2,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var eventSchema = new Schema({
-    id: {type: Number, unique: true, required: true},
-    organizer: {type: Schema.Types.ObjectId, ref: 'organizers', required: true},
+    id: {type: String, unique: true, required: true},
+    organizer: {type: Schema.Types.ObjectId, ref: 'organizers'},
     name: {type: String},
-    venue: {type: Schema.Types.ObjectId, ref: 'venues', required: true},
+    venue: {type: Schema.Types.ObjectId, ref: 'venues'},
     ageLimit: {type: Number},
     date: {type: Date}
 });

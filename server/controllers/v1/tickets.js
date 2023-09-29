@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var Ticket = require('../models/ticket');
+var Ticket = require('../../models/ticket');
 
 
 // POST /events/:eventId/tickets - add tickets to an event
-router.post('/api/events/:eventId/tickets', async function(req, res, next) {
+router.post('/', async function(req, res, next) {
 
     var eventId = req.params.eventId;
     var ticket = new Ticket(req.body);
@@ -18,8 +18,9 @@ router.post('/api/events/:eventId/tickets', async function(req, res, next) {
     }
 });
 
+
 // GET /events/:eventId/tickets - get specific event's tickets
-router.get('/api/events/:eventId/tickets', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     var eventId = req.params.eventId;
 
     try {
@@ -35,34 +36,24 @@ router.get('/api/events/:eventId/tickets', async (req, res, next) => {
 });
 
 // GET /events/:eventId/tickets/:ticketId - get a specific ticket from an event
-router.get('/api/events/:eventId/tickets/:ticketId', async (req, res, next) => {
+router.get('/:ticketId', async (req, res, next) => {
     var eventId = req.params.eventId;
     var ticketId = req.params.ticketId;
+
     try {
-        const ticket = await Ticket.findOne({id: ticketId, event: eventId});
+        const ticket = await Ticket.find({id: ticketId, event: eventId});
         if (ticket === null) {
             return res.status(404).json({'message': 'Ticket not found!'});
         }
-        const response = {
-            ticketId,
-            seat: ticket.seat,
-            price: ticket.price,
-            availability: ticket.availability,
-            eventId,
-            _links: {
-                self: { href: `http://localhost3000/api/events/${ticketId}` },
-                collection: { href: `http://localhost3000/api/events/tickets` },
-                event: { href: `http://localhost3000/api/events/${eventId}` },
-            },
-        };
-        res.status(200).json(response);
+
+        res.send(ticket);
     } catch (err) {
         return next(err);
     }
 });
 
 // DELETE /events/:eventId/tickets - delete all tickets from an event
-router.delete('/api/events/:eventId/tickets', async function(req, res, next){
+router.delete('/', async function(req, res, next){
     var eventId = req.params.eventId;
 
     try {
@@ -77,7 +68,7 @@ router.delete('/api/events/:eventId/tickets', async function(req, res, next){
 });
 
 // DELETE /events/:eventId/tickets/:ticketId - delete a specific ticket from an event
-router.delete('/api/events/:eventId/tickets/:ticketId', async function(req, res, next){
+router.delete('/:ticketId', async function(req, res, next){
     var eventId = req.params.eventId;
     var ticketId = req.params.ticketId;
 
