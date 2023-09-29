@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import Event from './views/Event.vue'
+import Register from './views/Register.vue'
 
 Vue.use(Router)
 
@@ -12,6 +14,17 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/event/:id',
+      props: true,
+      name: 'Event',
+      component: Event
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
     }
   ]
 })
