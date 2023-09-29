@@ -86,7 +86,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.globals.set(\"organizerId\", \"_id\");\r",
+									"pm.globals.set(\"organizerId\", pm.response.json()._id);\r",
 									"\r",
 									"\r",
 									"pm.test('Response status code is 201', function () {\r",
@@ -365,7 +365,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.globals.set(\"venueId\", \"_id\");\r",
+									"pm.globals.set(\"venueId\", pm.response.json()._id);\r",
 									"\r",
 									"\r",
 									"pm.test(\"Response status code is 201\", function () {\r",
@@ -466,7 +466,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.globals.set(\"eventId\", \"_id\");\r",
+									"pm.globals.set(\"eventId\", pm.response.json()._id);\r",
 									"\r",
 									"\r",
 									"pm.test(\"Response status code is 201\", function () {\r",
