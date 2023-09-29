@@ -5,7 +5,7 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 // version 1 controllers
-var usersControllerV1 = require('./controllers/v1/users');
+var customersControllerV1 = require('./controllers/v1/customers');
 var eventsControllerV1 = require('./controllers/v1/events');
 var organizersControllerV1 = require('./controllers/v1/organizers');
 var venuesControllerV1 = require('./controllers/v1/venues');
@@ -45,7 +45,7 @@ app.get('/api', function(req, res) {
 });
 
 // app.use('/api', controllers);
-app.use('/api/v1/users', usersControllerV1);
+app.use('/api/v1/customers', customersControllerV1);
 app.use('/api/v1/events', eventsControllerV1);
 app.use('/api/v1/organizers', organizersControllerV1);
 app.use('/api/v1/venues', venuesControllerV1);

@@ -2,9 +2,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var customerSchema = new Schema({
-    id: {type: Number, unique: true, required: true},
-    user: {type: Schema.Types.ObjectId, ref: 'users', required: true},
-    dateOfBirth: {type: Date}
+    username: {type: String, unique: true, required: true},
+    name: String,
+    email: String,
+    address: String,
+    phoneNumber: String,
 });
 
 module.exports = mongoose.model('customers', customerSchema);

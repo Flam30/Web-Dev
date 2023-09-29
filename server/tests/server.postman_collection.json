@@ -227,7 +227,7 @@
 					"response": []
 				},
 				{
-					"name": "users/test",
+					"name": "customers/test",
 					"event": [
 						{
 							"listen": "test",
@@ -277,21 +277,21 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/users",
+							"raw": "{{host}}/api/v1/customers",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"users"
+								"customers"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "users/U01",
+					"name": "customers/U01",
 					"event": [
 						{
 							"listen": "test",
@@ -341,14 +341,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/users",
+							"raw": "{{host}}/api/v1/customers",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"users"
+								"customers"
 							]
 						}
 					},
@@ -788,7 +788,7 @@
 					"response": []
 				},
 				{
-					"name": "users",
+					"name": "customers",
 					"event": [
 						{
 							"listen": "test",
@@ -836,21 +836,21 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/api/v1/users",
+							"raw": "{{host}}/api/v1/customers",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"users"
+								"customers"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "users/test",
+					"name": "customers/test",
 					"event": [
 						{
 							"listen": "test",
@@ -898,14 +898,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/users/test",
+							"raw": "{{host}}/api/v1/customers/test",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"users",
+								"customers",
 								"test"
 							]
 						}
@@ -913,7 +913,7 @@
 					"response": []
 				},
 				{
-					"name": "users/U01",
+					"name": "customers/U01",
 					"event": [
 						{
 							"listen": "test",
@@ -961,14 +961,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/users/U01",
+							"raw": "{{host}}/api/v1/customers/U01",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"users",
+								"customers",
 								"U01"
 							]
 						}
@@ -976,7 +976,7 @@
 					"response": []
 				},
 				{
-					"name": "User not found",
+					"name": "Customer not found",
 					"event": [
 						{
 							"listen": "test",
@@ -1001,14 +1001,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/users/MEGAPOWER",
+							"raw": "{{host}}/api/v1/customers/MEGAPOWER",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"users",
+								"customers",
 								"MEGAPOWER"
 							]
 						}
@@ -1226,7 +1226,7 @@
 					"response": []
 				},
 				{
-					"name": "Not found",
+					"name": "Organizer not found",
 					"event": [
 						{
 							"listen": "test",
@@ -1268,7 +1268,7 @@
 					"response": []
 				},
 				{
-					"name": "users/test",
+					"name": "customers/test",
 					"event": [
 						{
 							"listen": "test",
@@ -1327,14 +1327,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/users/test",
+							"raw": "{{host}}/api/v1/customers/test",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"users",
+								"customers",
 								"test"
 							]
 						}
@@ -1342,7 +1342,7 @@
 					"response": []
 				},
 				{
-					"name": "Not found",
+					"name": "Customer not found",
 					"event": [
 						{
 							"listen": "test",
@@ -1369,14 +1369,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/users/MEGAPOWER",
+							"raw": "{{host}}/api/v1/customers/MEGAPOWER",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"users",
+								"customers",
 								"MEGAPOWER"
 							]
 						}
@@ -1503,7 +1503,7 @@
 					"response": []
 				},
 				{
-					"name": "Not found",
+					"name": "Organizer not found",
 					"event": [
 						{
 							"listen": "test",
@@ -1545,7 +1545,7 @@
 					"response": []
 				},
 				{
-					"name": "users/test",
+					"name": "customers/test",
 					"event": [
 						{
 							"listen": "test",
@@ -1595,14 +1595,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/users/test",
+							"raw": "{{host}}/api/v1/customers/test",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"users",
+								"customers",
 								"test"
 							]
 						}
@@ -1610,7 +1610,7 @@
 					"response": []
 				},
 				{
-					"name": "users/U01",
+					"name": "customers/U01",
 					"event": [
 						{
 							"listen": "test",
@@ -1660,14 +1660,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/users/U01",
+							"raw": "{{host}}/api/v1/customers/U01",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"users",
+								"customers",
 								"U01"
 							]
 						}
@@ -1675,7 +1675,7 @@
 					"response": []
 				},
 				{
-					"name": "Not found",
+					"name": "Customer not found",
 					"event": [
 						{
 							"listen": "test",
@@ -1702,14 +1702,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/users/MEGAPOWER",
+							"raw": "{{host}}/api/v1/customers/MEGAPOWER",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"users",
+								"customers",
 								"MEGAPOWER"
 							]
 						}
@@ -1764,7 +1764,7 @@
 					"response": []
 				},
 				{
-					"name": "Not found",
+					"name": "Organizer not found",
 					"event": [
 						{
 							"listen": "test",
@@ -1797,7 +1797,7 @@
 					"response": []
 				},
 				{
-					"name": "users/test",
+					"name": "customers/test",
 					"event": [
 						{
 							"listen": "test",
@@ -1824,14 +1824,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/users/test",
+							"raw": "{{host}}/api/v1/customers/test",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"users",
+								"customers",
 								"test"
 							]
 						}
@@ -1839,7 +1839,7 @@
 					"response": []
 				},
 				{
-					"name": "Not found",
+					"name": "Customer not found",
 					"event": [
 						{
 							"listen": "test",
@@ -1866,14 +1866,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/users/MEGAPOWER",
+							"raw": "{{host}}/api/v1/customers/MEGAPOWER",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"users",
+								"customers",
 								"MEGAPOWER"
 							]
 						}
@@ -1979,7 +1979,7 @@
 					"response": []
 				},
 				{
-					"name": "users",
+					"name": "customers",
 					"event": [
 						{
 							"listen": "test",
@@ -1997,14 +1997,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/api/v1/users",
+							"raw": "{{host}}/api/v1/customers",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"users"
+								"customers"
 							]
 						}
 					},
