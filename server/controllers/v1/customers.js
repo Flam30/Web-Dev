@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Customer = require('../models/customer');
+var Customer = require('../../models/customer');
 
 router.post('/api/customers', async function(req, res, next) {
     var customer = new Customer(req.body);
