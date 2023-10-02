@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "3464b6b8-f810-45ea-a489-607f828e3c37",
+		"_postman_id": "46ff9544-2ff8-42b7-a500-b5834da0843a",
 		"name": "Endpoints",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "29410460"
+		"_exporter_id": "29410474"
 	},
 	"item": [
 		{
@@ -1319,7 +1319,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Tester\"\r\n}",
+							"raw": "{\r\n    \"phoneNumber\": \"0884446666\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
