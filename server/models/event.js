@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var eventSchema = new Schema({
+    // Idea - add image URL
     id: {type: String, unique: true, required: true},
     organizer: {type: Schema.Types.ObjectId, ref: 'organizers'},
     name: {type: String},
