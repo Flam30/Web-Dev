@@ -45,8 +45,19 @@ router.get('/:ticketId', async (req, res, next) => {
         if (ticket === null) {
             return res.status(404).json({'message': 'Ticket not found!'});
         }
-
-        res.send(ticket);
+        const response = {
+            ticketId,
+            seat: ticket.seat,
+            price: ticket.price,
+            availability: ticket.availability,
+            eventId,
+            _links: {
+                self: { href: `hhtp://localhost3000/api/events/${ticketId}` },
+                collection: { href: `hhtp://localhost3000/api/events/tickets` },
+                event: { href: `hhtp://localhost3000/api/events/${eventId}` },
+            },
+        };
+        res.status(200).json(response);
     } catch (err) {
         return next(err);
     }
