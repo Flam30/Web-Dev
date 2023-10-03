@@ -16,13 +16,14 @@
           <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
         </b-nav-form>
 
-        <b-button v-b-modal.modal-login variant="primary" class="mx-3">Log In</b-button>
+        <b-button v-if="!this.$session.exists()" v-b-modal.modal-login variant="primary" class="mx-3">Log In</b-button>
+        <b-button v-else v-on:click="logout" variant="primary" class="mx-3">Log Out</b-button>
 
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
 
-  <b-modal id="modal-login" ok-title="Close" ok-only="true" title="Log In">
+  <b-modal id="modal-login" ok-title="Close" :ok-only=true title="Log In">
     <b-form>
 
       <b-form-group
@@ -32,7 +33,6 @@
         <b-form-input
           id="username-input"
           v-model="form.username"
-          type="username"
           placeholder="Enter username"
           required>
         </b-form-input>
@@ -50,7 +50,7 @@
           required>
         </b-form-input>
       </b-form-group>
-      <b-button type="submit" variant="success">Log in</b-button>
+      <b-button v-on:click="login" variant="success">Log in</b-button>
       <p>Don't have an account yet? <a href="/register">Register here.</a></p>
     </b-form>
   </b-modal>
@@ -77,22 +77,24 @@ export default {
   },
   methods: {
     onSubmit(event) {
-      login();
+      this.login()
     },
-    login(){
-      Api.post(`/api/login`, {
-        username: form.username,
-        password: form.password
-      }).then(function (res) {
-        if(res.status === 200 && `token` in res.body){
-          this.$session.start();
-          this.$session.set('jwt', res.body.token);
-          Vue.http.headers.common['Authorization'] = 'Bearer ' + response.body.token;
-          console.log('Logged in!');
+    login() {
+      Api.post('/auth/login', {
+        username: this.form.username,
+        password: this.form.password
+      }).then((res) => {
+        if (res.status === 200) {
+          this.$session.start()
+          this.$session.set('jwt', res.data.token)
+          console.log('Logged in!')
         }
-      }, function (err){
-        console.log(err);
+      }).catch((err) => {
+        console.log(err)
       })
+    },
+    logout() {
+      this.$session.destroy()
     }
   }
 }
