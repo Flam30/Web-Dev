@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Event from './views/Event.vue'
 import Register from './views/Register.vue'
 import Customers from './views/Customers.vue'
+import Account from './views/Account.vue'
 
 Vue.use(Router)
 
@@ -31,6 +32,12 @@ export default new Router({
       path: '/customers',
       name: 'Customers',
       component: Customers
+    },
+    {
+      path: '/account/:username',
+      props: true,
+      name: 'Account',
+      component: Account
     }
   ]
 })

@@ -14,7 +14,7 @@ export default ({
   },
   methods: {
     async postCustomers() {
-      Api.post('/v1/customers/', { username: '12345', name: 'Flintstone', email: 'test@gmail.com', address: 'Gothenburg', phoneNumber: '1234567890' })
+      Api.post('/v1/customers/', { username: 'RatKing', name: 'Rat King', email: 'ratKing@gmail.com', address: 'Gothenburg', phoneNumber: '1234567890' })
         .then(function (response) {
           console.log(response)
         })

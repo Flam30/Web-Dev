@@ -8,21 +8,27 @@ export default {
   name: 'home',
   data() {
     return {
-      message: 'none'
+      events: []
     }
   },
   components: {
     HeaderBar,
     EventCard
   },
+  created() {
+    this.getEvents()
+  },
   methods: {
-    getMessage() {
-      Api.get('/users')
+    async getEvents() {
+      Api.get('/v1/events/')
         .then(response => {
-          this.message = response.data.message
-        })
-        .catch(error => {
-          this.message = error
+          const eventArray = []
+          for (let i = 0; i < response.data.length; i++) {
+            eventArray.push(response.data[i])
+          }
+          this.events = eventArray
+        }).catch(error => {
+          console.log(error)
         })
     }
   }
@@ -52,6 +58,8 @@ export default {
         link="https://gaybladet.se/wp-content/uploads/2023/05/eurovision-song-contest-2023.webp"
         URL="\Event\TestEvent">
       </EventCard>
+
+      <b-button href="/account/RatKing"> Account </b-button>
     </div>
   </div>
 </template>
