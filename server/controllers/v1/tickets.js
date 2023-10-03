@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const stripe = require('stripe')('sk_test_51NvnEZIeSorUA2wFhH58TE9WBEHysbpdbxcdxZuMIIugCStAChIXEyDKGaha1DCkD3vCbrlL13ypQh7NU3x1KzGl00WCUbbxYd');
 var Ticket = require('../../models/ticket');
 
 
@@ -7,8 +8,16 @@ var Ticket = require('../../models/ticket');
 router.post('/', async function(req, res, next) {
 
     var eventId = req.params.eventId;
+    const product = await stripe.products.create({
+        name: req.body.type,
+        default_price_data: {
+            currency: 'SEK',
+            unit_amount_decimal: req.body.price * 100
+        }
+      });
     var ticket = new Ticket(req.body);
     ticket.event = eventId;
+    ticket.price = product.default_price;
 
     try {
         await ticket.save();
