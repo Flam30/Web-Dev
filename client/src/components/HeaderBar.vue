@@ -64,6 +64,8 @@
 </style>
 
 <script>
+import { Api } from '@/Api'
+
 export default {
   data() {
     return {
@@ -75,7 +77,22 @@ export default {
   },
   methods: {
     onSubmit(event) {
-      // TODO
+      login();
+    },
+    login(){
+      Api.post(`/api/login`, {
+        username: form.username,
+        password: form.password
+      }).then(function (res) {
+        if(res.status === 200 && `token` in res.body){
+          this.$session.start();
+          this.$session.set('jwt', res.body.token);
+          Vue.http.headers.common['Authorization'] = 'Bearer ' + response.body.token;
+          console.log('Logged in!');
+        }
+      }, function (err){
+        console.log(err);
+      })
     }
   }
 }

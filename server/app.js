@@ -4,7 +4,6 @@ var mongoose = require('mongoose');
 var morgan = require('morgan');
 var path = require('path');
 var cors = require('cors');
-var session = require('express-session');
 var history = require('connect-history-api-fallback');
 // version 1 controllers
 var customersControllerV1 = require('./controllers/v1/customers');
@@ -12,6 +11,7 @@ var eventsControllerV1 = require('./controllers/v1/events');
 var organizersControllerV1 = require('./controllers/v1/organizers');
 var venuesControllerV1 = require('./controllers/v1/venues');
 var ticketsControllerV1 = require('./controllers/v1/tickets');
+var authController = require('./controllers/auth');
 
 // password encoding
 const password = encodeURIComponent("admin");
@@ -19,7 +19,6 @@ const password = encodeURIComponent("admin");
 // Variables
 var mongoURI = process.env.MONGODB_URI || `mongodb+srv://admin:${password}@cluster0.46ugdxm.mongodb.net/?retryWrites=true&w=majority`;
 var port = process.env.PORT || 3000;
-const User = require('./models/user');
 
 // Connect to MongoDB
 mongoose.connect(mongoURI).catch(function(err) {
@@ -53,6 +52,7 @@ app.use('/api/v1/events', eventsControllerV1);
 app.use('/api/v1/organizers', organizersControllerV1);
 app.use('/api/v1/venues', venuesControllerV1);
 app.use('/api/v1/events/:eventId/tickets', ticketsControllerV1);
+app.use('/api/auth', authController);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
