@@ -42,13 +42,15 @@ export default {
       <EventCard
         name="Test event"
         description="just testing :)"
-        link="https://previews.123rf.com/images/sanneberg/sanneberg1708/sanneberg170800669/85057705-guy-smiling-and-giving-thumbs-up-portrait.jpg">
+        link="https://previews.123rf.com/images/sanneberg/sanneberg1708/sanneberg170800669/85057705-guy-smiling-and-giving-thumbs-up-portrait.jpg"
+        URL="\Customers">
       </EventCard>
 
       <EventCard
         name="Eurovision 2024"
         description="Lorem ipsum dolor sit"
-        link="https://gaybladet.se/wp-content/uploads/2023/05/eurovision-song-contest-2023.webp">
+        link="https://gaybladet.se/wp-content/uploads/2023/05/eurovision-song-contest-2023.webp"
+        URL="\Event\TestEvent">
       </EventCard>
     </div>
   </div>

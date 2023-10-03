@@ -14,7 +14,7 @@
       {{ description }}
     </b-card-text>
 
-    <b-button href="/Event/TestEvent" variant="primary">Details</b-button>
+    <b-button v-bind:href=URL variant="primary">Details</b-button>
   </b-card>
 </div>
 </template>
@@ -24,7 +24,8 @@ export default {
   props: {
     name: String,
     description: String,
-    link: String
+    link: String,
+    URL: String
   }
 }
 </script>
