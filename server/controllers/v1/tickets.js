@@ -1,14 +1,23 @@
 var express = require('express');
 var router = express.Router();
-var Ticket = require('../models/ticket');
+const stripe = require('stripe')('sk_test_51NvnEZIeSorUA2wFhH58TE9WBEHysbpdbxcdxZuMIIugCStAChIXEyDKGaha1DCkD3vCbrlL13ypQh7NU3x1KzGl00WCUbbxYd');
+var Ticket = require('../../models/ticket');
 
 
 // POST /events/:eventId/tickets - add tickets to an event
-router.post('/api/events/:eventId/tickets', async function(req, res, next) {
+router.post('/', async function(req, res, next) {
 
     var eventId = req.params.eventId;
+    const product = await stripe.products.create({
+        name: req.body.type,
+        default_price_data: {
+            currency: 'SEK',
+            unit_amount_decimal: req.body.price * 100
+        }
+      });
     var ticket = new Ticket(req.body);
     ticket.event = eventId;
+    ticket.price = product.default_price;
 
     try {
         await ticket.save();
@@ -20,7 +29,7 @@ router.post('/api/events/:eventId/tickets', async function(req, res, next) {
 
 
 // GET /events/:eventId/tickets - get specific event's tickets
-router.get('/api/events/:eventId/tickets', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     var eventId = req.params.eventId;
 
     try {
@@ -36,7 +45,7 @@ router.get('/api/events/:eventId/tickets', async (req, res, next) => {
 });
 
 // GET /events/:eventId/tickets/:ticketId - get a specific ticket from an event
-router.get('/api/events/:eventId/tickets/:ticketId', async (req, res, next) => {
+router.get('/:ticketId', async (req, res, next) => {
     var eventId = req.params.eventId;
     var ticketId = req.params.ticketId;
 
@@ -45,15 +54,26 @@ router.get('/api/events/:eventId/tickets/:ticketId', async (req, res, next) => {
         if (ticket === null) {
             return res.status(404).json({'message': 'Ticket not found!'});
         }
-
-        res.send(ticket);
+        const response = {
+            ticketId,
+            seat: ticket.seat,
+            price: ticket.price,
+            availability: ticket.availability,
+            eventId,
+            _links: {
+                self: { href: `hhtp://localhost3000/api/events/${ticketId}` },
+                collection: { href: `hhtp://localhost3000/api/events/tickets` },
+                event: { href: `hhtp://localhost3000/api/events/${eventId}` },
+            },
+        };
+        res.status(200).json(response);
     } catch (err) {
         return next(err);
     }
 });
 
 // DELETE /events/:eventId/tickets - delete all tickets from an event
-router.delete('/api/events/:eventId/tickets', async function(req, res, next){
+router.delete('/', async function(req, res, next){
     var eventId = req.params.eventId;
 
     try {
@@ -68,7 +88,7 @@ router.delete('/api/events/:eventId/tickets', async function(req, res, next){
 });
 
 // DELETE /events/:eventId/tickets/:ticketId - delete a specific ticket from an event
-router.delete('/api/events/:eventId/tickets/:ticketId', async function(req, res, next){
+router.delete('/:ticketId', async function(req, res, next){
     var eventId = req.params.eventId;
     var ticketId = req.params.ticketId;
 

@@ -1,765 +1,2075 @@
 {
 	"info": {
-		"_postman_id": "a019cdcb-3c95-466e-b9f5-ddaac647d008",
+		"_postman_id": "46ff9544-2ff8-42b7-a500-b5834da0843a",
 		"name": "Endpoints",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "29410474"
 	},
 	"item": [
 		{
-			"name": "organizers",
-			"event": [
+			"name": "POST",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test('Response status code is 201', function () {\r",
-							"    pm.response.to.have.status(201);\r",
-							"})\r",
-							"",
-							"pm.test(\"Response status code is 201\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});",
-							"",
-							"",
-							"pm.test(\"Response has required fields - name and _id\", function () {",
-							"    const responseData = pm.response.json();",
-							"    ",
-							"    pm.expect(responseData).to.be.an('object');",
-							"    pm.expect(responseData.name).to.exist.and.to.be.a('string');",
-							"    pm.expect(responseData._id).to.exist.and.to.be.a('string');",
-							"});",
-							"",
-							"",
-							"pm.test(\"Name is a non-empty string\", function () {",
-							"    const responseData = pm.response.json();",
-							"    ",
-							"    pm.expect(responseData).to.be.an('object');",
-							"    pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
-							"});",
-							"",
-							"",
-							"pm.test(\"Check if _id is a valid MongoDB ObjectId\", function () {",
-							"    const responseData = pm.response.json();",
-							"    ",
-							"    pm.expect(responseData._id).to.match(/^[0-9a-fA-F]{24}$/);",
-							"});",
-							"",
-							"",
-							"pm.test(\"Response time is less than 500ms\", function () {",
-							"    pm.expect(pm.response.responseTime).to.be.below(500);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Test\",\r\n    \"email\": \"test@tester.com\",\r\n    \"address\": \"Testberg\",\r\n    \"phoneNumber\": \"0793552222\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "organizers/Test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has required fields - name and _id\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.name).to.exist.and.to.be.a('string');",
+									"    pm.expect(responseData._id).to.exist.and.to.be.a('string');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Name is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Check if _id is a valid MongoDB ObjectId\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData._id).to.match(/^[0-9a-fA-F]{24}$/);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/api/organizers",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "3001",
-					"path": [
-						"api",
-						"organizers"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "organizers",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Response status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"",
-							"pm.test(\"Response is an array with at least one element\", function () {",
-							"    const responseData = pm.response.json();",
-							"    ",
-							"    pm.expect(responseData).to.be.an('array').that.is.not.empty;",
-							"});",
-							"",
-							"",
-							"pm.test(\"Each element in the response has the required fields\", function () {",
-							"    const responseData = pm.response.json();",
-							"    ",
-							"    pm.expect(responseData).to.be.an('array');",
-							"    ",
-							"    responseData.forEach(function(element) {",
-							"        pm.expect(element._id).to.exist.and.to.be.a('string');",
-							"        pm.expect(element.name).to.exist.and.to.be.a('string');",
-							"    });",
-							"});",
-							"",
-							"",
-							"pm.test(\"Check if _id is a non-empty string\", function () {",
-							"    const responseData = pm.response.json();",
-							"",
-							"    pm.expect(responseData).to.be.an('array');",
-							"",
-							"    responseData.forEach(function (organizer) {",
-							"        pm.expect(organizer._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"_id should not be empty\");",
-							"    });",
-							"});",
-							"",
-							"",
-							"pm.test(\"Name is a non-empty string\", function () {",
-							"    const responseData = pm.response.json();",
-							"    ",
-							"    responseData.forEach(function (organizer) {",
-							"        pm.expect(organizer.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");",
-							"    });",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:3000/api/organizers",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3001",
-					"path": [
-						"api",
-						"organizers"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "organizers/Test",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Response status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"",
-							"pm.test(\"Response has required fields _id and name\", function () {",
-							"    const responseData = pm.response.json();",
-							"    ",
-							"    pm.expect(responseData).to.be.an('object');",
-							"    pm.expect(responseData._id).to.exist.and.to.be.a('string');",
-							"    pm.expect(responseData.name).to.exist.and.to.be.a('string');",
-							"});",
-							"",
-							"",
-							"pm.test(\"The _id should be a non-empty string\", function () {",
-							"    const responseData = pm.response.json();",
-							"    ",
-							"    pm.expect(responseData._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
-							"});",
-							"",
-							"",
-							"pm.test(\"Name is a non-empty string\", function () {",
-							"  const responseData = pm.response.json();",
-							"",
-							"  pm.expect(responseData).to.be.an('object');",
-							"  pm.expect(responseData.name).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");",
-							"});",
-							"",
-							"",
-							"pm.test(\"Check if __v is a non-negative integer\", function () {",
-							"    const responseData = pm.response.json();",
-							"    ",
-							"    pm.expect(responseData.__v).to.be.a('number');",
-							"    pm.expect(responseData.__v).to.be.at.least(0);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:3000/api/organizers/Test",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3001",
-					"path": [
-						"api",
-						"organizers",
-						"Test"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "organizers/Test",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Response status code is 200\", function () {",
-							"  pm.response.to.have.status(200);",
-							"});",
-							"",
-							"",
-							"pm.test(\"Response has required fields\", function () {",
-							"    const responseData = pm.response.json();",
-							"    ",
-							"    pm.expect(responseData).to.be.an('object');",
-							"    pm.expect(responseData._id).to.exist.and.to.be.a('string');",
-							"    pm.expect(responseData.name).to.exist.and.to.be.a('string');",
-							"});",
-							"",
-							"",
-							"pm.test(\"The _id should be a non-empty string\", function () {",
-							"  const responseData = pm.response.json();",
-							"  ",
-							"  pm.expect(responseData).to.be.an('object');",
-							"  pm.expect(responseData._id).to.be.a('string').and.to.have.lengthOf.at.least(1);",
-							"});",
-							"",
-							"",
-							"pm.test(\"Name is a non-empty string\", function () {",
-							"    const responseData = pm.response.json();",
-							"    ",
-							"    pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
-							"});",
-							"",
-							"",
-							"pm.test(\"The __v property is a non-negative integer\", function () {",
-							"  const responseData = pm.response.json();",
-							"  ",
-							"  pm.expect(responseData).to.be.an('object');",
-							"  pm.expect(responseData.__v).to.exist.and.to.be.a('number');",
-							"  pm.expect(responseData.__v).to.be.at.least(0);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Tester\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test\",\r\n    \"email\": \"test@tester.com\",\r\n    \"address\": \"Testberg\",\r\n    \"phoneNumber\": \"0793552222\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/organizers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizers"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:3000/api/organizers/Test",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3001",
-					"path": [
-						"api",
-						"organizers",
-						"Test"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "organizers/Tester",
-			"event": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Response status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"",
-							"pm.test(\"Response has the required fields\", function () {",
-							"  const responseData = pm.response.json();",
-							"  ",
-							"  pm.expect(responseData).to.be.an('object');",
-							"  pm.expect(responseData._id).to.exist.and.to.be.a('string');",
-							"  pm.expect(responseData.name).to.exist.and.to.be.a('string');",
-							"  pm.expect(responseData.__v).to.exist.and.to.be.a('number');",
-							"});",
-							"",
-							"",
-							"pm.test(\"The _id should be a non-empty string\", function () {",
-							"  const responseData = pm.response.json();",
-							"  ",
-							"  pm.expect(responseData).to.be.an('object');",
-							"  pm.expect(responseData._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
-							"});",
-							"",
-							"",
-							"pm.test(\"Name is a non-empty string\", function () {",
-							"    const responseData = pm.response.json();",
-							"",
-							"    pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
-							"});",
-							"",
-							"",
-							"pm.test(\"The __v value should be a non-negative integer\", function () {",
-							"  const responseData = pm.response.json();",
-							"",
-							"  pm.expect(responseData.__v).to.exist.and.to.be.a('number');",
-							"  pm.expect(responseData.__v).to.be.at.least(0);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "organizers/O01",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.globals.set(\"organizerId\", pm.response.json()._id);\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has required fields - name and _id\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.name).to.exist.and.to.be.a('string');\r",
+									"    pm.expect(responseData._id).to.exist.and.to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Name is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check if _id is a valid MongoDB ObjectId\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData._id).to.match(/^[0-9a-fA-F]{24}$/);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/api/organizers/Tester",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "3001",
-					"path": [
-						"api",
-						"organizers",
-						"Tester"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "users/test",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Response status code is 201\", function () {",
-							"  pm.response.to.have.status(201);",
-							"});",
-							"",
-							"",
-							"pm.test(\"Username is a non-empty string\", function () {",
-							"  const responseData = pm.response.json();",
-							"  ",
-							"  pm.expect(responseData).to.be.an('object');",
-							"  pm.expect(responseData.username).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
-							"});",
-							"",
-							"",
-							"pm.test(\"Email is in a valid email format\", function () {",
-							"    const responseData = pm.response.json();",
-							"    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;",
-							"",
-							"    pm.expect(responseData.email).to.match(emailRegex);",
-							"});",
-							"",
-							"",
-							"pm.test(\"Phone number is in a valid format\", function () {",
-							"    const responseData = pm.response.json();",
-							"    ",
-							"    pm.expect(responseData.phoneNumber).to.match(/^\\d{10}$/);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"test\",\r\n    \"name\": \"Test Tester\",\r\n    \"email\": \"test@tester.com\",\r\n    \"address\": \"Tester\",\r\n    \"phoneNumber\": \"0884443333\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"O01\",\r\n    \"email\": \"star@power.com\",\r\n    \"address\": \"California\",\r\n    \"phoneNumber\": \"0793552222\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/organizers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizers"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:3000/api/users",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3001",
-					"path": [
-						"api",
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "users",
-			"event": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Response status code is 200\", function () {",
-							"  pm.expect(pm.response.code).to.equal(200);",
-							"});",
-							"",
-							"",
-							"pm.test(\"Response is an array with at least one element\", function () {",
-							"  const responseData = pm.response.json();",
-							"  ",
-							"  pm.expect(responseData).to.be.an('array');",
-							"  pm.expect(responseData).to.have.lengthOf.at.least(1, \"Array should have at least one element\");",
-							"});",
-							"",
-							"",
-							"pm.test(\"Check if _id is a non-empty string\", function () {",
-							"    const responseData = pm.response.json();",
-							"    ",
-							"    pm.expect(responseData).to.be.an('array');",
-							"    ",
-							"    responseData.forEach(function(user) {",
-							"        pm.expect(user._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"_id should not be empty\");",
-							"    });",
-							"});",
-							"",
-							"",
-							"pm.test(\"Username is a non-empty string\", function () {",
-							"    const responseData = pm.response.json();",
-							"    ",
-							"    pm.expect(responseData).to.be.an('array');",
-							"    ",
-							"    responseData.forEach(function(user) {",
-							"        pm.expect(user.username).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Username should not be empty\");",
-							"    });",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/api/users",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3001",
-					"path": [
-						"api",
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "users/test",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Response status code is 200\", function () {",
-							"  pm.response.to.have.status(200);",
-							"});",
-							"",
-							"",
-							"pm.test(\"The _id should be a non-empty string\", function () {",
-							"    const responseData = pm.response.json();",
-							"    ",
-							"    pm.expect(responseData).to.be.an('object');",
-							"    pm.expect(responseData._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"_id should not be empty\");",
-							"});",
-							"",
-							"",
-							"pm.test(\"Mail is in a valid email format\", function () {",
-							"  const responseData = pm.response.json();",
-							"  ",
-							"  pm.expect(responseData.email).to.match(/^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/, \"Invalid email format\");",
-							"});",
-							"",
-							"",
-							"pm.test(\"phoneNumber is a string of digits\", function () {",
-							"    const responseData = pm.response.json();",
-							"",
-							"    pm.expect(responseData).to.be.an('object');",
-							"    pm.expect(responseData.phoneNumber).to.exist.and.to.match(/^\\d+$/, \"phoneNumber should be a string of digits\");",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:3000/api/users/test",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3001",
-					"path": [
-						"api",
-						"users",
-						"test"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "users/test",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Response status code is 200\", function () {",
-							"  pm.response.to.have.status(200);",
-							"});",
-							"",
-							"",
-							"pm.test(\"Response has the required fields - _id and name\", function () {",
-							"    const responseData = pm.response.json();",
-							"    ",
-							"    pm.expect(responseData).to.be.an('object');",
-							"    pm.expect(responseData._id).to.exist.and.to.be.a('string', \"Field _id should exist and be a string\");",
-							"    pm.expect(responseData.name).to.exist.and.to.be.a('string', \"Field name should exist and be a string\");",
-							"});",
-							"",
-							"",
-							"pm.test(\"The _id should be a non-empty string\", function () {",
-							"    const responseData = pm.response.json();",
-							"",
-							"    pm.expect(responseData._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"_id should not be empty\");",
-							"});",
-							"",
-							"",
-							"pm.test(\"Name is a non-empty string\", function () {",
-							"    const responseData = pm.response.json();",
-							"    ",
-							"    pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");",
-							"});",
-							"",
-							"",
-							"pm.test(\"The __v value should be a non-negative integer\", function () {",
-							"    const responseData = pm.response.json();",
-							"",
-							"    pm.expect(responseData).to.be.an('object');",
-							"    pm.expect(responseData.__v).to.exist.and.to.be.a('number');",
-							"    pm.expect(responseData.__v).to.be.at.least(0, \"__v value should be non-negative\");",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Tester\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "organizers/O02",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Response status code is 201', function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has required fields - name and _id\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.name).to.exist.and.to.be.a('string');\r",
+									"    pm.expect(responseData._id).to.exist.and.to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Name is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check if _id is a valid MongoDB ObjectId\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData._id).to.match(/^[0-9a-fA-F]{24}$/);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/api/users/test",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "3001",
-					"path": [
-						"api",
-						"users",
-						"test"
-					]
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"O02\",\r\n    \"email\": \"aang@atla.com\",\r\n    \"address\": \"Southern Air Temple\",\r\n    \"phoneNumber\": \"0793555555\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/organizers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers/test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 201\", function () {",
+									"  pm.response.to.have.status(201);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Username is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.username).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Email is in a valid email format\", function () {",
+									"    const responseData = pm.response.json();",
+									"    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;",
+									"",
+									"    pm.expect(responseData.email).to.match(emailRegex);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Phone number is in a valid format\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.phoneNumber).to.match(/^\\d{10}$/);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"test\",\r\n    \"name\": \"Test Tester\",\r\n    \"email\": \"test@tester.com\",\r\n    \"address\": \"Tester\",\r\n    \"phoneNumber\": \"0884443333\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/customers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers/U01",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 201\", function () {",
+									"  pm.response.to.have.status(201);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Username is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.username).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Email is in a valid email format\", function () {",
+									"    const responseData = pm.response.json();",
+									"    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;",
+									"",
+									"    pm.expect(responseData.email).to.match(emailRegex);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Phone number is in a valid format\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.phoneNumber).to.match(/^\\d{10}$/);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"U01\",\r\n    \"name\": \"Patricia McRileys\",\r\n    \"email\": \"country@music.com\",\r\n    \"address\": \"Wild West\",\r\n    \"phoneNumber\": \"4242424242\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/customers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "venues/V01",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.globals.set(\"venueId\", pm.response.json()._id);\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"  pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has required fields - id\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.id).to.exist.and.to.be.a('string');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"V01\",\r\n    \"name\": \"Prima Vera\",\r\n    \"location\": \"Malaysia\",\r\n    \"numberOfSeats\": \"120\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/venues",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"venues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "venues/V02",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"  pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has required fields - id\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.id).to.exist.and.to.be.a('string');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"V02\",\r\n    \"name\": \"Mermaid Beach\",\r\n    \"location\": \"Pacific Ocean\",\r\n    \"numberOfSeats\": \"300\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/venues",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"venues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "events/E01",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.globals.set(\"eventId\", pm.response.json()._id);\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"  pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"E01\",\r\n    \"organizer\": \"{{organizerId}}\",\r\n    \"name\": \"Amazing Concert\",\r\n    \"venue\": \"{{venueId}}\",\r\n    \"ageLimit\": \"18\",\r\n    \"date\": \"2023-06-13\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/events",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ticket/T01",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"  pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"T01\",\r\n    \"type\": \"Premium\",\r\n    \"seat\": \"12D\",\r\n    \"price\": \"40\",\r\n    \"availability\": \"true\",\r\n    \"event\": \"{{eventId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/events/{{eventId}}/tickets",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"events",
+								"{{eventId}}",
+								"tickets"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "users/test",
-			"event": [
+			"name": "GET",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Response status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"",
-							"pm.test(\"The _id must be a non-empty string\", function () {",
-							"    const responseData = pm.response.json();",
-							"",
-							"    pm.expect(responseData._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"_id should not be empty\");",
-							"});",
-							"",
-							"",
-							"pm.test(\"Username is a non-empty string\", function () {",
-							"    const responseData = pm.response.json();",
-							"    ",
-							"    pm.expect(responseData).to.be.an('object');",
-							"    pm.expect(responseData.username).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
-							"});",
-							"",
-							"",
-							"pm.test(\"Email is in a valid email format\", function () {",
-							"    const responseData = pm.response.json();",
-							"    ",
-							"    pm.expect(responseData).to.be.an('object');",
-							"    pm.expect(responseData.email).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, \"Email should be in a valid email format\");",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"test\",\r\n    \"name\": \"Test Testersson\",\r\n    \"email\": \"test@tester.com\",\r\n    \"address\": \"Tester\",\r\n    \"phoneNumber\": \"088444333\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "organizers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response is an array with at least one element\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('array').that.is.not.empty;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Each element in the response has the required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('array');",
+									"    ",
+									"    responseData.forEach(function(element) {",
+									"        pm.expect(element._id).to.exist.and.to.be.a('string');",
+									"        pm.expect(element.name).to.exist.and.to.be.a('string');",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"Check if _id is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData).to.be.an('array');",
+									"",
+									"    responseData.forEach(function (organizer) {",
+									"        pm.expect(organizer._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"_id should not be empty\");",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"Name is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    responseData.forEach(function (organizer) {",
+									"        pm.expect(organizer.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/api/users/test",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "3001",
-					"path": [
-						"api",
-						"users",
-						"test"
-					]
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/organizers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "organizers/Test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has required fields _id and name\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData._id).to.exist.and.to.be.a('string');",
+									"    pm.expect(responseData.name).to.exist.and.to.be.a('string');",
+									"});",
+									"",
+									"",
+									"pm.test(\"The _id should be a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Name is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.name).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Check if __v is a non-negative integer\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.__v).to.be.a('number');",
+									"    pm.expect(responseData.__v).to.be.at.least(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/organizers/Test",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizers",
+								"Test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "organizer/O01",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has required fields _id and name\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData._id).to.exist.and.to.be.a('string');\r",
+									"    pm.expect(responseData.name).to.exist.and.to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"The _id should be a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Name is a non-empty string\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"\r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData.name).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/organizers/O01",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizers",
+								"O01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Organizer not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Response status code is 404', function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/organizers/MEGAPOWER",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizers",
+								"MEGAPOWER"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response is an array with at least one element\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('array');",
+									"  pm.expect(responseData).to.have.lengthOf.at.least(1, \"Array should have at least one element\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Check if _id is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('array');",
+									"    ",
+									"    responseData.forEach(function(user) {",
+									"        pm.expect(user._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"_id should not be empty\");",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"Username is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('array');",
+									"    ",
+									"    responseData.forEach(function(user) {",
+									"        pm.expect(user.username).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Username should not be empty\");",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/customers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers/test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"The _id should be a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"_id should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Mail is in a valid email format\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.email).to.match(/^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/, \"Invalid email format\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"phoneNumber is a string of digits\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.phoneNumber).to.exist.and.to.match(/^\\d+$/, \"phoneNumber should be a string of digits\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/customers/test",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers/U01",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"The _id should be a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"_id should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Mail is in a valid email format\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.email).to.match(/^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/, \"Invalid email format\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"phoneNumber is a string of digits\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.phoneNumber).to.exist.and.to.match(/^\\d+$/, \"phoneNumber should be a string of digits\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/customers/U01",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"U01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Response status code is 404', function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/customers/MEGAPOWER",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"MEGAPOWER"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "venues",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/venues",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"venues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "venue/V01",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/venues/V01",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"venues",
+								"V01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Venue not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 404\", function () {\r",
+									"  pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/venues/MEGAPOWER",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"venues",
+								"MEGAPOWER"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "events",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/events",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"events"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "users/test",
-			"event": [
+			"name": "PATCH",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Response status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
+					"name": "organizers/Test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData._id).to.exist.and.to.be.a('string');",
+									"    pm.expect(responseData.name).to.exist.and.to.be.a('string');",
+									"});",
+									"",
+									"",
+									"pm.test(\"The _id should be a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData._id).to.be.a('string').and.to.have.lengthOf.at.least(1);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Name is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"The __v property is a non-negative integer\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.__v).to.exist.and.to.be.a('number');",
+									"  pm.expect(responseData.__v).to.be.at.least(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/api/users/test",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "3001",
-					"path": [
-						"api",
-						"users",
-						"test"
-					]
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Tester\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/organizers/Test",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizers",
+								"Test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Organizer not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Response status code is 404', function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"mega@power.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/organizers/MEGAPOWER",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizers",
+								"MEGAPOWER"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers/test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields - _id and name\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData._id).to.exist.and.to.be.a('string', \"Field _id should exist and be a string\");",
+									"    pm.expect(responseData.name).to.exist.and.to.be.a('string', \"Field name should exist and be a string\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"The _id should be a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"_id should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Name is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"The __v value should be a non-negative integer\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.__v).to.exist.and.to.be.a('number');",
+									"    pm.expect(responseData.__v).to.be.at.least(0, \"__v value should be non-negative\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phoneNumber\": \"0884446666\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/customers/test",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Response status code is 404', function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"fairyfarms@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/customers/MEGAPOWER",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"MEGAPOWER"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "PUT",
+			"item": [
+				{
+					"name": "organizers/Tester",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"The _id must be a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"_id should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Email is in a valid email format\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.email).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, \"Email should be in a valid email format\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Tester\",\r\n    \"email\": \"testing@put.com\",\r\n    \"address\": \"Tristate Area\",\r\n    \"phoneNumber\": \"90\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/organizers/Tester",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizers",
+								"Tester"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "organizers/O01",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"The _id must be a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"_id should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Email is in a valid email format\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.email).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, \"Email should be in a valid email format\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"O01\",\r\n    \"email\": \"insane@reactions.com\",\r\n    \"address\": \"Utopia\",\r\n    \"phoneNumber\": \"0777777777\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/organizers/O01",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizers",
+								"O01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Organizer not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Response status code is 404', function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"MEGAPOWER\",\r\n    \"email\": \"mega@power.com\",\r\n    \"address\": \"Multiverse\",\r\n    \"phoneNumber\": \"0793552222\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/organizers/MEGAPOWER",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizers",
+								"MEGAPOWER"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers/test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"The _id must be a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"_id should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Username is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.username).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Email is in a valid email format\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.email).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, \"Email should be in a valid email format\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"test\",\r\n    \"name\": \"Test Testersson\",\r\n    \"email\": \"test@tester.com\",\r\n    \"address\": \"Tester\",\r\n    \"phoneNumber\": \"088444333\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/customers/test",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers/U01",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"The _id must be a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"_id should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Username is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.username).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Email is in a valid email format\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.email).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, \"Email should be in a valid email format\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"U01\",\r\n    \"name\": \"Patricia McRileys\",\r\n    \"email\": \"fairyfarms@gmail.com\",\r\n    \"address\": \"Arizona\",\r\n    \"phoneNumber\": \"9090909090\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/customers/U01",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"U01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Response status code is 404', function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"MEGAPOWER\",\r\n    \"name\": \"Biggest Superhero\",\r\n    \"email\": \"mega@power.com\",\r\n    \"address\": \"Multiverse\",\r\n    \"phoneNumber\": \"6\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/customers/MEGAPOWER",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"MEGAPOWER"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "organizers/Tester",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/organizers/Tester",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizers",
+								"Tester"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Organizer not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Response status code is 404', function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/organizers/MEGAPOWER",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizers",
+								"MEGAPOWER"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers/test",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/customers/test",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Customer not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Response status code is 404', function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/customers/MEGAPOWER",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"MEGAPOWER"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tickets",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/events/{{eventId}}/tickets",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"events",
+								"{{eventId}}",
+								"tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "events",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/events",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "venues",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/venues",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"venues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/customers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "organizers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/organizers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:3000",
+			"type": "string"
 		}
 	]
 }

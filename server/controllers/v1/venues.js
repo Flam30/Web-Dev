@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var Venue = require('../models/venue');
+var Venue = require('../../models/venue');
 
 // POST /venues - add a collection of venues
-router.post('/api/venues', async function(req, res, next) {
+router.post('/', async function(req, res, next) {
     var venue = new Venue(req.body);
     
     try {
@@ -15,7 +15,7 @@ router.post('/api/venues', async function(req, res, next) {
 });
 
 // GET /venues - get all venues
-router.get('/api/venues', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
         const venues = await Venue.find({});
         if(venues.length === 0) {
@@ -28,13 +28,12 @@ router.get('/api/venues', async (req, res, next) => {
 });
 
 // GET /venues/:id - get a venue
-router.get('/api/venues/:id', async (req, res, next) => {
-    var id = req.params.id;
-
+router.get('/:id', async (req, res, next) => {
+    var venueId = req.params.id;
     try {
-        const venues = await Venue.findById(id);
+        const venues = await Venue.find({id: venueId});
         if (venues.length === 0) {
-            return res.status(204).json({'message': 'No venues exist.' });
+            return res.status(404).json({'message': 'No venues exist.' });
         }
 
         res.send(venues);
@@ -44,7 +43,8 @@ router.get('/api/venues/:id', async (req, res, next) => {
 });
 
 // DELETE /venues - delete a collection of venues
-router.delete('/api/venues', async function(req, res, next){
+router.delete('/', async function(req, res, next){
+    console.log('here');
     try {
         const venue = await Venue.deleteMany();
         if (venue === null) {
@@ -57,7 +57,8 @@ router.delete('/api/venues', async function(req, res, next){
 });
 
 // DELETE /venues/:id - delete a specific venue
-router.delete('/api/venues/:id', async function(req, res, next){
+router.delete('/:id', async function(req, res, next){
+    console.log('here');
     var id = req.params.id;
 
     try {

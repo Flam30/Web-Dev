@@ -6,12 +6,12 @@ var path = require('path');
 var cors = require('cors');
 var session = require('express-session');
 var history = require('connect-history-api-fallback');
-var usersController = require('./controllers/users');
-var customersController = require('./controllers/customers');
-var eventsController = require('./controllers/events');
-var organizersController = require('./controllers/organizers');
-var loginController = require('./controllers/auth');
-
+// version 1 controllers
+var customersControllerV1 = require('./controllers/v1/customers');
+var eventsControllerV1 = require('./controllers/v1/events');
+var organizersControllerV1 = require('./controllers/v1/organizers');
+var venuesControllerV1 = require('./controllers/v1/venues');
+var ticketsControllerV1 = require('./controllers/v1/tickets');
 
 // password encoding
 const password = encodeURIComponent("admin");
@@ -47,25 +47,12 @@ app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
 });
 
-const LocalStrategy = require('passport-local').Strategy;
-passport.use(User.createStrategy());
-
-app.use(session({
-    secret: "test" //Change this to an env key later
-}))
-
-// Initializing passport and user sessions
-app.use(passport.initialize());
-app.use(passport.session());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
-app.use(usersController);
-app.use(loginController);
-app.use(customersController);
-app.use(eventsController);
-app.use(organizersController);
-
+// app.use('/api', controllers);
+app.use('/api/v1/customers', customersControllerV1);
+app.use('/api/v1/events', eventsControllerV1);
+app.use('/api/v1/organizers', organizersControllerV1);
+app.use('/api/v1/venues', venuesControllerV1);
+app.use('/api/v1/events/:eventId/tickets', ticketsControllerV1);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {

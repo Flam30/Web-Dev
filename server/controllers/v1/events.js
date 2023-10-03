@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var Event = require('../models/event');
+var Event = require('../../models/event');
 
-router.post('/api/events', async function(req, res, next) {
+router.post('/', async function(req, res, next) {
     var event = new Event(req.body);
     try {
         await event.save();
@@ -12,17 +12,16 @@ router.post('/api/events', async function(req, res, next) {
     }
 });
 
-router.delete('/api/events', async function(req, res, next) {
-    var event = new Event(req.body);
+router.delete('/', async function(req, res, next) {
     try {
-        await Event.deleteMany(event);
-        res.status(201).json(event);
+        await Event.deleteMany({});
+        res.status(200).json();
     } catch (err) {
         next(err);
     }
 });
 
-router.get('/api/events', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
         const events = await Event.find({});
         if (events.length === 0) {
@@ -35,7 +34,7 @@ router.get('/api/events', async (req, res, next) => {
     }
 });
 
-router.get('/api/events/:id', async function(req, res, next){
+router.get('/:id', async function(req, res, next){
     var id = req.params.id;
     try {
         const event = await Event.findById(id);
@@ -48,7 +47,7 @@ router.get('/api/events/:id', async function(req, res, next){
     }
 });
 
-router.patch('/api/events/:id', async function(req, res, next){
+router.patch('/:id', async function(req, res, next){
     console.log('here');
     var id = req.params.id;
     try {
@@ -62,7 +61,7 @@ router.patch('/api/events/:id', async function(req, res, next){
     }
 });
 
-router.put('/api/events/:id', async function(req, res, next){
+router.put('/:id', async function(req, res, next){
     var id = req.params.id;
     try {
         const event = await Event.findOneAndReplace({_id: id});
@@ -75,7 +74,7 @@ router.put('/api/events/:id', async function(req, res, next){
     }
 });
 
-router.delete('/api/events/:id', async function(req, res, next){
+router.delete('/:id', async function(req, res, next){
     var id = req.params.id;
     try {
         const event = await Event.findOneAndDelete({_id: id});
