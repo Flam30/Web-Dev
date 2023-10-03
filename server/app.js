@@ -5,6 +5,7 @@ var morgan = require('morgan');
 var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
+var LocalStrategy = require('passport-local');
 // version 1 controllers
 var customersControllerV1 = require('./controllers/v1/customers');
 var eventsControllerV1 = require('./controllers/v1/events');
@@ -30,6 +31,9 @@ mongoose.connect(mongoURI).catch(function(err) {
     console.log(`Connected to MongoDB with URI: ${mongoURI}`);
 });
 
+const Customer = require('./models/customer');
+
+
 // Create Express app
 var app = express();
 // Parse requests of content-type 'application/json'
@@ -40,6 +44,14 @@ app.use(morgan('dev'));
 // Enable cross-origin resource sharing for frontend must be registered before api
 app.options('*', cors());
 app.use(cors());
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(Customer.serializeUser());
+passport.deserializeUser(Customer.deserializeUser());
+
+passport.use(new LocalStrategy(Customer.authenticate()));
 
 // Import routes
 app.get('/api', function(req, res) {

@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var Customer = require('./v1/customers');
+var Customer = require('../models/customer');
 var passport = require('passport');
+var jwt = require('jsonwebtoken');
 
 
 // These endpoints should be moved to customers, they're here just for testing!
@@ -31,7 +32,7 @@ router.post("/register", function (req, res) {
     });
 });
 
-router.post("/login", function (req, res) {
+router.post("/login", function (req, res, next) {
     if (!req.body.username) {
         res.json({ success: false, message: "Missing username" })
     }
@@ -40,6 +41,7 @@ router.post("/login", function (req, res) {
     }
     else {
         passport.authenticate("local", function (err, customer, info) {
+            console.log(customer);
             if (err) {
                 res.json({ success: false, message: err });
             }
@@ -48,11 +50,12 @@ router.post("/login", function (req, res) {
                     res.json({ success: false, message: "Username or password incorrect" });
                 }
                 else {
-                    const token = jwt.sign({ customerId: customer._id, username: customer.username }, secretkey, { expiresIn: "24h" });
-                    res.json({ success: true, message: "Authentication successful", token: token });
+                    // Change secretkey to an actual secret key (env variable)
+                    const token = jwt.sign({ customerId: customer._id, username: customer.username }, "secretkey", { expiresIn: "24h" });
+                    res.json({ success: true, message: "Authentication successful", token: token});
                 }
             }
-        })(req, res);
+        })(req, res, next);
     }
 });
 
