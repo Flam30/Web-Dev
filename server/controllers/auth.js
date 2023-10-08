@@ -34,25 +34,24 @@ router.post("/register", function (req, res) {
 
 router.post("/login", function (req, res, next) {
     if (!req.body.username) {
-        res.json({ success: false, message: "Missing username" })
+        res.status(400).json({ success: false, message: "Missing username" })
     }
     else if (!req.body.password) {
-        res.json({ success: false, message: "Missing password" })
+        res.status(400).json({ success: false, message: "Missing password" })
     }
     else {
         passport.authenticate("local", function (err, customer, info) {
-            console.log(customer);
             if (err) {
-                res.json({ success: false, message: err });
+                res.status(500).json({ success: false, message: err });
             }
             else {
                 if (!customer) {
-                    res.json({ success: false, message: "Username or password incorrect" });
+                    res.status(401).json({ success: false, message: "Username or password incorrect" });
                 }
                 else {
                     // Change secretkey to an actual secret key (env variable)
                     const token = jwt.sign({ customerId: customer._id, username: customer.username }, "secretkey", { expiresIn: "24h" });
-                    res.json({ success: true, message: "Authentication successful", token: token});
+                    res.json({ success: true, message: "Authentication successful", customerId: customer._id, token: token});
                 }
             }
         })(req, res, next);
