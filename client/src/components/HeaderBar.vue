@@ -95,7 +95,7 @@ export default {
           console.log('Logged in!')
           this.$router.go()
         } else {
-          alert('sucks to suck')
+          alert('Something went wrong! Please try again.')
         }
       }).catch((_err) => {
         console.log(_err.response.data.message)
