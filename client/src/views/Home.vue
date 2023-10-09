@@ -38,18 +38,14 @@ export default {
 <template>
   <div>
     <HeaderBar></HeaderBar>
-    <!-- <b-jumbotron header="DIT342 Frontend" lead="Welcome to your DIT342 Frontend Vue.js App">
-      <b-button class="btn_message" variant="primary" v-on:click="getMessage()" >Get Message from Server</b-button>
-      <p>Message from the server:<br/>
-      {{ message }}</p>
-    </b-jumbotron> -->
     <h1 style="padding: 50px 0 0 10px;">Upcoming events</h1>
     <div id="event-wrapper">
       <EventCard
-        name="Test event"
-        description="just testing :)"
+        v-for="event in events" :key="event.id"
+        :name="event.name"
+        description="Placeholder description"
         link="https://previews.123rf.com/images/sanneberg/sanneberg1708/sanneberg170800669/85057705-guy-smiling-and-giving-thumbs-up-portrait.jpg"
-        URL="\Customers">
+        :URL="'/Event/' + event._id">
       </EventCard>
 
       <EventCard
