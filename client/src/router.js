@@ -5,6 +5,7 @@ import Event from './views/Event.vue'
 import Register from './views/Register.vue'
 import Customers from './views/Customers.vue'
 import Account from './views/Account.vue'
+import Success from './views/Success.vue'
 
 Vue.use(Router)
 
@@ -34,10 +35,15 @@ export default new Router({
       component: Customers
     },
     {
+      component: Account,
       path: '/account/:username',
       props: true,
-      name: 'Account',
-      component: Account
+      name: 'Account'
+    },
+    {
+      path: '/success',
+      name: 'Success!',
+      component: Success
     }
   ]
 })
