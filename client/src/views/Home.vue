@@ -46,10 +46,11 @@ export default {
     <h1 style="padding: 50px 0 0 10px;">Upcoming events</h1>
     <div id="event-wrapper">
       <EventCard
-        name="Test event"
-        description="just testing :)"
+        v-for="event in events" :key="event.id"
+        :name="event.name"
+        description="Placeholder description"
         link="https://previews.123rf.com/images/sanneberg/sanneberg1708/sanneberg170800669/85057705-guy-smiling-and-giving-thumbs-up-portrait.jpg"
-        URL="\Customers">
+        :URL="'/'+event.name">
       </EventCard>
 
       <EventCard
