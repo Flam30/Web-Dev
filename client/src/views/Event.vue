@@ -1,12 +1,16 @@
 <script>
 import HeaderBar from '@/components/HeaderBar'
 import { StripeCheckout } from '@vue-stripe/vue-stripe'
+import { Api } from '@/Api'
+
 export default {
   name: 'Event',
   data() {
     // We'll replace it with an env variable later
     this.publishableKey = 'pk_test_51NvnEZIeSorUA2wFzBWTeShkIWHsjqH2DCdIfap6d0YNtG6DNdTZOZHaoDpuV8KtNjD5JWnZvGZIJRTWnAaHI2Nh00MYxPsY4Z'
     return {
+      eventInfo: '',
+      venueName: '',
       loading: false,
       lineItems: [
         {
@@ -22,7 +26,31 @@ export default {
     submit() {
       // You will be redirected to Stripe's secure checkout page
       this.$refs.checkoutRef.redirectToCheckout()
+    },
+    async getEvent() {
+      Api.get('/v1/events/' + this.id)
+        .then(response => {
+          const eventInfo = response.data
+          this.eventInfo = eventInfo
+          this.getVenue()
+          return this.eventInfo
+        }).catch(error => {
+          console.log(error)
+        })
+    },
+    async getVenue() {
+      Api.get('/v1/venues/' + this.eventInfo.venue)
+        .then(response => {
+          const venueInfo = response.data
+          this.venueName = venueInfo.name
+          return this.venueName
+        }).catch(err => {
+          console.log(err)
+        })
     }
+  },
+  created() {
+    this.getEvent()
   },
   components: {
     StripeCheckout,
@@ -40,7 +68,7 @@ export default {
     <img src="https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?cs=srgb&dl=pexels-wolfgang-2747449.jpg&fm=jpg" alt="Event cover image" id="event-photo">
     <div id="details-wrapper">
         <div id="title-wrapper">
-            <h1>{{ id }}</h1>
+            <h1>{{ eventInfo.name }}</h1>
             <p id="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             <div>
     <stripe-checkout
@@ -66,7 +94,7 @@ export default {
             </div>
             <div class="fact-line">
                 <h3>Ages</h3>
-                <h3>16+</h3>
+                <h3>{{ eventInfo.ageLimit }}+</h3>
             </div>
             <div class="fact-line">
                 <h3>Price</h3>
