@@ -41,7 +41,7 @@
         <b-form-group id="input-username" label="Username:" label-for="input-username">
           <b-form-input
             id="input-username"
-            v-model="this.form.username"
+            v-model="form.username"
             placeholder="Enter username"
             required
           ></b-form-input>
@@ -49,7 +49,7 @@
         <!-- Customize modal buttons -->
         <template #modal-footer="{ cancel , ok }">
             <b-button variant="outline-secondary" @click="cancel()"> Cancel </b-button>
-            <b-button variant="primary" @click="onSubmit();patchUsername(this.form.username);ok()"> Submit </b-button>
+            <b-button variant="primary" @click="onSubmit();patchUsername(form.username);ok()"> Submit </b-button>
         </template>
       </b-modal>
       <!-- Name modal -->
@@ -57,7 +57,7 @@
         <b-form-group id="input-name" label="Name:" label-for="input-name">
           <b-form-input
             id="input-name"
-            v-model="this.form.name"
+            v-model="form.name"
             placeholder="Enter name"
             required
           ></b-form-input>
@@ -65,7 +65,7 @@
         <!-- Customize modal buttons -->
         <template #modal-footer="{ cancel , ok }">
             <b-button variant="outline-secondary" @click="cancel()"> Cancel </b-button>
-            <b-button variant="primary" @click="JSON.stringify(this.form);patchName(this.form.name);ok()"> Submit </b-button>
+            <b-button variant="primary" @click="JSON.stringify(form);patchName(form.name);ok()"> Submit </b-button>
         </template>
       </b-modal>
       <!-- Email modal -->
@@ -73,7 +73,7 @@
         <b-form-group id="input-email" label="Email:" label-for="input-email">
           <b-form-input
             id="input-email"
-            v-model="this.form.email"
+            v-model="form.email"
             placeholder="Enter email"
             required
           ></b-form-input>
@@ -81,7 +81,7 @@
         <!-- Customize modal buttons -->
         <template #modal-footer="{ cancel , ok }">
             <b-button variant="outline-secondary" @click="cancel()"> Cancel </b-button>
-            <b-button variant="primary" @click="JSON.stringify(this.form);patchEmail(this.form.email);ok()"> Submit </b-button>
+            <b-button variant="primary" @click="JSON.stringify(form);patchEmail(form.email);ok()"> Submit </b-button>
         </template>
       </b-modal>
       <!-- Address modal -->
@@ -89,7 +89,7 @@
         <b-form-group id="input-address" label="Address:" label-for="input-address">
           <b-form-input
             id="input-address"
-            v-model="this.form.address"
+            v-model="form.address"
             placeholder="Enter address"
             required
           ></b-form-input>
@@ -97,7 +97,7 @@
         <!-- Customize modal buttons -->
         <template #modal-footer="{ cancel , ok }">
             <b-button variant="outline-secondary" @click="cancel()"> Cancel </b-button>
-            <b-button variant="primary" @click="JSON.stringify(this.form);patchAddress(this.form.address);ok()"> Submit </b-button>
+            <b-button variant="primary" @click="JSON.stringify(form);patchAddress(form.address);ok()"> Submit </b-button>
         </template>
       </b-modal>
         <!-- Phone number modal -->
@@ -105,7 +105,7 @@
         <b-form-group id="input-phone-number" label="Phone Number:" label-for="input-phone-number">
           <b-form-input
             id="input-phone-number"
-            v-model="this.form.phoneNumber"
+            v-model="form.phoneNumber"
             placeholder="Enter phone number"
             required
           ></b-form-input>
@@ -113,7 +113,7 @@
         <!-- Customize modal buttons -->
         <template #modal-footer="{ cancel , ok }">
             <b-button variant="outline-secondary" @click="cancel()"> Cancel </b-button>
-            <b-button variant="primary" @click="JSON.stringify(this.form);patchPhoneNumber(this.form.phoneNumber);ok()"> Submit </b-button>
+            <b-button variant="primary" @click="JSON.stringify(form);patchPhoneNumber(form.phoneNumber);ok()"> Submit </b-button>
         </template>
       </b-modal>
     </div>
