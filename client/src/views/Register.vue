@@ -1,7 +1,9 @@
 <script>
 
+import { Api } from '@/Api'
+
 export default {
-  name: 'Event',
+  name: 'Register',
   data() {
     return {
       form: {
@@ -14,16 +16,38 @@ export default {
       }
     }
   },
-  components: {
-  },
-  props: {
-  },
   methods: {
     onSubmit(event) {
-      // TODO
+      this.register()
+      event.preventDefault()
+    },
+    register() {
+      Api.post('/auth/register', {
+        username: this.form.username,
+        password: this.form.password,
+        name: this.form.name,
+        email: this.form.email,
+        address: this.form.address + ' ' + this.form.postalCode + ' ' + this.form.city,
+        phoneNumber: this.form.phoneNumber
+      }).then((res) => {
+        console.log(res)
+        if (res.status === 200) {
+          alert('Account registered!')
+          console.log('Registered!')
+        } else {
+          alert('Something went wrong! Please try again.')
+        }
+      }).catch((_err) => {
+        if (_err.response.status === 400) {
+          alert('Username already registered. Please try again.')
+        } else {
+          console.log(_err.response)
+        }
+      })
     }
   }
 }
+
 </script>
 
 <template>
@@ -35,7 +59,7 @@ export default {
             class="mb-2"
             style="width: 22rem;">
             <div class="form-container">
-                <b-form id="form">
+                <b-form id="form" @submit="onSubmit">
                     <b-form-group
                         id="input-group-1"
                         label="Username:"
@@ -43,7 +67,6 @@ export default {
                         <b-form-input
                             id="username-input"
                             v-model="form.username"
-                            type="username"
                             placeholder="Enter username"
                             required>
                         </b-form-input>
@@ -70,7 +93,7 @@ export default {
                             id="email-input"
                             v-model="form.email"
                             type="email"
-                            placeholder="Enter email"
+                            placeholder="name@example.com"
                             required>
                         </b-form-input>
                     </b-form-group>
@@ -82,8 +105,7 @@ export default {
                         <b-form-input
                             id="address-input"
                             v-model="form.address"
-                            type="address"
-                            placeholder="Enter mailing address"
+                            placeholder="1234 Main St"
                             required>
                         </b-form-input>
                     </b-form-group>
@@ -95,8 +117,7 @@ export default {
                         <b-form-input
                             id="postalCode-input"
                             v-model="form.postalCode"
-                            type="postalCode"
-                            placeholder="Enter postal code"
+                            placeholder="Enter Zip code"
                             required>
                         </b-form-input>
                     </b-form-group>
@@ -108,7 +129,6 @@ export default {
                         <b-form-input
                             id="city-input"
                             v-model="form.city"
-                            type="city"
                             placeholder="Enter city"
                             required>
                         </b-form-input>
@@ -121,13 +141,12 @@ export default {
                         <b-form-input
                             id="phone-input"
                             v-model="form.phoneNumber"
-                            type="phoneNumber"
                             placeholder="Enter phone number"
                             required>
                         </b-form-input>
                     </b-form-group>
+                    <b-button v-on:click="login" type="submit" variant="success">Register</b-button>
                 </b-form>
-                <b-button type="submit" variant="success">Register</b-button>
             </div>
         </b-card>
     </div>
