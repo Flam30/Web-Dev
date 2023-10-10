@@ -52,6 +52,7 @@
       </b-form-group>
       <b-button v-on:click="login" type="submit" variant="success">Log in</b-button>
       <p>Don't have an account yet? <a href="/register">Register here.</a></p>
+      <p>Are you an organizer? <a href="/oganizer-login">Log in or register here.</a></p>
     </b-form>
   </b-modal>
 </div>
@@ -103,7 +104,7 @@ export default {
     },
     logout() {
       this.$session.destroy()
-      this.$router.go()
+      this.$router.push('/')
     }
   }
 }

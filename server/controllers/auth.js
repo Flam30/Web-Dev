@@ -17,15 +17,15 @@ router.post("/register", function (req, res) {
         dateOfBirth: req.body.dateOfBirth});
     Customer.register(customer, req.body.password, function (err, customer) {
         if (err) {
-            res.json({ success: false, message: "Your account could not be registered. Error: " + err });
+            res.status(400).json({ success: false, message: "Your account could not be registered. Error: " + err });
         }
         else {
             req.login(customer, (er) => {
                 if (er) {
-                    res.json({ success: false, message: er });
+                    res.status(500).json({ success: false, message: er });
                 }
                 else {
-                    res.json({ success: true, message: "Your account has been registered!" });
+                    res.status(200).json({ success: true, message: "Your account has been registered!" });
                 }
             });
         }

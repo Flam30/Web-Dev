@@ -43,7 +43,7 @@ export default {
       <EventCard
         v-for="event in events" :key="event.id"
         :name="event.name"
-        description="Placeholder description"
+        :description="event.description"
         link="https://previews.123rf.com/images/sanneberg/sanneberg1708/sanneberg170800669/85057705-guy-smiling-and-giving-thumbs-up-portrait.jpg"
         :URL="'/Event/' + event._id">
       </EventCard>
