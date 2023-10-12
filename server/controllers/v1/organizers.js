@@ -4,7 +4,7 @@ var Organizer = require('../../models/organizer');
 var passport = require('passport');
 var jwt = require('jsonwebtoken');
 
-// POST /organizers - add new organizer
+// POST /organizers/register - register a new organizer
 router.post("/register", function (req, res) {
     var organizer = new Organizer(req.body);
     Organizer.register(organizer, req.body.password, function (err, organizer) {
@@ -24,6 +24,7 @@ router.post("/register", function (req, res) {
     });
 });
 
+// POST /organizers/login - login as an organizer
 router.post("/login", function (req, res, next) {
     if (!req.body.email) {
         res.status(400).json({ success: false, message: "Missing email" })

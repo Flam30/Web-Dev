@@ -5,7 +5,7 @@ var passport = require('passport');
 var jwt = require('jsonwebtoken');
 
 
-// POST /customers - add new customer
+// POST /customers/register - register a new customer
 router.post("/register", function (req, res) {
     var customer = new Customer({
         username: req.body.username, 
@@ -32,6 +32,7 @@ router.post("/register", function (req, res) {
     });
 });
 
+// POST /customers/login - login as a customer
 router.post("/login", function (req, res, next) {
     if (!req.body.username) {
         res.status(400).json({ success: false, message: "Missing username" })
