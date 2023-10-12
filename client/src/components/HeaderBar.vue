@@ -61,6 +61,7 @@
 <style>
 #navbar {
   filter: drop-shadow(0px 10px 12px #000000);
+  margin-bottom: 30px;
 }
 </style>
 
