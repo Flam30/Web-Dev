@@ -82,7 +82,7 @@ export default {
       event.preventDefault()
     },
     login() {
-      Api.post('/v1/users/login', {
+      Api.post('/v1/customers/login', {
         username: this.form.username,
         password: this.form.password
       }).then((res) => {
