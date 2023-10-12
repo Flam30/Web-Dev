@@ -2,21 +2,53 @@ var express = require('express');
 var router = express.Router();
 var Organizer = require('../../models/organizer');
 var Event = require('../../models/event');
+var passport = require('passport');
+var jwt = require('jsonwebtoken');
 
-// POST /organizers - add new organizer
-router.post('/', async function(req, res, next) {
-    try {
-        let organizer = new Organizer(req.body);
-        organizer._id = organizer.username;
-
-        await organizer.save();
-        res.status(201).json(organizer);
-
-    } catch (error) {
-        if (error.message.includes("E11000 duplicate key error collection")) {
-            res.status(400).json({'message': 'Username already in use.'});
+// POST /organizers/register - register a new organizer
+router.post("/register", function (req, res) {
+    var organizer = new Organizer(req.body);
+    Organizer.register(organizer, req.body.password, function (err, organizer) {
+        if (err) {
+            res.status(400).json({ success: false, message: "Your account could not be registered. Error: " + err });
         }
-        next(error);
+        else {
+            req.login(organizer, (er) => {
+                if (er) {
+                    res.status(500).json({ success: false, message: er });
+                }
+                else {
+                    res.status(200).json({ success: true, message: "Your account has been registered!" });
+                }
+            });
+        }
+    });
+});
+
+// POST /organizers/login - login as an organizer
+router.post("/login", function (req, res, next) {
+    if (!req.body.email) {
+        res.status(400).json({ success: false, message: "Missing email" })
+    }
+    else if (!req.body.password) {
+        res.status(400).json({ success: false, message: "Missing password" })
+    }
+    else {
+        passport.authenticate("local", function (err, organizer, info) {
+            if (err) {
+                res.status(500).json({ success: false, message: err });
+            }
+            else {
+                if (!organizer) {
+                    res.status(401).json({ success: false, message: "Email or password incorrect" });
+                }
+                else {
+                    // Change secretkey to an actual secret key (env variable)
+                    const token = jwt.sign({ organizerId: organizer._id, email: organizer.email }, "secretkey", { expiresIn: "24h" });
+                    res.json({ success: true, message: "Authentication successful", organizerId: organizer._id, token: token});
+                }
+            }
+        })(req, res, next);
     }
 });
 

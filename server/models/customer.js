@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const passportLocalMongoose = require('passport-local-mongoose');
 
 var customerSchema = new Schema({
     _id: String,
@@ -12,4 +13,5 @@ var customerSchema = new Schema({
     tickets: [{type: Schema.Types.ObjectId, ref: 'tickets'}]
 });
 
+customerSchema.plugin(passportLocalMongoose);
 module.exports = mongoose.model('customers', customerSchema);
