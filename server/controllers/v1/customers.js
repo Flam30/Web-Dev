@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Customer = require('../../models/customer');
+var Ticket = require('../../models/ticket');
 
 // POST /customers - add new customer
 router.post('/', async function(req, res, next) {
@@ -15,6 +16,28 @@ router.post('/', async function(req, res, next) {
         if (error.message.includes("E11000 duplicate key error collection")) {
             res.status(400).json({'message': 'Username already in use.'});
         }
+        next(error);
+    }
+});
+
+// POST /customers/:customerId/events/:eventId - add an event to the organizer
+router.post('/:customerId/tickets/:ticketId', async function (req, res, next) {
+    try {
+        let customerUsername = req.params.customerId;
+        let ticketId = req.params.ticketId;
+
+        await Customer.find({username: customerUsername}, function (err, customer) {
+            if (customer) {
+                let ticket = Ticket.findById(ticketId);
+                customer.tickets.push(ticket);
+                customer.save(function (err, customer) {
+                    res.status(200).json({message: 'Ticket added.'});
+                });
+            } else {
+                res.status(404).json({ message: 'Customer does not exist.'});
+            }
+        });
+    } catch (error) {
         next(error);
     }
 });
@@ -102,10 +125,5 @@ router.delete('/:id', async function(req, res, next) {
         return next(error);
     }
 });
-
-/*
-    Other functions needed for a customer:
-    - adding a ticket in customer.tickets[]
-*/
 
 module.exports = router;

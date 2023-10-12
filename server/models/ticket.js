@@ -7,7 +7,6 @@ var ticketSchema = new Schema({
     seat: {type: String},
     price: {type: Number, required: true},
     quantity: {type: Number, required: true},
-    customer: {type: Schema.Types.String, ref: 'customers'},
     event: {type: Schema.Types.String, ref: 'events', required: true}
 });
 

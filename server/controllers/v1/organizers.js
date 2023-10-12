@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Organizer = require('../../models/organizer');
+var Event = require('../../models/event');
 
 // POST /organizers - add new organizer
 router.post('/', async function(req, res, next) {
@@ -15,6 +16,33 @@ router.post('/', async function(req, res, next) {
         if (error.message.includes("E11000 duplicate key error collection")) {
             res.status(400).json({'message': 'Username already in use.'});
         }
+        next(error);
+    }
+});
+
+// POST /organizers/:organizerId/events/:eventId - add an event to the organizer
+router.post('/:organizerId/events/', async function (req, res, next) {
+    try {
+        let organizerUsername = req.params.organizerId;
+
+        await Organizer.find({username: organizerUsername}, function (err, organizer) {
+            if (organizer) {
+                let event = new Event(req.body);
+                let eventExists = organizer.events.some(existingEvent => existingEvent.equals(event));
+
+                if(!eventExists) {
+                    organizer.tickets.push(event);
+                    organizer.save(function (err, event) {
+                        res.status(201).json(event);
+                    });
+                } else {
+                    res.status(204).json({ message: 'Event already exists.'});
+                }
+            } else {
+                res.status(404).json({ message: 'Organizer does not exist.'});
+            }
+        });
+    } catch (error) {
         next(error);
     }
 });
@@ -103,10 +131,5 @@ router.delete('/:id', async function(req, res, next) {
         return next(error);
     }
 });
-
-/*
-    Other functions needed for a organizer:
-    - adding an event in organizer.events[]
-*/
 
 module.exports = router;
