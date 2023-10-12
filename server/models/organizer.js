@@ -1,11 +1,14 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 var organizerSchema = new Schema({
-    name: {type: String, unique: true, required: true},
-    email: String,
+    _id: String,
+    username: {type: String, unique: true, required: true},
+    name: {type: String, required: true},
+    email: {type: String, required: true},
     address: String,
-    phoneNumber: String,
+    phoneNumber: Number,
+    events: [{type: Schema.Types.ObjectId, ref: 'events'}]
 });
 
 module.exports = mongoose.model('organizers', organizerSchema);
