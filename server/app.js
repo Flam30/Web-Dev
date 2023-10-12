@@ -32,7 +32,7 @@ mongoose.connect(mongoURI).catch(function(err) {
 });
 
 const Customer = require('./models/customer');
-
+const Organizer = require('./models/organizer');
 
 // Create Express app
 var app = express();
@@ -52,6 +52,11 @@ passport.serializeUser(Customer.serializeUser());
 passport.deserializeUser(Customer.deserializeUser());
 
 passport.use(new LocalStrategy(Customer.authenticate()));
+
+passport.serializeUser(Organizer.serializeUser());
+passport.deserializeUser(Organizer.deserializeUser());
+
+passport.use(new LocalStrategy(Organizer.authenticate()));
 
 // Import routes
 app.get('/api', function(req, res) {
