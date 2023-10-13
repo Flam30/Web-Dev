@@ -2,42 +2,57 @@ var express = require('express');
 var router = express.Router();
 var Event = require('../../models/event');
 
+// POST /events - add new event
 router.post('/', async function(req, res, next) {
-    var event = new Event(req.body);
     try {
+        let event = new Event(req.body);
+        event._id = event.id;
+
         await event.save();
         res.status(201).json(event);
-    } catch (err) {
-        next(err);
+
+    } catch (error) {
+        if (error.message.includes("E11000 duplicate key error collection")) {
+            res.status(400).json({'message': 'Id already in use.'});
+        }
+        next(error);
     }
 });
 
-router.delete('/', async function(req, res, next) {
-    try {
-        await Event.deleteMany({});
-        res.status(200).json();
-    } catch (err) {
-        next(err);
-    }
-});
-
-router.get('/', async (req, res, next) => {
+// GET /events - get all events
+router.get('/', async function(req, res, next) {
     try {
         const events = await Event.find({});
-        if (events.length === 0) {
-            return res.status(204).json({ 'message': 'No events' });
+        if(events.length === null) {
+            return res.status(404).json({'message': 'No events registered.'});
         }
-
+        
         res.send(events);
-    } catch (err) {
-        return next(err);
+    } catch (error) {
+        next(error);
     }
 });
 
-router.get('/:id', async function(req, res, next){
+// GET /events/:id - get a specific event
+router.get('/:id', async function(req, res, next) {
+    try {
+        var id = req.params.id;
+        const events = await Event.find({id: id});
+        if(events.length === null) {
+            return res.status(404).json({'message': 'No events registered.'});
+        }
+        
+        res.send(events);
+    } catch (error) {
+        next(error);
+    }
+});
+
+// PUT /events/:id - update a specific event
+router.put('/:id', async function(req, res, next){
     var id = req.params.id;
     try {
-        const event = await Event.findById(id);
+        const event = await Event.findOneAndReplace({id: id});
         if (event === null) {
             return res.status(404).json({'message': 'Event not found!'});
         }
@@ -47,8 +62,8 @@ router.get('/:id', async function(req, res, next){
     }
 });
 
+// PATCH /events/:id - update a specific field of an event
 router.patch('/:id', async function(req, res, next){
-    console.log('here');
     var id = req.params.id;
     try {
         const event = await Event.findOneAndUpdate({_id: id}, req.body, { new: true });
@@ -61,30 +76,40 @@ router.patch('/:id', async function(req, res, next){
     }
 });
 
-router.put('/:id', async function(req, res, next){
-    var id = req.params.id;
+// DELETE /events - delete all events
+router.delete('/', async function(req, res, next) {
     try {
-        const event = await Event.findOneAndReplace({_id: id});
-        if (event === null) {
-            return res.status(404).json({'message': 'Event not found!'});
+        const events = await Event.find();
+        if (events === null) {
+            return res.status(404).json({'message': 'No events registered.'});
         }
-        res.json(event);
-    } catch (err) {
-        return next(err);
+        await Event.deleteMany();
+        res.json("Successfully deleted.");
+    } catch (error) {
+        return next(error);
     }
 });
 
-router.delete('/:id', async function(req, res, next){
-    var id = req.params.id;
+// DELETE /events/:id - delete a specific event
+router.delete('/:id', async function(req, res, next) {
     try {
-        const event = await Event.findOneAndDelete({_id: id});
-        if (event === null) {
-            return res.status(404).json({'message': 'Event not found!'});
+        var id = req.params.id;
+        const events = await Event.find({id: id});
+        if (events === null) {
+            return res.status(404).json({'message': 'No such event registered.'});
         }
-        res.json(event);
-    } catch (err) {
-        return next(err);
+        await Event.deleteOne({id: id});
+        res.json("Successfully deleted.");
+    } catch (error) {
+        return next(error);
     }
 });
+
+/*
+    Other functions needed for an event:
+    - finding all events in a specific venue
+    - finding all events on a specific date
+    - sorting events by date
+*/
 
 module.exports = router;
