@@ -1,14 +1,16 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
 
 var customerSchema = new Schema({
+    _id: String,
     username: {type: String, unique: true, required: true},
-    name: String,
-    email: String,
+    name: {type: String, required: true},
+    email: {type: String, required: true},
     address: String,
-    phoneNumber: String,
-    dateOfBirth: Date
+    phoneNumber: Number,
+    DOB: Date,
+    tickets: [{type: Schema.Types.ObjectId, ref: 'tickets'}]
 });
 
 customerSchema.plugin(passportLocalMongoose);

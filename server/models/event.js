@@ -1,14 +1,16 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 var eventSchema = new Schema({
-    // Idea - add image URL
+    _id: String,
     id: {type: String, unique: true, required: true},
-    organizer: {type: Schema.Types.ObjectId, ref: 'organizers'},
-    name: {type: String},
-    venue: {type: Schema.Types.ObjectId, ref: 'venues'},
-    ageLimit: {type: Number},
-    date: {type: Date}
+    name: {type: String, required: true},
+    description: {type: String, required: true},
+    ageLimit: Number,
+    date: {type: Date, required: true},
+    venue: {type: Schema.Types.String, ref: 'venues', required: true},
+    organizer: {type: Schema.Types.String, ref: 'organizers', required: true},
+    imageURL: String
 });
 
 module.exports = mongoose.model('events', eventSchema);
