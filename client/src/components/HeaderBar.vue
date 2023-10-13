@@ -1,24 +1,26 @@
 <template>
   <div id="navbar">
-  <b-navbar toggleable="lg" type="dark" variant="info">
-    <b-navbar-brand href="#">(not) Ticketmaster</b-navbar-brand>
+  <b-navbar class="custom-navbar-class" toggleable="md" type="dark">
+    <b-navbar-brand href="/">Kirby's Ticket Emporium</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item href="/">Home</b-nav-item>
+        <b-nav-item class="header-item" href="/">Events</b-nav-item>
+      </b-navbar-nav>
+
+      <b-navbar-nav>
+        <b-nav-item class="header-item" href="/venues">Venues</b-nav-item>
+      </b-navbar-nav>
+
+      <b-navbar-nav>
+        <b-nav-item v-if="isLoggedIn" class="header-item" href="/account">Account</b-nav-item>
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
-        <b-nav-form>
-          <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-          <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-        </b-nav-form>
-
-        <b-button v-if="!this.$session.exists()" v-b-modal.modal-login variant="primary" class="mx-3">Log In</b-button>
+        <b-button v-if="!isLoggedIn" v-b-modal.modal-login variant="primary" class="mx-3">Log In</b-button>
         <b-button v-else v-on:click="logout" variant="primary" class="mx-3">Log Out</b-button>
-
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
@@ -52,14 +54,22 @@
       </b-form-group>
       <b-button v-on:click="login" type="submit" variant="success">Log in</b-button>
       <p>Don't have an account yet? <a href="/register">Register here.</a></p>
+      <p>Are you an organizer? <a href="/oganizer-login">Log in or register here.</a></p>
     </b-form>
   </b-modal>
 </div>
 </template>
 
 <style>
+.header-item {
+    display: block;
+    font-size: 20px;
+}
+.custom-navbar-class {    /* Changing navbar color */
+  background-color: violet;
+}
 #navbar {
-  filter: drop-shadow(0px 10px 12px #000000);
+  filter: drop-shadow(0px 0px 5px #000000);
 }
 </style>
 
@@ -73,7 +83,8 @@ export default {
       form: {
         username: '',
         password: ''
-      }
+      },
+      isLoggedIn: false
     }
   },
   methods: {
@@ -92,6 +103,7 @@ export default {
           this.$session.set('jwt', res.data.token)
           this.$session.set('user-id', res.data.customerId)
           this.$session.set('account-type', 'customer')
+          this.isLoggedIn = true
           console.log('Logged in!')
           this.$router.go()
         } else {
@@ -103,6 +115,7 @@ export default {
     },
     logout() {
       this.$session.destroy()
+      this.isLoggedIn = false
       this.$router.go()
     }
   }

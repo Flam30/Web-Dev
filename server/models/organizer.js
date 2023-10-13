@@ -12,6 +12,5 @@ var organizerSchema = new Schema({
     events: [{type: Schema.Types.ObjectId, ref: 'events'}]
 });
 
-
 organizerSchema.plugin(passportLocalMongoose);
 module.exports = mongoose.model('organizers', organizerSchema);

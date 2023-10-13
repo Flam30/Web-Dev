@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Customer = require('../models/customer');
+var Organizer = require('../models/organizer')
 var passport = require('passport');
 var jwt = require('jsonwebtoken');
 
@@ -17,15 +18,15 @@ router.post("/register", function (req, res) {
         dateOfBirth: req.body.dateOfBirth});
     Customer.register(customer, req.body.password, function (err, customer) {
         if (err) {
-            res.json({ success: false, message: "Your account could not be registered. Error: " + err });
+            res.status(400).json({ success: false, message: "Your account could not be registered. Error: " + err });
         }
         else {
             req.login(customer, (er) => {
                 if (er) {
-                    res.json({ success: false, message: er });
+                    res.status(500).json({ success: false, message: er });
                 }
                 else {
-                    res.json({ success: true, message: "Your account has been registered!" });
+                    res.status(200).json({ success: true, message: "Your account has been registered!" });
                 }
             });
         }
@@ -52,6 +53,53 @@ router.post("/login", function (req, res, next) {
                     // Change secretkey to an actual secret key (env variable)
                     const token = jwt.sign({ customerId: customer._id, username: customer.username }, "secretkey", { expiresIn: "24h" });
                     res.json({ success: true, message: "Authentication successful", customerId: customer._id, token: token});
+                }
+            }
+        })(req, res, next);
+    }
+});
+
+
+// Organizer auth endpoints
+router.post("/orgRegister", function (req, res) {
+    var organizer = new Organizer(req.body);
+    Organizer.register(organizer, req.body.password, function (err, organizer) {
+        if (err) {
+            res.status(400).json({ success: false, message: "Your account could not be registered. Error: " + err });
+        }
+        else {
+            req.login(organizer, (er) => {
+                if (er) {
+                    res.status(500).json({ success: false, message: er });
+                }
+                else {
+                    res.status(200).json({ success: true, message: "Your account has been registered!" });
+                }
+            });
+        }
+    });
+});
+
+router.post("/orgLogin", function (req, res, next) {
+    if (!req.body.email) {
+        res.status(400).json({ success: false, message: "Missing email" })
+    }
+    else if (!req.body.password) {
+        res.status(400).json({ success: false, message: "Missing password" })
+    }
+    else {
+        passport.authenticate("local", function (err, organizer, info) {
+            if (err) {
+                res.status(500).json({ success: false, message: err });
+            }
+            else {
+                if (!organizer) {
+                    res.status(401).json({ success: false, message: "Email or password incorrect" });
+                }
+                else {
+                    // Change secretkey to an actual secret key (env variable)
+                    const token = jwt.sign({ organizerId: organizer._id, email: organizer.email }, "secretkey", { expiresIn: "24h" });
+                    res.json({ success: true, message: "Authentication successful", organizerId: organizer._id, token: token});
                 }
             }
         })(req, res, next);

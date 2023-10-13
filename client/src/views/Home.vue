@@ -8,21 +8,27 @@ export default {
   name: 'home',
   data() {
     return {
-      message: 'none'
+      events: []
     }
   },
   components: {
     HeaderBar,
     EventCard
   },
+  created() {
+    this.getEvents()
+  },
   methods: {
-    getMessage() {
-      Api.get('/users')
+    async getEvents() {
+      Api.get('/v1/events/')
         .then(response => {
-          this.message = response.data.message
-        })
-        .catch(error => {
-          this.message = error
+          const eventArray = []
+          for (let i = 0; i < response.data.length; i++) {
+            eventArray.push(response.data[i])
+          }
+          this.events = eventArray
+        }).catch(error => {
+          console.log(error)
         })
     }
   }
@@ -32,29 +38,37 @@ export default {
 <template>
   <div>
     <HeaderBar></HeaderBar>
-    <!-- <b-jumbotron header="DIT342 Frontend" lead="Welcome to your DIT342 Frontend Vue.js App">
-      <b-button class="btn_message" variant="primary" v-on:click="getMessage()" >Get Message from Server</b-button>
-      <p>Message from the server:<br/>
-      {{ message }}</p>
-    </b-jumbotron> -->
-    <h1 style="padding: 50px 0 0 10px;">Upcoming events</h1>
+    <img class="banner" src="./..\assets\Banner.png">
     <div id="event-wrapper">
       <EventCard
-        name="Test event"
-        description="just testing :)"
-        link="https://previews.123rf.com/images/sanneberg/sanneberg1708/sanneberg170800669/85057705-guy-smiling-and-giving-thumbs-up-portrait.jpg">
+        v-for="event in events" :key="event.id"
+        :name="event.name"
+        :description="event.description"
+        link="https://previews.123rf.com/images/sanneberg/sanneberg1708/sanneberg170800669/85057705-guy-smiling-and-giving-thumbs-up-portrait.jpg"
+        :URL="'/Event/' + event._id">
       </EventCard>
 
       <EventCard
         name="Eurovision 2024"
         description="Lorem ipsum dolor sit"
-        link="https://gaybladet.se/wp-content/uploads/2023/05/eurovision-song-contest-2023.webp">
+        link="https://gaybladet.se/wp-content/uploads/2023/05/eurovision-song-contest-2023.webp"
+        URL="\Event\TestEvent">
       </EventCard>
+
+      <b-button href="/account/RatKing"> Account </b-button>
     </div>
   </div>
 </template>
 
 <style>
+.banner {
+  /* width: 2500px;*/
+  height: 80px;
+  max-width: 100%;
+  object-fit: cover;
+  margin: auto;
+  padding: 0%;
+}
 h1{
   text-align: left;
 }
