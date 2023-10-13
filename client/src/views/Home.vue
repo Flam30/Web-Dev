@@ -38,7 +38,7 @@ export default {
 <template>
   <div>
     <HeaderBar></HeaderBar>
-    <h1 style="padding: 50px 0 0 10px;">Upcoming events</h1>
+    <img class="banner" src="./..\assets\Banner.png">
     <div id="event-wrapper">
       <EventCard
         v-for="event in events" :key="event.id"
@@ -61,6 +61,14 @@ export default {
 </template>
 
 <style>
+.banner {
+  /* width: 2500px;*/
+  height: 80px;
+  max-width: 100%;
+  object-fit: cover;
+  margin: auto;
+  padding: 0%;
+}
 h1{
   text-align: left;
 }
