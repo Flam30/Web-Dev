@@ -17,6 +17,7 @@ export default {
         venue: '',
         imageUrl: 'https://thumbs.dreamstime.com/b/crowd-concert-summer-music-festival-crowd-concert-summer-music-festival-89546129.jpg'
       },
+      price: 0,
       venues: []
     }
   },
@@ -153,6 +154,21 @@ export default {
                 rows="3"
               ></b-form-input>
         </b-form-group>
+
+        <b-form-group
+            id="input-group-8"
+            label-cols-lg="4"
+            content-cols-lg="8"
+            label="Ticket price:"
+            label-for="event-image-input">
+              <b-form-input
+                id="event-price-input"
+                v-model="price"
+                placeholder="Enter tickets price..."
+                rows="3"
+              ></b-form-input>
+        </b-form-group>
+
         <b-button v-on:click="createEvent" type="submit" variant="primary">Submit</b-button>
     </b-form>
     <div id="event-preview-wrapper">
@@ -173,9 +189,12 @@ h1{
   text-align: center;
 }
 .form-wrapper{
-  width: 70%;
+  width: 80%;
   justify-content: space-around;
   margin: 0 auto;
   display: flex;
+}
+#form{
+  width: 40%;
 }
 </style>
