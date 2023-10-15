@@ -15,11 +15,11 @@
       </b-navbar-nav>
 
       <b-navbar-nav>
-        <b-nav-item v-if="!isLoggedIn" class="header-item" href="/account/RatKing">Account</b-nav-item>
+        <b-nav-item v-if="isLoggedIn" class="header-item" href="/account/RatKing">Account</b-nav-item>
       </b-navbar-nav>
 
       <b-navbar-nav>
-        <b-nav-item v-if="!isLoggedIn" class="header-item" href="#">Tickets</b-nav-item>
+        <b-nav-item v-if="isLoggedIn" class="header-item" href="#">Tickets</b-nav-item>
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
