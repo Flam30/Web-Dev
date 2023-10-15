@@ -31,7 +31,7 @@ export default {
       Api.get('/v1/events/' + this.id)
         .then(response => {
           const eventInfo = response.data
-          this.eventInfo = eventInfo
+          this.eventInfo = eventInfo[0]
           this.getVenue()
           return this.eventInfo
         }).catch(error => {
