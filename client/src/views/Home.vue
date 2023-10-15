@@ -39,7 +39,7 @@ export default {
   <div>
     <HeaderBar></HeaderBar>
     <img class="banner" src="./..\assets\Banner.png">
-    <div id="event-wrapper">
+    <div class="event-wrapper">
       <EventCard
         v-for="event in events" :key="event.id"
         :name="event.name"
@@ -55,14 +55,12 @@ export default {
         URL="\Event\TestEvent">
       </EventCard>
 
-      <b-button href="/account/RatKing"> Account </b-button>
     </div>
   </div>
 </template>
 
 <style>
 .banner {
-  /* width: 2500px;*/
   height: 80px;
   max-width: 100%;
   object-fit: cover;
@@ -74,6 +72,8 @@ h1{
 }
 .event-wrapper{
   display: flex;
+  flex-wrap: wrap;
+  justify-content:space-evenly;
   width: 100%;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-<div style="display: inline-block;">
+<div style="display: flex">
   <b-card
     v-bind:title=name
     v-bind:img-src=link
