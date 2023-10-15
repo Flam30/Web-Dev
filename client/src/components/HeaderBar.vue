@@ -15,7 +15,11 @@
       </b-navbar-nav>
 
       <b-navbar-nav>
-        <b-nav-item v-if="isLoggedIn" class="header-item" href="/account">Account</b-nav-item>
+        <b-nav-item v-if="!isLoggedIn" class="header-item" href="/account/RatKing">Account</b-nav-item>
+      </b-navbar-nav>
+
+      <b-navbar-nav>
+        <b-nav-item v-if="!isLoggedIn" class="header-item" href="#">Tickets</b-nav-item>
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
@@ -66,10 +70,10 @@
     font-size: 20px;
 }
 .custom-navbar-class {    /* Changing navbar color */
-  background-color: violet;
+  background-color: #ee82ee;
 }
 #navbar {
-  filter: drop-shadow(0px 0px 5px #000000);
+  filter: drop-shadow(0px 0px 7px #000000);
 }
 </style>
 
