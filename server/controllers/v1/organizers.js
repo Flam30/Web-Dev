@@ -8,6 +8,7 @@ var jwt = require('jsonwebtoken');
 // POST /organizers/register - register a new organizer
 router.post("/register", function (req, res) {
     var organizer = new Organizer(req.body);
+    organizer._id = organizer.username;
     Organizer.register(organizer, req.body.password, function (err, organizer) {
         if (err) {
             res.status(400).json({ success: false, message: "Your account could not be registered. Error: " + err });
@@ -18,7 +19,7 @@ router.post("/register", function (req, res) {
                     res.status(500).json({ success: false, message: er });
                 }
                 else {
-                    res.status(200).json({ success: true, message: "Your account has been registered!" });
+                    res.status(201).json({ success: true, message: "Your account has been registered!" });
                 }
             });
         }
@@ -83,7 +84,7 @@ router.post('/:organizerId/events/', async function (req, res, next) {
 router.get('/', async function(req, res, next) {
     try {
         const organizers = await Organizer.find({});
-        if(organizers.length === null) {
+        if(organizers.length < 1) {
             return res.status(404).json({'message': 'No organizers registered.'});
         }
         
@@ -97,9 +98,9 @@ router.get('/', async function(req, res, next) {
 router.get('/:id', async function(req, res, next) {
     try {
         var username = req.params.id;
-        const organizers = await Organizer.find({username: username});
-        if(organizers.length === null) {
-            return res.status(404).json({'message': 'No organizers registered.'});
+        const organizers = await Organizer.findOne({username: username});
+        if(organizers === null) {
+            return res.status(404).json({'message': 'No such organizer registered.'});
         }
         
         res.send(organizers);
@@ -111,7 +112,7 @@ router.get('/:id', async function(req, res, next) {
 // PUT /organizers/:id - update a specific organizer
 router.put('/:id', async function(req, res, next){
     try {
-        const organizer = await Organizer.findOneAndReplace({name: req.params.id}, req.body, {new: true});
+        const organizer = await Organizer.findOneAndReplace({username: req.params.id}, req.body, {new: true});
         if (organizer === null) {
             return res.status(404).json({'message': 'Organizer not found!'});
         }
@@ -124,7 +125,7 @@ router.put('/:id', async function(req, res, next){
 // PATCH /organizers/:id - update a specific field of an organizer
 router.patch('/:id', async function(req, res, next){
     try {
-        const organizer = await Organizer.findOneAndUpdate({name: req.params.id}, req.body, {new: true});
+        const organizer = await Organizer.findOneAndUpdate({username: req.params.id}, req.body, {new: true});
         if (organizer === null) {
             return res.status(404).json({'message': 'Organizer not found!'});
         }
@@ -139,7 +140,7 @@ router.patch('/:id', async function(req, res, next){
 router.delete('/', async function(req, res, next) {
     try {
         const organizers = await Organizer.find();
-        if (organizers === null) {
+        if (organizers.length < 1) {
             return res.status(404).json({'message': 'No organizers registered.'});
         }
         await Organizer.deleteMany();
@@ -153,7 +154,7 @@ router.delete('/', async function(req, res, next) {
 router.delete('/:id', async function(req, res, next) {
     try {
         var username = req.params.id;
-        const organizers = await Organizer.find({username: username});
+        const organizers = await Organizer.findOne({username: username});
         if (organizers === null) {
             return res.status(404).json({'message': 'No such organizer registered.'});
         }

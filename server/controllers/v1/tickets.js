@@ -6,9 +6,14 @@ var Ticket = require('../../models/ticket');
 router.post('/', async function(req, res, next) {
     try {
         const eventId = req.params.eventId;
-        let ticket = new Ticket(req.body);
+        let ticket = new Ticket({
+            id: req.body.id,
+            seat: req.body.seat || "",
+            price: req.body.price,
+            quantity: req.body.quantity,
+            event: eventId || req.body.event
+        });
         ticket._id = ticket.id;
-        ticket.event = eventId;
 
         await ticket.save();
         res.status(201).json(ticket);
@@ -26,7 +31,7 @@ router.get('/', async function(req, res, next) {
     try {
         var eventId = req.params.eventId;
         const tickets = await Ticket.find({event: eventId});
-        if(tickets.length === null) {
+        if(tickets.length < 1) {
             return res.status(404).json({'message': 'No tickets exist.'});
         }
         
@@ -41,9 +46,9 @@ router.get('/:id', async function(req, res, next) {
     try {
         var eventId = req.params.eventId;
         var ticketId = req.params.ticketId;
-        const tickets = await Ticket.find({event: eventId, id: ticketId});
-        if(tickets.length === null) {
-            return res.status(404).json({'message': 'No tickets exist.'});
+        const tickets = await Ticket.findOne({event: eventId, id: ticketId});
+        if(tickets === null) {
+            return res.status(404).json({'message': 'No such ticket exists.'});
         }
         
         res.send(tickets);
@@ -57,10 +62,24 @@ router.delete('/', async function(req, res, next) {
     try {
         var eventId = req.params.eventId;
         const tickets = await Ticket.find({event: eventId});
-        if (tickets === null) {
+        if (tickets.length < 1) {
             return res.status(404).json({'message': 'No tickets registered.'});
         }
         await Ticket.deleteMany({event: eventId});
+        res.json("Successfully deleted.");
+    } catch (error) {
+        return next(error);
+    }
+});
+
+router.delete('/all', async function(req, res, next) {
+    try {
+        var eventId = req.params.eventId;
+        const tickets = await Ticket.find({event: eventId});
+        if (tickets.length < 1) {
+            return res.status(404).json({'message': 'No tickets registered.'});
+        }
+        await Ticket.deleteMany();
         res.json("Successfully deleted.");
     } catch (error) {
         return next(error);
@@ -72,7 +91,7 @@ router.delete('/:id', async function(req, res, next) {
     try {
         var eventId = req.params.eventId;
         var ticketId = req.params.id;
-        const tickets = await Ticket.find({id: ticketId, event: eventId});
+        const tickets = await Ticket.findOne({id: ticketId, event: eventId});
         if (tickets === null) {
             return res.status(404).json({'message': 'No such ticket exists.'});
         }

@@ -47,9 +47,9 @@ router.get('/', async function(req, res, next) {
 router.get('/:id', async function(req, res, next) {
     try {
         var id = req.params.id;
-        const events = await Event.find({id: id});
-        if(events.length === null) {
-            return res.status(404).json({'message': 'No events registered.'});
+        const events = await Event.findOne({id: id});
+        if(events === null) {
+            return res.status(404).json({'message': 'No such event registered.'});
         }
         
         res.send(events);
@@ -90,7 +90,7 @@ router.patch('/:id', async function(req, res, next){
 router.delete('/', async function(req, res, next) {
     try {
         const events = await Event.find();
-        if (events === null) {
+        if (events.length < 1) {
             return res.status(404).json({'message': 'No events registered.'});
         }
         await Event.deleteMany();
@@ -104,7 +104,7 @@ router.delete('/', async function(req, res, next) {
 router.delete('/:id', async function(req, res, next) {
     try {
         var id = req.params.id;
-        const events = await Event.find({id: id});
+        const events = await Event.findOne({id: id});
         if (events === null) {
             return res.status(404).json({'message': 'No such event registered.'});
         }

@@ -23,7 +23,7 @@ router.post('/', async function(req, res, next) {
 router.get('/', async function(req, res, next) {
     try {
         const venues = await Venue.find({});
-        if(venues.length === null) {
+        if(venues.length < 1) {
             return res.status(404).json({'message': 'No venues registered.'});
         }
         
@@ -37,9 +37,9 @@ router.get('/', async function(req, res, next) {
 router.get('/:id', async function(req, res, next) {
     try {
         var id = req.params.id;
-        const venues = await Venue.find({id: id});
-        if(venues.length === null) {
-            return res.status(404).json({'message': 'No venues registered.'});
+        const venues = await Venue.findOne({id: id});
+        if(venues === null) {
+            return res.status(404).json({'message': 'No such venue registered.'});
         }
         
         res.send(venues);
@@ -52,7 +52,7 @@ router.get('/:id', async function(req, res, next) {
 router.delete('/', async function(req, res, next) {
     try {
         const venues = await Venue.find();
-        if (venues === null) {
+        if (venues.length < 1) {
             return res.status(404).json({'message': 'No venues registered.'});
         }
         await Venue.deleteMany();
@@ -66,7 +66,7 @@ router.delete('/', async function(req, res, next) {
 router.delete('/:id', async function(req, res, next) {
     try {
         var id = req.params.id;
-        const venues = await Venue.find({id: id});
+        const venues = await Venue.findOne({id: id});
         if (venues === null) {
             return res.status(404).json({'message': 'No such venue registered.'});
         }
