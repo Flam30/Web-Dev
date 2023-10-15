@@ -23,8 +23,8 @@
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
-        <b-button v-if="!isLoggedIn" v-b-modal.modal-login variant="primary" class="mx-3">Log In</b-button>
-        <b-button v-else v-on:click="logout" variant="primary" class="mx-3">Log Out</b-button>
+        <b-button v-if="!isLoggedIn" v-b-modal.modal-login variant="success" class="mx-3">Log In</b-button>
+        <b-button v-else v-on:click="logout" variant="outline-danger" class="mx-3">Log Out</b-button>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>

@@ -19,7 +19,7 @@
       </b-card-text>
     </div>
     <template #footer>
-      <b-button v-bind:href=URL variant="primary">Details</b-button>
+      <b-button v-bind:href=URL variant="info">Details</b-button>
     </template>
   </b-card>
 </div>
