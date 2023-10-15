@@ -35,7 +35,7 @@ router.post("/login", function (req, res, next) {
         res.status(400).json({ success: false, message: "Missing password" })
     }
     else {
-        passport.authenticate("local", function (err, organizer, info) {
+        passport.authenticate("organizerStrategy", function (err, organizer, info) {
             if (err) {
                 res.status(500).json({ success: false, message: err });
             }

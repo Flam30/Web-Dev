@@ -51,12 +51,12 @@ app.use(passport.session());
 passport.serializeUser(Customer.serializeUser());
 passport.deserializeUser(Customer.deserializeUser());
 
-passport.use(new LocalStrategy(Customer.authenticate()));
+passport.use('customerStrategy', new LocalStrategy(Customer.authenticate()));
 
 passport.serializeUser(Organizer.serializeUser());
 passport.deserializeUser(Organizer.deserializeUser());
 
-passport.use(new LocalStrategy(Organizer.authenticate()));
+passport.use('organizerStrategy', new LocalStrategy(Organizer.authenticate()));
 
 // Import routes
 app.get('/api', function(req, res) {

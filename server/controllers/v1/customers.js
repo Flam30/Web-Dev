@@ -8,14 +8,7 @@ var jwt = require('jsonwebtoken');
 
 // POST /customers/register - register a new customer
 router.post("/register", function (req, res) {
-    var customer = new Customer({
-        username: req.body.username, 
-        name: req.body.name, 
-        email: req.body.email, 
-        address: req.body.address, 
-        phoneNumber: req.body.phoneNumber,
-        DOB: req.body.dateOfBirth,
-        tickets: []});
+    var customer = new Customer(req.body);
     customer._id = customer.username;
     Customer.register(customer, req.body.password, function (err, customer) {
         if (err) {
@@ -43,7 +36,7 @@ router.post("/login", function (req, res, next) {
         res.status(400).json({ success: false, message: "Missing password" })
     }
     else {
-        passport.authenticate("local", function (err, customer, info) {
+        passport.authenticate("customerStrategy", function (err, customer, info) {
             if (err) {
                 res.status(500).json({ success: false, message: err });
             }
