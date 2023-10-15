@@ -91,10 +91,20 @@ export default {
       isLoggedIn: false
     }
   },
+  created() {
+    this.checkSession()
+  },
   methods: {
     onSubmit(event) {
       this.login()
       event.preventDefault()
+    },
+    checkSession() {
+      if (this.$session.exists()) {
+        this.isLoggedIn = true
+      } else {
+        this.isLoggedIn = false
+      }
     },
     login() {
       Api.post('/v1/customers/login', {
