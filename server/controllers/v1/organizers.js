@@ -8,6 +8,7 @@ var jwt = require('jsonwebtoken');
 // POST /organizers/register - register a new organizer
 router.post("/register", function (req, res) {
     var organizer = new Organizer(req.body);
+    organizer._id = organizer.username;
     Organizer.register(organizer, req.body.password, function (err, organizer) {
         if (err) {
             res.status(400).json({ success: false, message: "Your account could not be registered. Error: " + err });

@@ -9,10 +9,12 @@ export default {
       form: {
         username: '',
         password: '',
-        name: '',
+        name: 'test name',
         email: '',
         address: '',
-        phoneNumber: ''
+        phoneNumber: '',
+        DOB: '1.1.2000',
+        tickets: []
       }
     }
   },
@@ -22,13 +24,15 @@ export default {
       event.preventDefault()
     },
     register() {
-      Api.post('/auth/register', {
+      Api.post('/v1/customers/register', {
         username: this.form.username,
         password: this.form.password,
         name: this.form.name,
         email: this.form.email,
         address: this.form.address + ' ' + this.form.postalCode + ' ' + this.form.city,
-        phoneNumber: this.form.phoneNumber
+        phoneNumber: this.form.phoneNumber,
+        tickets: [],
+        DOB: '01.01.2000'
       }).then((res) => {
         console.log(res)
         if (res.status === 200) {

@@ -16,6 +16,7 @@ router.post("/register", function (req, res) {
         phoneNumber: req.body.phoneNumber,
         DOB: req.body.dateOfBirth,
         tickets: []});
+    customer._id = customer.username;
     Customer.register(customer, req.body.password, function (err, customer) {
         if (err) {
             res.status(400).json({ success: false, message: "Your account could not be registered. Error: " + err });
