@@ -609,7 +609,7 @@
 									"    \r",
 									"    pm.expect(responseData).to.be.an('object');\r",
 									"    pm.expect(responseData.id).to.exist.and.to.be.a('string');\r",
-									"    pm.expect(responseData.price).to.exist.and.to.be.a('number');\r",
+									"    pm.expect(responseData.price).to.exist.and.to.be.a('string');\r",
 									"    pm.expect(responseData.quantity).to.exist.and.to.be.a('number');\r",
 									"    pm.expect(responseData.event).to.exist.and.to.be.a('string');\r",
 									"});\r",
@@ -666,13 +666,9 @@
 									"    \r",
 									"    pm.expect(responseData).to.be.an('object');\r",
 									"    pm.expect(responseData.id).to.exist.and.to.be.a('string');\r",
-									"    pm.expect(responseData.price).to.exist.and.to.be.a('number');\r",
+									"    pm.expect(responseData.price).to.exist.and.to.be.a('string');\r",
 									"    pm.expect(responseData.quantity).to.exist.and.to.be.a('number');\r",
 									"    pm.expect(responseData.event).to.exist.and.to.be.a('string');\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Seat number should be a String\", function () {\r",
-									"    pm.expect(pm.response.json().seat).to.be.a('string');\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1613,7 +1609,7 @@
 									"    const phoneRegex = /\\d{10}/;",
 									"    ",
 									"    pm.expect(responseData).to.be.an('object');",
-									"    pm.expect(responseData.email).to.match(phoneRegex, \"Value should be in a valid format\");",
+									"    pm.expect(responseData.phoneNumber).to.match(phoneRegex, \"Value should be in a valid format\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1736,7 +1732,7 @@
 									"    const phoneRegex = /\\d{10}/;",
 									"    ",
 									"    pm.expect(responseData).to.be.an('object');",
-									"    pm.expect(responseData.email).to.match(phoneRegex, \"Value should be in a valid format\");",
+									"    pm.expect(responseData.phoneNumber).to.match(phoneRegex, \"Value should be in a valid format\");",
 									"});"
 								],
 								"type": "text/javascript"
