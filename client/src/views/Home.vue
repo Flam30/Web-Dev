@@ -55,7 +55,7 @@ export default {
         URL="\Event\TestEvent">
       </EventCard>
 
-      <b-button href="/account/RatKing"> Account </b-button>
+      <b-button href="/account/ratKing"> Account </b-button>
     </div>
   </div>
 </template>

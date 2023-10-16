@@ -3,8 +3,7 @@
         <HeaderBar></HeaderBar>
 
         <div id="jumbotron">
-            <b-jumbotron v-bind:header="'Hello, ' + this.userInfo.name + '!'" lead="See your tickets here:">
-            <b-button variant="primary" href="#" id="ticket-info">Tickets</b-button>
+            <b-jumbotron v-bind:header="'Hello, ' + this.userInfo.name + '!'">
             </b-jumbotron>
         </div>
 
