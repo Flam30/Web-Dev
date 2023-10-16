@@ -22,11 +22,21 @@ router.post('/', async function(req, res, next) {
 // GET /events - get all events
 router.get('/', async function(req, res, next) {
     try {
-        const events = await Event.find({});
-        if(events.length === null) {
+        if(Event.find({}) === null) {
             return res.status(404).json({'message': 'No events registered.'});
         }
+
+        let sortQuery = [];
+        const queryParameters = req.query;
+
+        for (element of [queryParameters["sort"]]) {
+            sortQuery = sortQuery + element + " ";
+        }
         
+        delete queryParameters.sort;
+
+        let events = await Event.find(queryParameters).sort(sortQuery);
+
         res.send(events);
     } catch (error) {
         next(error);
@@ -37,9 +47,9 @@ router.get('/', async function(req, res, next) {
 router.get('/:id', async function(req, res, next) {
     try {
         var id = req.params.id;
-        const events = await Event.find({id: id});
-        if(events.length === null) {
-            return res.status(404).json({'message': 'No events registered.'});
+        const events = await Event.findOne({id: id});
+        if(events === null) {
+            return res.status(404).json({'message': 'No such event registered.'});
         }
         
         res.send(events);
@@ -80,7 +90,7 @@ router.patch('/:id', async function(req, res, next){
 router.delete('/', async function(req, res, next) {
     try {
         const events = await Event.find();
-        if (events === null) {
+        if (events.length < 1) {
             return res.status(404).json({'message': 'No events registered.'});
         }
         await Event.deleteMany();
@@ -94,7 +104,7 @@ router.delete('/', async function(req, res, next) {
 router.delete('/:id', async function(req, res, next) {
     try {
         var id = req.params.id;
-        const events = await Event.find({id: id});
+        const events = await Event.findOne({id: id});
         if (events === null) {
             return res.status(404).json({'message': 'No such event registered.'});
         }
@@ -104,12 +114,5 @@ router.delete('/:id', async function(req, res, next) {
         return next(error);
     }
 });
-
-/*
-    Other functions needed for an event:
-    - finding all events in a specific venue
-    - finding all events on a specific date
-    - sorting events by date
-*/
 
 module.exports = router;
