@@ -7,6 +7,7 @@ import Customers from './views/Customers.vue'
 import Account from './views/Account.vue'
 import Success from './views/Success.vue'
 import CreateEvent from './views/CreateEvent.vue'
+import OrganizerRegister from './views/OrganizerRegister.vue'
 
 Vue.use(Router)
 
@@ -50,6 +51,11 @@ export default new Router({
       path: '/create-event',
       name: 'Create event',
       component: CreateEvent
+    },
+    {
+      path: '/organizer-register',
+      name: 'Organizer register',
+      component: OrganizerRegister
     }
   ]
 })

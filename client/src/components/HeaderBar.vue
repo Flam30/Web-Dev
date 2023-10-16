@@ -11,55 +11,79 @@
       </b-navbar-nav>
 
       <b-navbar-nav>
-        <b-nav-item class="header-item" href="/venues">Venues</b-nav-item>
-      </b-navbar-nav>
-
-      <b-navbar-nav>
         <b-nav-item v-if="isLoggedIn" class="header-item" href="/account/RatKing">Account</b-nav-item>
-      </b-navbar-nav>
-
-      <b-navbar-nav>
-        <b-nav-item v-if="isLoggedIn" class="header-item" href="#">Tickets</b-nav-item>
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
         <b-button v-if="!isLoggedIn" v-b-modal.modal-login variant="success" class="mx-3">Log In</b-button>
-        <b-button v-else v-on:click="logout" variant="outline-danger" class="mx-3">Log Out</b-button>
+        <b-button v-else v-on:click="logout" variant="danger" class="mx-3">Log Out</b-button>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
 
   <b-modal id="modal-login" ok-title="Close" :ok-only=true title="Log In">
-    <b-form @submit="onSubmit">
+    <b-tabs content-class="mt-3">
+      <b-tab title="User" active><p></p>
+        <b-form @submit="onSubmitUser">
+          <b-form-group
+            id="input-group-1"
+            label="Username:"
+            label-for="username-input">
+            <b-form-input
+              id="username-input"
+              v-model="form.username"
+              placeholder="Enter username"
+              required>
+            </b-form-input>
+          </b-form-group>
 
-      <b-form-group
-        id="input-group-1"
-        label="Username:"
-        label-for="username-input">
-        <b-form-input
-          id="username-input"
-          v-model="form.username"
-          placeholder="Enter username"
-          required>
-        </b-form-input>
-      </b-form-group>
+          <b-form-group
+            id="input-group-2"
+            label="Password:"
+            label-for="password-input">
+            <b-form-input
+              id="password-input"
+              v-model="form.password"
+              type="password"
+              placeholder="Enter password"
+              required>
+            </b-form-input>
+          </b-form-group>
+          <b-button v-on:click="userLogin" type="submit" variant="success">Log in</b-button>
+          <p>Don't have an account yet? <a href="/register">Register here.</a></p>
+        </b-form>
+      </b-tab>
+      <b-tab title="Organizer"><p></p>
+        <b-form @submit="onSubmitOrganizer">
+          <b-form-group
+            id="input-group-1"
+            label="Username:"
+            label-for="username-input">
+            <b-form-input
+              id="username-input"
+              v-model="form.username"
+              placeholder="Enter username"
+              required>
+            </b-form-input>
+          </b-form-group>
 
-      <b-form-group
-        id="input-group-2"
-        label="Password:"
-        label-for="password-input">
-        <b-form-input
-          id="password-input"
-          v-model="form.password"
-          type="password"
-          placeholder="Enter password"
-          required>
-        </b-form-input>
-      </b-form-group>
-      <b-button v-on:click="login" type="submit" variant="success">Log in</b-button>
-      <p>Don't have an account yet? <a href="/register">Register here.</a></p>
-      <p>Are you an organizer? <a href="/oganizer-login">Log in or register here.</a></p>
-    </b-form>
+          <b-form-group
+            id="input-group-2"
+            label="Password:"
+            label-for="password-input">
+            <b-form-input
+              id="password-input"
+              v-model="form.password"
+              type="password"
+              placeholder="Enter password"
+              required>
+            </b-form-input>
+          </b-form-group>
+          <b-button v-on:click="organizerLogin" type="submit" variant="success">Log in</b-button>
+          <p>Don't have an account yet? <a href="/organizer-register">Register here.</a></p>
+        </b-form>
+      </b-tab>
+    </b-tabs>
   </b-modal>
 </div>
 </template>
@@ -95,8 +119,12 @@ export default {
     this.checkSession()
   },
   methods: {
-    onSubmit(event) {
-      this.login()
+    onSubmitUser(event) {
+      this.userLogin()
+      event.preventDefault()
+    },
+    onSubmitOrganizer(event) {
+      this.organizerLogin()
       event.preventDefault()
     },
     checkSession() {
@@ -106,7 +134,7 @@ export default {
         this.isLoggedIn = false
       }
     },
-    login() {
+    userLogin() {
       Api.post('/v1/customers/login', {
         username: this.form.username,
         password: this.form.password
@@ -117,6 +145,27 @@ export default {
           this.$session.set('jwt', res.data.token)
           this.$session.set('user-id', res.data.customerId)
           this.$session.set('account-type', 'customer')
+          this.isLoggedIn = true
+          console.log('Logged in!')
+          this.$router.go()
+        } else {
+          alert('Something went wrong! Please try again.')
+        }
+      }).catch((_err) => {
+        console.log(_err.response.data.message)
+      })
+    },
+    organizerLogin() {
+      Api.post('/v1/organizers/login', {
+        username: this.form.username,
+        password: this.form.password
+      }).then((res) => {
+        console.log(res)
+        if (res.status === 200) {
+          this.$session.start()
+          this.$session.set('jwt', res.data.token)
+          this.$session.set('user-id', res.data.username)
+          this.$session.set('account-type', 'organizer')
           this.isLoggedIn = true
           console.log('Logged in!')
           this.$router.go()
