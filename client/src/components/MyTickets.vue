@@ -1,58 +1,97 @@
 <template>
-    <div id="tickets">
-        <b-card v-for="ticket in tickets" :key="ticket._id" :title="ticket.event" img-src="https://placekitten.com/1000/300" img-alt="Card image" img-top>
-            <b-card-text>
-                Some quick example text to build on the card and make up the bulk of the card's content.
-            </b-card-text>
-        </b-card>
-    </div>
+  <div class="tickets">
+    <b-row class="ticket-wrapper">
+      <b-col class="ticket-image" v-bind:style="{ backgroundImage: 'url(' + this.eventInfo.imageURL + ')' }">
+      </b-col>
+      <b-col class="ticket-info">
+        <p class="ticket-title">{{ this.eventInfo.name }}</p>
+        <p class="ticket-description">{{ this.eventInfo.description }}</p>
+      </b-col>
+      <b-col style="text-align: center; margin: auto;">
+        <b-button v-b-modal="modalID" variant="info">View Ticket</b-button>
+      </b-col>
+    </b-row>
+    <b-modal :id="modalID" title="Your ticket QR code">
+      <qrcode-vue :value="ticketQR" size="300"></qrcode-vue>
+  </b-modal>
+  </div>
 </template>
 
 <style>
-#tickets{
-    width: 85%;
-    background-color: lightcoral;
-    color: greenyellow;
-    padding: 2%;
+.tickets{
+    height: 150px;
+    width: 80%;
+    margin: 15px auto;
+    padding: 10px;
+}
+
+.ticket-wrapper{
+  height: 150px;
+  margin: 0;
+  background-color: white;
+}
+
+.ticket-image{
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.ticket-info{
+  padding: 10px 0;
+}
+
+.ticket-title{
+  font-size: 28px;
 }
 </style>
 
 <script>
-// @ is an alias to /src
+import QrcodeVue from 'qrcode.vue'
 import { Api } from '@/Api'
 
 export default {
   name: 'home',
   data() {
     return {
-      tickets: []
+      ticketQR: '',
+      modalID: '',
+      ticketInfo: '',
+      eventInfo: ''
     }
   },
   props: {
-    id: String
+    id: String,
+    title: String,
+    description: String,
+    imageUrl: String,
+    eventId: String
   },
   created() {
-    this.getTickets()
+    const userId = this.$session.get('user-id')
+    this.ticketQR = 'kirbysTickets://' + userId + this.id
+    this.modalID = 'modal' + this.id + Math.floor(Math.random() * 100)
+    this.getTicket()
+  },
+  components: {
+    QrcodeVue
   },
   methods: {
-    async getTickets() {
-      Api.get('/v1/customers/' + this.id)
+    async getTicket() {
+      Api.get('/v1/tickets/' + this.id)
         .then(response => {
-          const ticketArray = []
-          for (let i = 0; i < response.data.length; i++) {
-            ticketArray.push(response.data[i])
-            ticketArray[i].event = this.getEventInfo(ticketArray[i].event)
-          }
-          this.tickets = ticketArray
+          const ticketInfo = response.data
+          this.ticketInfo = ticketInfo
+          this.getEvent(ticketInfo.event)
         }).catch(error => {
           console.log(error)
         })
     },
-    async getEventInfo(eventId) {
-      Api.get('/v1/events/' + eventId)
+    async getEvent(id) {
+      Api.get('/v1/events/' + id)
         .then(response => {
           const eventInfo = response.data
-          return eventInfo
+          this.eventInfo = eventInfo
         }).catch(error => {
           console.log(error)
         })

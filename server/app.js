@@ -68,7 +68,7 @@ app.use('/api/v1/customers', customersControllerV1);
 app.use('/api/v1/events', eventsControllerV1);
 app.use('/api/v1/organizers', organizersControllerV1);
 app.use('/api/v1/venues', venuesControllerV1);
-app.use('/api/v1/events/:eventId/tickets', ticketsControllerV1);
+app.use('/api/v1/tickets', ticketsControllerV1);
 app.use('/api/auth', authController);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
