@@ -9,7 +9,7 @@ var organizerSchema = new Schema({
     email: {type: String, required: true},
     address: String,
     phoneNumber: Number,
-    events: [{type: Schema.Types.ObjectId, ref: 'events'}]
+    events: [{type: String, ref: 'events'}]
 });
 
 organizerSchema.plugin(passportLocalMongoose);

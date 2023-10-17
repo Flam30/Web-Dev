@@ -56,25 +56,12 @@ router.post("/login", function (req, res, next) {
 // POST /organizers/:organizerId/events/:eventId - add an event to the organizer
 router.post('/:organizerId/events/', async function (req, res, next) {
     try {
-        let organizerUsername = req.params.organizerId;
-
-        await Organizer.find({username: organizerUsername}, function (err, organizer) {
-            if (organizer) {
-                let event = new Event(req.body);
-                let eventExists = organizer.events.some(existingEvent => existingEvent.equals(event));
-
-                if(!eventExists) {
-                    organizer.tickets.push(event);
-                    organizer.save(function (err, event) {
-                        res.status(201).json(event);
-                    });
-                } else {
-                    res.status(204).json({ message: 'Event already exists.'});
-                }
-            } else {
-                res.status(404).json({ message: 'Organizer does not exist.'});
-            }
-        });
+        let organizerId = req.params.organizerId;
+        let event = req.body;
+        await Organizer.findOneAndUpdate({_id: organizerId},
+            {$push: {'events': event.id}},
+            {new: true});
+        return res.status(201).json({message: 'Added the event to the organizer!', event: event.id});
     } catch (error) {
         next(error);
     }
