@@ -12,7 +12,6 @@
         <div id="user-info" class="container">
                 <b-tabs>
                   <b-tab v-if="accountType === 'customer'" title="Your Tickets" active class="main-body">
-                        <p> IM GONNA FUCKING KILL MYSELF </p>
                         <MyTickets
                           v-for="ticket in form.tickets" :key="ticket._id"
                           :id="ticket"
@@ -47,6 +46,9 @@
                               <b-button pill variant="primary" v-b-modal.o-phone-number>Edit</b-button> <!-- Phone number editor -->
                           </b-col>
                       </b-row>
+
+                      <br>
+                      <b-button variant="danger" v-on:click="deleteAccount(this.username)"> Delete account </b-button>
                   </b-container>
 
                   <!-- Username modal -->
@@ -160,6 +162,8 @@
                               <b-button pill variant="primary" v-b-modal.modal-phone-number>Edit</b-button> <!-- Phone number editor -->
                           </b-col>
                       </b-row>
+                      <br>
+                      <b-button variant="danger" v-on:click="deleteAccount(username)"> Delete account </b-button>
                   </b-container>
 
                   <!-- Username modal -->
@@ -397,6 +401,25 @@ export default {
         .then(res => {
           return res.data.description
         })
+    },
+    async deleteAccount(username) {
+      console.log(username)
+      if (username === undefined) {
+        return
+      }
+      if (this.accountType === 'customer') {
+        Api.delete('/v1/customers/' + username)
+          .then(res => {
+            this.$session.destroy()
+            this.$router.push('/')
+          })
+      } else {
+        Api.delete('/v1/organizers/' + username)
+          .then(res => {
+            this.$session.destroy()
+            this.$router.push('/')
+          })
+      }
     }
   }
 }
