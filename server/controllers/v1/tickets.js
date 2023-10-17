@@ -30,21 +30,6 @@ router.post('/', async function(req, res, next) {
     }
 });
 
-// GET /events/:eventId/tickets - get specific event's tickets
-router.get('/', async function(req, res, next) {
-    try {
-        var eventId = req.params.eventId;
-        const tickets = await Ticket.find({event: eventId});
-        if(tickets.length < 1) {
-            return res.status(404).json({'message': 'No tickets exist.'});
-        }
-        
-        res.send(tickets);
-    } catch (error) {
-        next(error);
-    }
-});
-
 // GET /events/:eventId/tickets/:ticketId - get a specific ticket from an event
 router.get('/:id', async function(req, res, next) {
     try {

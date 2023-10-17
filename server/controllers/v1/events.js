@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Event = require('../../models/event');
+var Ticket = require('../../models/ticket');
 
 // POST /events - add new event
 router.post('/', async function(req, res, next) {
@@ -112,6 +113,21 @@ router.delete('/:id', async function(req, res, next) {
         res.json("Successfully deleted.");
     } catch (error) {
         return next(error);
+    }
+});
+
+// GET /events/:eventId/tickets - get specific event's tickets
+router.get('/:id/tickets', async function(req, res, next) {
+    try {
+        var eventId = req.params.id;
+        const tickets = await Ticket.find({event: eventId});
+        if(tickets.length < 1) {
+            return res.status(404).json({'message': 'No tickets exist.'});
+        }
+        
+        res.send(tickets);
+    } catch (error) {
+        next(error);
     }
 });
 
