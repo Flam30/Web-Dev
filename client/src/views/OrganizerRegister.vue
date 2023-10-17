@@ -73,6 +73,7 @@ export default {
                     required>
                   </b-form-input>
               </b-form-group>
+
               <b-form-group
                 id="input-group-2"
                 label="Username:"
@@ -118,7 +119,7 @@ export default {
                 <b-form-input
                     id="address-input"
                     v-model="form.address"
-                    placeholder="1234 Main St"
+                    placeholder="Street, City, Country"
                     required>
                 </b-form-input>
               </b-form-group>

@@ -3,7 +3,6 @@
   <b-card
     bg-variant="warning"
     text-variant="white"
-    border-variant="light"
     v-bind:title=name
     v-bind:img-src=link
     img-alt="Event thumbnail"

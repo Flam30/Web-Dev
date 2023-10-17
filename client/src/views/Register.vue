@@ -9,11 +9,11 @@ export default {
       form: {
         username: '',
         password: '',
-        name: 'test name',
+        name: '',
         email: '',
         address: '',
         phoneNumber: '',
-        DOB: '1.1.2000',
+        DOB: '',
         tickets: []
       }
     }
@@ -31,8 +31,8 @@ export default {
         email: this.form.email,
         address: this.form.address,
         phoneNumber: this.form.phoneNumber,
-        tickets: [],
-        DOB: '01.01.2000'
+        DOB: this.form.DOB,
+        tickets: []
       }).then((res) => {
         console.log(res)
         if (res.status === 201) {
@@ -63,94 +63,94 @@ export default {
             class="mb-2"
             style="width: 22rem;">
             <div class="form-container">
-                <b-form id="form" @submit="onSubmit">
-                    <b-form-group
-                        id="input-group-1"
-                        label="Username:"
-                        label-for="username-input">
-                        <b-form-input
-                            id="username-input"
-                            v-model="form.username"
-                            placeholder="Enter username"
-                            required>
-                        </b-form-input>
-                    </b-form-group>
+              <b-form id="form" @submit="onSubmit">
+                <b-form-group
+                  id="input-group-1"
+                  label="Name:"
+                  label-for="name-input">
+                  <b-form-input
+                    id="name-input"
+                    v-model="form.name"
+                    placeholder="Enter name"
+                    required>
+                  </b-form-input>
+                </b-form-group>
 
-                    <b-form-group
-                        id="input-group-2"
-                        label="Password:"
-                        label-for="password-input">
-                        <b-form-input
-                            id="password-input"
-                            v-model="form.password"
-                            type="password"
-                            placeholder="Enter password"
-                            required>
-                        </b-form-input>
-                    </b-form-group>
+                <b-form-group
+                  id="input-group-2"
+                  label="Username:"
+                  label-for="username-input">
+                  <b-form-input
+                    id="username-input"
+                    v-model="form.username"
+                    placeholder="Enter username"
+                    required>
+                  </b-form-input>
+                </b-form-group>
 
-                    <b-form-group
-                        id="input-group-3"
-                        label="Email address:"
-                        label-for="email-input">
-                        <b-form-input
-                            id="email-input"
-                            v-model="form.email"
-                            type="email"
-                            placeholder="name@example.com"
-                            required>
-                        </b-form-input>
-                    </b-form-group>
+                <b-form-group
+                  id="input-group-3"
+                  label="Password:"
+                  label-for="password-input">
+                  <b-form-input
+                    id="password-input"
+                    v-model="form.password"
+                    type="password"
+                    placeholder="Enter password"
+                    required>
+                  </b-form-input>
+                </b-form-group>
 
-                    <b-form-group
-                        id="input-group-4"
-                        label="Address:"
-                        label-for="address-input">
-                        <b-form-input
-                            id="address-input"
-                            v-model="form.address"
-                            placeholder="1234 Main St"
-                            required>
-                        </b-form-input>
-                    </b-form-group>
+                <b-form-group
+                  id="input-group-4"
+                  label="Email address:"
+                  label-for="email-input">
+                  <b-form-input
+                    id="email-input"
+                    v-model="form.email"
+                    type="email"
+                    placeholder="name@example.com"
+                    required>
+                  </b-form-input>
+                </b-form-group>
 
-                    <b-form-group
-                        id="input-group-5"
-                        label="Postal code:"
-                        label-for="postalCode-input">
-                        <b-form-input
-                            id="postalCode-input"
-                            v-model="form.postalCode"
-                            placeholder="Enter Zip code"
-                            required>
-                        </b-form-input>
-                    </b-form-group>
+                <b-form-group
+                  id="input-group-5"
+                  label="Address:"
+                  label-for="address-input">
+                  <b-form-input
+                    id="address-input"
+                    v-model="form.address"
+                    placeholder="Street, City, Country"
+                    required>
+                  </b-form-input>
+                </b-form-group>
 
-                    <b-form-group
-                        id="input-group-6"
-                        label="City:"
-                        label-for="city-input">
-                        <b-form-input
-                            id="city-input"
-                            v-model="form.city"
-                            placeholder="Enter city"
-                            required>
-                        </b-form-input>
-                    </b-form-group>
+                <b-form-group
+                  id="input-group-6"
+                  label="Phone number:"
+                  label-for="phone-input">
+                  <b-form-input
+                    id="phone-input"
+                    v-model="form.phoneNumber"
+                    placeholder="Enter phone number"
+                    required>
+                  </b-form-input>
+                </b-form-group>
 
-                    <b-form-group
-                        id="input-group-7"
-                        label="Phone number:"
-                        label-for="phone-input">
-                        <b-form-input
-                            id="phone-input"
-                            v-model="form.phoneNumber"
-                            placeholder="Enter phone number"
-                            required>
-                        </b-form-input>
-                    </b-form-group>
-                    <b-button v-on:click="login" type="submit" variant="success">Register</b-button>
-                </b-form>
+                <b-form-group
+                  id="input-group-7"
+                  label="Birthday:"
+                  label-for="birthday-input">
+                  <b-form-input
+                    id="birthday-input"
+                    v-model="form.DOB"
+                    placeholder="YYYY.MM.DD"
+                    required>
+                  </b-form-input>
+                </b-form-group>
+                <b-button v-on:click="login" type="submit" variant="success">Register</b-button>
+              </b-form>
             </div>
         </b-card>
     </div>
