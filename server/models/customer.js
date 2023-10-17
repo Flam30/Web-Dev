@@ -10,7 +10,7 @@ var customerSchema = new Schema({
     address: String,
     phoneNumber: Number,
     DOB: Date,
-    tickets: [{type: Schema.Types.ObjectId, ref: 'tickets'}]
+    tickets: [{type: String, ref: 'tickets'}]
 });
 
 customerSchema.plugin(passportLocalMongoose);

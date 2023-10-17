@@ -43,7 +43,8 @@ export default new Router({
       name: 'Account'
     },
     {
-      path: '/success',
+      path: '/success/:ticketId',
+      props: true,
       name: 'Success!',
       component: Success
     },

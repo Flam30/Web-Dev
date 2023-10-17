@@ -35,7 +35,7 @@ export default {
         DOB: '01.01.2000'
       }).then((res) => {
         console.log(res)
-        if (res.status === 200) {
+        if (res.status === 201) {
           alert('Account registered!')
           console.log('Registered!')
         } else {

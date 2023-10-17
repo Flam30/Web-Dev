@@ -1,11 +1,17 @@
 <script>
+import { Api } from '@/Api'
+
 export default {
   name: 'Success',
   data() {
     return {
       message: '5',
-      timerCount: 5
+      timerCount: 5,
+      userId: ''
     }
+  },
+  props: {
+    ticketId: String
   },
   watch: {
     timerCount: {
@@ -23,6 +29,27 @@ export default {
       },
       immediate: true
     }
+  },
+  methods: {
+    getUserInfo() {
+      this.userId = this.$session.get('user-id')
+    },
+    async postTickets() {
+      this.getUserInfo()
+      Api.post('/v1/customers/' + this.userId + '/tickets/' + this.ticketId).then((res) => {
+        if (res.status === 200) {
+          console.log('Ticket added to customer!')
+        } else {
+          alert('Something went wrong! Please try again.')
+        }
+      }).catch((_err) => {
+        alert('Something went wrong! Please try again.')
+        console.log('Error: ' + _err)
+      })
+    }
+  },
+  created() {
+    this.postTickets()
   }
 }
 </script>

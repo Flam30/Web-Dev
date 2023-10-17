@@ -1,10 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var Customer = require('../../models/customer');
-var Ticket = require('../../models/ticket');
 var passport = require('passport');
 var jwt = require('jsonwebtoken');
-
 
 // POST /customers/register - register a new customer
 router.post("/register", function (req, res) {
@@ -55,22 +53,14 @@ router.post("/login", function (req, res, next) {
 });
 
 // POST /customers/:customerId/tickets/:ticketId - add an event to the organizer
-router.post('/:customerId/tickets/:ticketId', async function (req, res, next) {
+router.patch('/:customerId/tickets/:ticketId', async function (req, res, next) {
     try {
         let customerUsername = req.params.customerId;
         let ticketId = req.params.ticketId;
-
-        await Customer.find({username: customerUsername}, function (err, customer) {
-            if (customer) {
-                let ticket = Ticket.findById(ticketId);
-                customer.tickets.push(ticket);
-                customer.save(function (err, customer) {
-                    res.status(200).json({message: 'Ticket added.'});
-                });
-            } else {
-                res.status(404).json({ message: 'Customer does not exist.'});
-            }
-        });
+        await Customer.findOneAndUpdate({_id: customerUsername},
+            {$push: {'tickets': ticketId}},
+            {new: true});
+        return res.status(201).json({message: 'Added a ticket to the customer!', ticket: ticketId});
     } catch (error) {
         next(error);
     }
