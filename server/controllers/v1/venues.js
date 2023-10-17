@@ -27,7 +27,7 @@ router.get('/', async function(req, res, next) {
             return res.status(404).json({'message': 'No venues registered.'});
         }
         
-        res.send(venues);
+        res.status(200).send(venues);
     } catch (error) {
         next(error);
     }
@@ -36,13 +36,19 @@ router.get('/', async function(req, res, next) {
 // GET /venues/:id - get a specific venue
 router.get('/:id', async function(req, res, next) {
     try {
+        const httpOverride = req.headers['X-HTTP-Method-Override'];
         var id = req.params.id;
         const venues = await Venue.findOne({id: id});
         if(venues === null) {
             return res.status(404).json({'message': 'No such venue registered.'});
         }
+
+        if (httpOverride && httpOverride.toLocaleLowerCase() === 'delete'){
+            await Venue.deleteOne({id: id});
+            res.status(200).json("Successfully deleted.");
+        }
         
-        res.send(venues);
+        res.status(200).send(venues);
     } catch (error) {
         next(error);
     }
@@ -56,22 +62,7 @@ router.delete('/', async function(req, res, next) {
             return res.status(404).json({'message': 'No venues registered.'});
         }
         await Venue.deleteMany();
-        res.json("Successfully deleted.");
-    } catch (error) {
-        return next(error);
-    }
-});
-
-// DELETE /venues/:id - delete a specific venue
-router.delete('/:id', async function(req, res, next) {
-    try {
-        var id = req.params.id;
-        const venues = await Venue.findOne({id: id});
-        if (venues === null) {
-            return res.status(404).json({'message': 'No such venue registered.'});
-        }
-        await Venue.deleteOne({id: id});
-        res.json("Successfully deleted.");
+        res.status(200).json("Successfully deleted.");
     } catch (error) {
         return next(error);
     }
