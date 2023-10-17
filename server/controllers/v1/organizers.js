@@ -58,23 +58,21 @@ router.post('/:organizerId/events/', async function (req, res, next) {
     try {
         let organizerUsername = req.params.organizerId;
 
-        await Organizer.find({username: organizerUsername}, function (err, organizer) {
+        const organizer = await Organizer.find({username: organizerUsername})
             if (organizer) {
                 let event = new Event(req.body);
                 let eventExists = organizer.events.some(existingEvent => existingEvent.equals(event));
 
                 if(!eventExists) {
                     organizer.tickets.push(event);
-                    organizer.save(function (err, event) {
-                        res.status(201).json(event);
-                    });
+                    organizer.save();
+                    res.status(201).json(event);
                 } else {
                     res.status(204).json({ message: 'Event already exists.'});
                 }
             } else {
                 res.status(404).json({ message: 'Organizer does not exist.'});
-            }
-        });
+        };
     } catch (error) {
         next(error);
     }
