@@ -12,6 +12,11 @@
                 <b-tabs>
                     <b-tab title="Your Tickets" active class="main-body">
                         <p> IM GONNA FUCKING KILL MYSELF </p>
+                        <MyTickets
+                          v-for="ticket in form.tickets" :key="ticket._id"
+                          :id="ticket"
+                          imageUrl="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cmFuZG9tfGVufDB8fDB8fHww&w=1000&q=80"
+                        ></MyTickets>
                     </b-tab>
 
                     <b-tab title="Settings" class="main-body">
@@ -168,17 +173,11 @@ h3{
     padding: 0%;
 }
 
-.main-body{
-    margin-left: 4%;
-    margin-top: 2%;
-}
-
 #jumbotron {
     background-color: #DF77D4;
 }
 
 #user-info{
-    margin: 3%;
     margin-top: 1%;
 }
 </style>
@@ -186,6 +185,7 @@ h3{
 <script>
 import { Api } from '@/Api'
 import HeaderBar from '@/components/HeaderBar'
+import MyTickets from '@/components/MyTickets'
 
 export default {
   name: 'account-page',
@@ -196,7 +196,8 @@ export default {
         name: '',
         email: '',
         address: '',
-        phoneNumber: ''
+        phoneNumber: '',
+        tickets: []
       }
     }
   },
@@ -204,7 +205,8 @@ export default {
     username: String
   },
   components: {
-    HeaderBar
+    HeaderBar,
+    MyTickets
   },
   created() {
     this.getCustomer()
@@ -254,6 +256,18 @@ export default {
       })
         .then(response => console.log(response.data))
         .catch(error => console.error(error))
+    },
+    async getEventName(id) {
+      Api.get('/v1/events/' + id)
+        .then(res => {
+          return res.data.name
+        })
+    },
+    async getEventDescription(id) {
+      Api.get('/v1/events/' + id)
+        .then(res => {
+          return res.data.description
+        })
     }
   }
 }
