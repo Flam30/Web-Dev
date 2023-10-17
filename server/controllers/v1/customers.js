@@ -141,6 +141,7 @@ router.delete('/:id', async function(req, res, next) {
         var username = req.params.id;
         const customers = await Customer.findOne({username: username});
         if (customers === null) {
+            console.log('here')
             return res.status(404).json({'message': 'No such customer registered.'});
         }
         await Customer.deleteOne({username: username});
