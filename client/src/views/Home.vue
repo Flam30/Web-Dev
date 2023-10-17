@@ -70,17 +70,16 @@ export default {
   <div>
     <img class="home-background" src="./..\assets\LightViolet.png">
     <HeaderBar></HeaderBar>
-    <img class="banner" src="./..\assets\Banner.png">
 
     <div id="filter-sort-buttons">
-      <b-dropdown id="filtering" text="Filter" class="m-md-2" variant="info">
+      <b-dropdown id="filtering" text="Filter" class="m-md-2 buttons" variant="info">
         <b-dropdown-item v-on:click="getEvents"> Show all </b-dropdown-item>
         <b-dropdown-item
         v-for="venue in venues" :key="venue.id"
         v-on:click="filterEvents('venue='+venue.id)"> {{ venue.name }} </b-dropdown-item>
       </b-dropdown>
 
-      <b-dropdown id="sorting" text="Sort" class="m-md-2" variant="info">
+      <b-dropdown id="sorting" text="Sort" class="m-md-2 buttons" variant="info">
         <b-dropdown-item v-on:click="sortEvents('name')"> A - Z </b-dropdown-item>
         <b-dropdown-item v-on:click="sortEvents('-name')"> Z - A </b-dropdown-item>
         <b-dropdown-item v-on:click="sortEvents('date')"> Date (closest first) </b-dropdown-item>
@@ -118,24 +117,22 @@ export default {
   z-index: -1;
 }
 
-.banner {
-  position: absolute;
-  height: 80px;
-  max-width: 100%;
-  object-fit: cover;
-  margin: auto;
-  padding: 0%;
-}
-
 #filter-sort-buttons{
+  position: absolute;
   padding-top: 1%;
   padding-left: 0.5%;
-  padding-bottom: 3%;
+  top: 67px;
+  right: 0;
+}
+
+.buttons {
+  padding: 5px;
 }
 
 h1{
   text-align: left;
 }
+
 .event-wrapper{
   display: flex;
   flex-wrap: wrap;
