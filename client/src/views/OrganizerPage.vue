@@ -78,13 +78,13 @@ export default {
           </EventCard>
         </div>
       </b-tab>
-      <b-tab title="Manage Events">
+      <b-tab title="Create Event">
         <div class="form-container">
           <!-- @submit="onSubmit" -->
             <b-form id="form">
               <b-form-group
                 id="input-group-1"
-                label="Id:"
+                label="ID:"
                 label-for="id-input">
                 <b-form-input
                     id="id-input"
@@ -110,12 +110,13 @@ export default {
                 id="input-group-3"
                 label="Description:"
                 label-for="description-input">
-                <b-form-input
-                    id="description-input"
-                    v-model="form.description"
-                    placeholder="Enter description"
-                    required>
-                </b-form-input>
+                <b-form-textarea
+                  id="description-input"
+                  v-model="form.description"
+                  placeholder="Enter description"
+                  required
+                  rows="2"
+                ></b-form-textarea>
               </b-form-group>
 
               <b-form-group
@@ -125,7 +126,7 @@ export default {
                 <b-form-input
                     id="ageLimit-input"
                     v-model="form.ageLimit"
-                    type="ageLimit"
+                    type="number"
                     placeholder="Enter age limit"
                     required>
                 </b-form-input>
@@ -168,9 +169,11 @@ export default {
                 </b-form-input>
               </b-form-group>
 
-              <b-button v-on:click="login" type="submit" variant="success">Register</b-button>
+              <b-button variant="success">Register</b-button>
             </b-form>
           </div>
+      </b-tab>
+      <b-tab title="Manage Events" active>
       </b-tab>
     </b-tabs>
 </div>
