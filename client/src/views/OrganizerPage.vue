@@ -40,7 +40,7 @@ export default {
 <template>
 <div>
     <HeaderBar></HeaderBar>
-    <img class="banner" src="./..\assets\Banner.png">
+    <img class="home-background" src="./..\assets\LightViolet.png">
     <div class="title-container">
       <span v-if="organizerInfo">{{ organizerInfo.username }}</span>
     </div>
@@ -48,12 +48,14 @@ export default {
 </template>
 
 <style>
-  .banner {
-    height: 80px;
-    max-width: 100%;
+  .home-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
     object-fit: cover;
-    margin: auto;
-    padding: 0%;
+    z-index: -1;
   }
 
   .title-container {

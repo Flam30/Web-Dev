@@ -39,7 +39,6 @@ export default {
   <div>
     <img class="home-background" src="./..\assets\LightViolet.png">
     <HeaderBar></HeaderBar>
-    <img class="banner" src="./..\assets\Banner.png">
     <div class="event-wrapper">
       <EventCard
         v-for="event in events" :key="event.id"
@@ -55,7 +54,6 @@ export default {
         link="https://gaybladet.se/wp-content/uploads/2023/05/eurovision-song-contest-2023.webp"
         URL="\Event\TestEvent">
       </EventCard>
-
     </div>
   </div>
 </template>
@@ -69,14 +67,6 @@ export default {
   width: 100%;
   object-fit: cover;
   z-index: -1;
-}
-
-.banner {
-  height: 80px;
-  max-width: 100%;
-  object-fit: cover;
-  margin: auto;
-  padding: 0%;
 }
 h1{
   text-align: left;
