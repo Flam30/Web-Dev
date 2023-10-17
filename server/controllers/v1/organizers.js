@@ -28,24 +28,24 @@ router.post("/register", function (req, res) {
 
 // POST /organizers/login - login as an organizer
 router.post("/login", function (req, res, next) {
-    if (!req.body.email) {
-        res.status(400).json({ success: false, message: "Missing email" })
+    if (!req.body.username) {
+        res.status(400).json({ success: false, message: "Missing username" })
     }
     else if (!req.body.password) {
         res.status(400).json({ success: false, message: "Missing password" })
     }
     else {
-        passport.authenticate("local", function (err, organizer, info) {
+        passport.authenticate("organizerStrategy", function (err, organizer, info) {
             if (err) {
                 res.status(500).json({ success: false, message: err });
             }
             else {
                 if (!organizer) {
-                    res.status(401).json({ success: false, message: "Email or password incorrect" });
+                    res.status(401).json({ success: false, message: "Username or password incorrect" });
                 }
                 else {
                     // Change secretkey to an actual secret key (env variable)
-                    const token = jwt.sign({ organizerId: organizer._id, email: organizer.email }, "secretkey", { expiresIn: "24h" });
+                    const token = jwt.sign({ organizerId: organizer._id, username: organizer.username }, "secretkey", { expiresIn: "24h" });
                     res.json({ success: true, message: "Authentication successful", organizerId: organizer._id, token: token});
                 }
             }
@@ -56,25 +56,12 @@ router.post("/login", function (req, res, next) {
 // POST /organizers/:organizerId/events/:eventId - add an event to the organizer
 router.post('/:organizerId/events/', async function (req, res, next) {
     try {
-        let organizerUsername = req.params.organizerId;
-
-        await Organizer.find({username: organizerUsername}, function (err, organizer) {
-            if (organizer) {
-                let event = new Event(req.body);
-                let eventExists = organizer.events.some(existingEvent => existingEvent.equals(event));
-
-                if(!eventExists) {
-                    organizer.tickets.push(event);
-                    organizer.save(function (err, event) {
-                        res.status(201).json(event);
-                    });
-                } else {
-                    res.status(204).json({ message: 'Event already exists.'});
-                }
-            } else {
-                res.status(404).json({ message: 'Organizer does not exist.'});
-            }
-        });
+        let organizerId = req.params.organizerId;
+        let event = req.body;
+        await Organizer.findOneAndUpdate({_id: organizerId},
+            {$push: {'events': event.id}},
+            {new: true});
+        return res.status(201).json({message: 'Added the event to the organizer!', event: event.id});
     } catch (error) {
         next(error);
     }
@@ -88,7 +75,7 @@ router.get('/', async function(req, res, next) {
             return res.status(404).json({'message': 'No organizers registered.'});
         }
         
-        res.send(organizers);
+        res.status(200).send(organizers);
     } catch (error) {
         next(error);
     }
@@ -103,7 +90,7 @@ router.get('/:id', async function(req, res, next) {
             return res.status(404).json({'message': 'No such organizer registered.'});
         }
         
-        res.send(organizers);
+        res.status(200).send(organizers);
     } catch (error) {
         next(error);
     }
@@ -116,7 +103,7 @@ router.put('/:id', async function(req, res, next){
         if (organizer === null) {
             return res.status(404).json({'message': 'Organizer not found!'});
         }
-        res.json(organizer);
+        res.status(200).json(organizer);
     } catch (err) {
         return next(err);
     }
@@ -130,7 +117,7 @@ router.patch('/:id', async function(req, res, next){
             return res.status(404).json({'message': 'Organizer not found!'});
         }
         organizer.save();
-        res.json(organizer);
+        res.status(200).json(organizer);
     } catch (err) {
         return next(err);
     }
@@ -144,7 +131,7 @@ router.delete('/', async function(req, res, next) {
             return res.status(404).json({'message': 'No organizers registered.'});
         }
         await Organizer.deleteMany();
-        res.json("Successfully deleted.");
+        res.status(200).json("Successfully deleted.");
     } catch (error) {
         return next(error);
     }
@@ -159,7 +146,7 @@ router.delete('/:id', async function(req, res, next) {
             return res.status(404).json({'message': 'No such organizer registered.'});
         }
         await Organizer.deleteOne({username: username});
-        res.json("Successfully deleted.");
+        res.status(200).json("Successfully deleted.");
     } catch (error) {
         return next(error);
     }

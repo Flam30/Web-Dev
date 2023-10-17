@@ -51,12 +51,12 @@ app.use(passport.session());
 passport.serializeUser(Customer.serializeUser());
 passport.deserializeUser(Customer.deserializeUser());
 
-passport.use(new LocalStrategy(Customer.authenticate()));
+passport.use('customerStrategy', new LocalStrategy(Customer.authenticate()));
 
 passport.serializeUser(Organizer.serializeUser());
 passport.deserializeUser(Organizer.deserializeUser());
 
-passport.use(new LocalStrategy(Organizer.authenticate()));
+passport.use('organizerStrategy', new LocalStrategy(Organizer.authenticate()));
 
 // Import routes
 app.get('/api', function(req, res) {
@@ -68,7 +68,7 @@ app.use('/api/v1/customers', customersControllerV1);
 app.use('/api/v1/events', eventsControllerV1);
 app.use('/api/v1/organizers', organizersControllerV1);
 app.use('/api/v1/venues', venuesControllerV1);
-app.use('/api/v1/events/:eventId/tickets', ticketsControllerV1);
+app.use('/api/v1/tickets', ticketsControllerV1);
 app.use('/api/auth', authController);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)

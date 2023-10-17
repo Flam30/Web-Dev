@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Event = require('../../models/event');
 var Ticket = require('../../models/ticket');
+const stripe = require('stripe')('sk_test_51NvnEZIeSorUA2wFhH58TE9WBEHysbpdbxcdxZuMIIugCStAChIXEyDKGaha1DCkD3vCbrlL13ypQh7NU3x1KzGl00WCUbbxYd');
 
 // POST /events - add new event
 router.post('/', async function(req, res, next) {
@@ -38,7 +39,7 @@ router.get('/', async function(req, res, next) {
 
         let events = await Event.find(queryParameters).sort(sortQuery);
 
-        res.send(events);
+        res.status(200).send(events);
     } catch (error) {
         next(error);
     }
@@ -53,7 +54,7 @@ router.get('/:id', async function(req, res, next) {
             return res.status(404).json({'message': 'No such event registered.'});
         }
         
-        res.send(events);
+        res.status(200).send(events);
     } catch (error) {
         next(error);
     }
@@ -67,7 +68,7 @@ router.put('/:id', async function(req, res, next){
         if (event === null) {
             return res.status(404).json({'message': 'Event not found!'});
         }
-        res.json(event);
+        res.status(200).json(event);
     } catch (err) {
         return next(err);
     }
@@ -81,7 +82,7 @@ router.patch('/:id', async function(req, res, next){
         if (event === null) {
             return res.status(404).json({'message': 'Event not found!'});
         }
-        res.json(event);
+        res.status(200).json(event);
     } catch (err) {
         return next(err);
     }
@@ -95,7 +96,7 @@ router.delete('/', async function(req, res, next) {
             return res.status(404).json({'message': 'No events registered.'});
         }
         await Event.deleteMany();
-        res.json("Successfully deleted.");
+        res.status(200).json("Successfully deleted.");
     } catch (error) {
         return next(error);
     }
@@ -110,7 +111,7 @@ router.delete('/:id', async function(req, res, next) {
             return res.status(404).json({'message': 'No such event registered.'});
         }
         await Event.deleteOne({id: id});
-        res.json("Successfully deleted.");
+        res.status(200).json("Successfully deleted.");
     } catch (error) {
         return next(error);
     }
@@ -125,7 +126,7 @@ router.get('/:eventId/tickets', async function(req, res, next) {
             return res.status(404).json({'message': 'No tickets exist.'});
         }
         
-        res.send(tickets);
+        res.status(200).send(tickets);
     } catch (error) {
         next(error);
     }
@@ -141,11 +142,53 @@ router.get('/:eventId/tickets/:id', async function(req, res, next) {
             return res.status(404).json({'message': 'No such ticket exists.'});
         }
         
-        res.send(tickets);
+        const response = {
+            id: ticketId,
+            seat: tickets.seat,
+            price: tickets.price,
+            priceId: tickets.priceId,
+            quantity: tickets.quantity,
+            event: eventId,
+            _links: {
+                self: { href: `http://localhost:3000/api/v1/events/${eventId}/tickets/${ticketId}` },
+                collection: { href: `http://localhost:3000/api/v1/events/${eventId}/tickets` },
+                event: { href: `http://localhost:3000/api/v1/events/${eventId}` },
+            },
+        };
+        res.status(200).json(response);
+
     } catch (error) {
         next(error);
     }
 });
+
+// POST /events/:eventId/tickets - add new ticket to existing event
+router.post('/:eventId/tickets/', async function(req, res, next) {
+    try {
+        const eventId = req.params.eventId;
+        const product = await stripe.products.create({
+            name: req.body.id,
+            default_price_data: {
+                currency: 'SEK',
+                unit_amount_decimal: req.body.price * 100
+            }
+          });
+    
+        let ticket = new Ticket(req.body);
+        ticket.priceId = product.default_price;
+        ticket._id = ticket.id;
+
+        await ticket.save();
+        res.status(201).json(ticket);
+
+    } catch (error) {
+        if (error.message.includes("E11000 duplicate key error collection")) {
+            res.status(400).json({'message': 'Id already in use.'});
+        }
+        next(error);
+    }
+});
+
 
 // DELETE /events/:eventId/tickets - delete all tickets from an event
 router.delete('/:eventId/tickets/', async function(req, res, next) {
@@ -156,7 +199,7 @@ router.delete('/:eventId/tickets/', async function(req, res, next) {
             return res.status(404).json({'message': 'No tickets registered.'});
         }
         await Ticket.deleteMany({event: eventId});
-        res.json("Successfully deleted.");
+        res.status(200).json("Successfully deleted.");
     } catch (error) {
         return next(error);
     }
@@ -170,7 +213,7 @@ router.delete('/:eventId/tickets/all', async function(req, res, next) {
             return res.status(404).json({'message': 'No tickets registered.'});
         }
         await Ticket.deleteMany();
-        res.json("Successfully deleted.");
+        res.status(200).json("Successfully deleted.");
     } catch (error) {
         return next(error);
     }
@@ -186,7 +229,7 @@ router.delete('/:eventId/tickets/:id', async function(req, res, next) {
             return res.status(404).json({'message': 'No such ticket exists.'});
         }
         await Ticket.deleteOne({id: ticketId, event: eventId});
-        res.json("Successfully deleted.");
+        res.status(200).json("Successfully deleted.");
     } catch (error) {
         return next(error);
     }

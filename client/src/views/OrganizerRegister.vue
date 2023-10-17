@@ -13,8 +13,7 @@ export default {
         email: '',
         address: '',
         phoneNumber: '',
-        DOB: '',
-        tickets: []
+        events: []
       }
     }
   },
@@ -24,18 +23,17 @@ export default {
       event.preventDefault()
     },
     register() {
-      Api.post('/v1/customers/register', {
+      Api.post('/v1/organizers/register', {
         username: this.form.username,
         password: this.form.password,
         name: this.form.name,
         email: this.form.email,
         address: this.form.address,
         phoneNumber: this.form.phoneNumber,
-        DOB: this.form.DOB,
-        tickets: []
+        events: []
       }).then((res) => {
         console.log(res)
-        if (res.status === 201) {
+        if (res.status === 200) {
           alert('Account registered!')
           console.log('Registered!')
         } else {
@@ -58,107 +56,96 @@ export default {
     <div>
         <div id="bg-img"></div>
         <b-card id="form-card"
-            bg-variant="light"
-            header="Welcome to Kirby's Ticket Emporium!"
-            class="mb-2"
-            style="width: 22rem;">
-            <div class="form-container">
-              <b-form id="form" @submit="onSubmit">
-                <b-form-group
-                  id="input-group-1"
-                  label="Name:"
-                  label-for="name-input">
-                  <b-form-input
+          bg-variant="light"
+          header="Organizer"
+          class="mb-2"
+          style="width: 22rem;">
+          <div class="form-container">
+            <b-form id="form" @submit="onSubmit">
+              <b-form-group
+                id="input-group-1"
+                label="Name:"
+                label-for="name-input">
+                <b-form-input
                     id="name-input"
                     v-model="form.name"
                     placeholder="Enter name"
                     required>
                   </b-form-input>
-                </b-form-group>
+              </b-form-group>
 
-                <b-form-group
-                  id="input-group-2"
-                  label="Username:"
-                  label-for="username-input">
-                  <b-form-input
+              <b-form-group
+                id="input-group-2"
+                label="Username:"
+                label-for="username-input">
+                <b-form-input
                     id="username-input"
                     v-model="form.username"
                     placeholder="Enter username"
                     required>
-                  </b-form-input>
-                </b-form-group>
+                </b-form-input>
+              </b-form-group>
 
-                <b-form-group
-                  id="input-group-3"
-                  label="Password:"
-                  label-for="password-input">
-                  <b-form-input
+              <b-form-group
+                id="input-group-3"
+                label="Password:"
+                label-for="password-input">
+                <b-form-input
                     id="password-input"
                     v-model="form.password"
                     type="password"
                     placeholder="Enter password"
                     required>
-                  </b-form-input>
-                </b-form-group>
+                </b-form-input>
+              </b-form-group>
 
-                <b-form-group
-                  id="input-group-4"
-                  label="Email address:"
-                  label-for="email-input">
-                  <b-form-input
+              <b-form-group
+                id="input-group-4"
+                label="Email address:"
+                label-for="email-input">
+                <b-form-input
                     id="email-input"
                     v-model="form.email"
                     type="email"
                     placeholder="name@example.com"
                     required>
-                  </b-form-input>
-                </b-form-group>
+                </b-form-input>
+              </b-form-group>
 
-                <b-form-group
-                  id="input-group-5"
-                  label="Address:"
-                  label-for="address-input">
-                  <b-form-input
+              <b-form-group
+                id="input-group-5"
+                label="Address:"
+                label-for="address-input">
+                <b-form-input
                     id="address-input"
                     v-model="form.address"
                     placeholder="Street, City, Country"
                     required>
-                  </b-form-input>
-                </b-form-group>
+                </b-form-input>
+              </b-form-group>
 
-                <b-form-group
-                  id="input-group-6"
-                  label="Phone number:"
-                  label-for="phone-input">
-                  <b-form-input
+              <b-form-group
+                id="input-group-6"
+                label="Phone number:"
+                label-for="phone-input">
+                <b-form-input
                     id="phone-input"
                     v-model="form.phoneNumber"
                     placeholder="Enter phone number"
                     required>
-                  </b-form-input>
-                </b-form-group>
+                </b-form-input>
+              </b-form-group>
 
-                <b-form-group
-                  id="input-group-7"
-                  label="Birthday:"
-                  label-for="birthday-input">
-                  <b-form-input
-                    id="birthday-input"
-                    v-model="form.DOB"
-                    placeholder="YYYY.MM.DD"
-                    required>
-                  </b-form-input>
-                </b-form-group>
-                <b-button v-on:click="login" type="submit" variant="success">Register</b-button>
-              </b-form>
-            </div>
+              <b-button v-on:click="login" type="submit" variant="success">Register</b-button>
+            </b-form>
+          </div>
         </b-card>
     </div>
 </template>
 
 <style>
     #bg-img{
-        background-image: url('https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+        background-image: ('https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
         background-size: cover; /* Crop and cover the entire container */
         background-repeat: no-repeat;
         background-position: center center;

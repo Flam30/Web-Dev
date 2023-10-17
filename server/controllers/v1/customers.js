@@ -1,23 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var Customer = require('../../models/customer');
-var Ticket = require('../../models/ticket');
 var passport = require('passport');
 var jwt = require('jsonwebtoken');
 
-
 // POST /customers/register - register a new customer
 router.post("/register", function (req, res) {
-    var customer = new Customer({
-        username: req.body.username, 
-        name: req.body.name, 
-        email: req.body.email, 
-        address: req.body.address, 
-        phoneNumber: req.body.phoneNumber,
-        DOB: req.body.dateOfBirth,
-        tickets: []});
+    var customer = new Customer(req.body);
     customer._id = customer.username;
-    
     Customer.register(customer, req.body.password, function (err, customer) {
         if (err) {
             res.status(400).json({ success: false, message: "Your account could not be registered. Error: " + err });
@@ -44,7 +34,7 @@ router.post("/login", function (req, res, next) {
         res.status(400).json({ success: false, message: "Missing password" })
     }
     else {
-        passport.authenticate("local", function (err, customer, info) {
+        passport.authenticate("customerStrategy", function (err, customer, info) {
             if (err) {
                 res.status(500).json({ success: false, message: err });
             }
@@ -62,28 +52,6 @@ router.post("/login", function (req, res, next) {
     }
 });
 
-// POST /customers/:customerId/tickets/:ticketId - add an event to the organizer
-router.post('/:customerId/tickets/:ticketId', async function (req, res, next) {
-    try {
-        let customerUsername = req.params.customerId;
-        let ticketId = req.params.ticketId;
-
-        await Customer.find({username: customerUsername}, function (err, customer) {
-            if (customer) {
-                let ticket = Ticket.findById(ticketId);
-                customer.tickets.push(ticket);
-                customer.save(function (err, customer) {
-                    res.status(200).json({message: 'Ticket added.'});
-                });
-            } else {
-                res.status(404).json({ message: 'Customer does not exist.'});
-            }
-        });
-    } catch (error) {
-        next(error);
-    }
-});
-
 // GET /customers - get all customers
 router.get('/', async function(req, res, next) {
     try {
@@ -92,7 +60,7 @@ router.get('/', async function(req, res, next) {
             return res.status(404).json({'message': 'No customers registered.'});
         }
         
-        res.send(customers);
+        res.status(200).send(customers);
     } catch (error) {
         next(error);
     }
@@ -107,7 +75,7 @@ router.get('/:id', async function(req, res, next) {
             return res.status(404).json({'message': 'No such customer registered.'});
         }
         
-        res.send(customers);
+        res.status(200).send(customers);
     } catch (error) {
         next(error);
     }
@@ -120,7 +88,7 @@ router.put('/:id', async function(req, res, next){
         if (customer === null) {
             return res.status(404).json({'message': 'Customer not found!'});
         }
-        res.json(customer);
+        res.status(200).json(customer);
     } catch (err) {
         return next(err);
     }
@@ -133,9 +101,23 @@ router.patch('/:id', async function(req, res, next){
         if (customer === null) {
             return res.status(404).json({'message': 'Customer not found!'});
         }
-        res.json(customer);
+        res.status(200).json(customer);
     } catch (err) {
         return next(err);
+    }
+});
+
+// PATCH /customers/:customerId/tickets/:ticketId - add a ticket to a customer
+router.patch('/:customerId/tickets/:ticketId', async function (req, res, next) {
+    try {
+        let customerUsername = req.params.customerId;
+        let ticketId = req.params.ticketId;
+        await Customer.findOneAndUpdate({_id: customerUsername},
+            {$push: {'tickets': ticketId}},
+            {new: true});
+        return res.status(201).json({message: 'Added a ticket to the customer!', ticket: ticketId});
+    } catch (error) {
+        next(error);
     }
 });
 
@@ -147,7 +129,7 @@ router.delete('/', async function(req, res, next) {
             return res.status(404).json({'message': 'No customers registered.'});
         }
         await Customer.deleteMany();
-        res.json("Successfully deleted.");
+        res.status(200).json("Successfully deleted.");
     } catch (error) {
         return next(error);
     }
@@ -159,10 +141,11 @@ router.delete('/:id', async function(req, res, next) {
         var username = req.params.id;
         const customers = await Customer.findOne({username: username});
         if (customers === null) {
+            console.log('here')
             return res.status(404).json({'message': 'No such customer registered.'});
         }
         await Customer.deleteOne({username: username});
-        res.json("Successfully deleted.");
+        res.status(200).json("Successfully deleted.");
     } catch (error) {
         return next(error);
     }
