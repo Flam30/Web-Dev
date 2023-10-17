@@ -63,14 +63,17 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ### Purpose
 
-The system will provide users with a place to find centralized information about various events in an area, for which they can buy tickets. Organizers create events in the system, offering a certain number of available tickets, a location, and a description (date, location etc.) of the event. These events can be seen by the client users and tickets can be acquired through the system.
+The system (*Kirby's Ticket Emporium*) will provide users with a place to centralize information about various events such as name, age limit, ticket price and availability, date, and location. Two types of users will interact with the system: **customers** and **organizers**. Customers will be individuals that can purchase tickets for events using the system, while organizers will add the events they organizing to the platform.
 
 ### Pages
 
-* Home: it will show the user different events, along with their descriptions. It will allow the user to go to an event's ticket purchasing page, as well as click for more information. Can access the account information page from here
-* Event page: it will show more detailed information about the event, as well as the organizer's information. It will also allow the user to go to the ticket purchasing page and back to the home page
-* Ticket purchasing page: allows the user to purchase their ticket. Asks for their information to reserve the ticket (possibly autofilled using the user's account?). It will also show how many tickets are still available for purchase
-* Account information page: displays the information of the user such as user ID, name, DOB, account email, and other information they added when creating the account
+*Note: We added a header bar to the website to allow the user to easily access the home page, their account page, as well as the login/logout button. This will not be mentioned in all the page description as we will assume that its presence and functionality is known.*
+
+* *Home*: it will display the different events that are registered on the platform, as well as preview (image, and description). It will allow the user to see details about events, as well as filter and sort through them using the given parameters;
+* *Event page*: it will show more detailed information about the event (event image, description, location, date, age limit, ticket price/availability), as well as allow the customer to go to the ticket buying page;
+* *Ticket purchasing page*: we use the Stripe API to aid in ticket purchasing. The customer will be redirected to this page, and can add the information needed to buy a ticket there. It is important to note that the header bar is not on this page, so the user will use a back button to return to the Home page;
+* *Account page*: this page changes based on the type of user logged in (customer or organizer). It shows a jumbotron-like banner at the top with the user's name. Both types of users will have a tab below that called *Settings*. There, they will be able to edit their account information in real time, as well as delete their account. If the user logs in as a customer, they will be able to access another tab: *Your Tickets*. They can see their purchase tickets there. The organizer has a *Your Events* tab instead, as well as a *Manage Events* tab. In the former, they can see the events they have added to the website, and in the latter, they can edit the information of an event as well as delete it.
+
 
 ### Entity-Relationship (ER) Diagram
 
