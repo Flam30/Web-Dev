@@ -28,8 +28,8 @@ router.post("/register", function (req, res) {
 
 // POST /organizers/login - login as an organizer
 router.post("/login", function (req, res, next) {
-    if (!req.body.email) {
-        res.status(400).json({ success: false, message: "Missing email" })
+    if (!req.body.username) {
+        res.status(400).json({ success: false, message: "Missing username" })
     }
     else if (!req.body.password) {
         res.status(400).json({ success: false, message: "Missing password" })
@@ -41,11 +41,11 @@ router.post("/login", function (req, res, next) {
             }
             else {
                 if (!organizer) {
-                    res.status(401).json({ success: false, message: "Email or password incorrect" });
+                    res.status(401).json({ success: false, message: "Username or password incorrect" });
                 }
                 else {
                     // Change secretkey to an actual secret key (env variable)
-                    const token = jwt.sign({ organizerId: organizer._id, email: organizer.email }, "secretkey", { expiresIn: "24h" });
+                    const token = jwt.sign({ organizerId: organizer._id, username: organizer.username }, "secretkey", { expiresIn: "24h" });
                     res.json({ success: true, message: "Authentication successful", organizerId: organizer._id, token: token});
                 }
             }
