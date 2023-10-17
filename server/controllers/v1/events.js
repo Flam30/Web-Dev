@@ -141,7 +141,21 @@ router.get('/:eventId/tickets/:id', async function(req, res, next) {
             return res.status(404).json({'message': 'No such ticket exists.'});
         }
         
-        res.status(200).send(tickets);
+        const response = {
+            id: ticketId,
+            seat: tickets.seat,
+            price: tickets.price,
+            priceId: tickets.priceId,
+            quantity: tickets.quantity,
+            event: eventId,
+            _links: {
+                self: { href: `http://localhost:3000/api/v1/events/${eventId}/tickets/${ticketId}` },
+                collection: { href: `http://localhost:3000/api/v1/events/${eventId}/tickets` },
+                event: { href: `http://localhost:3000/api/v1/events/${eventId}` },
+            },
+        };
+        res.status(200).json(response);
+
     } catch (error) {
         next(error);
     }
