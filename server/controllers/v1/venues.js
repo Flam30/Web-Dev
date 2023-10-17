@@ -27,7 +27,7 @@ router.get('/', async function(req, res, next) {
             return res.status(404).json({'message': 'No venues registered.'});
         }
         
-        res.send(venues);
+        res.status(200).send(venues);
     } catch (error) {
         next(error);
     }
@@ -42,7 +42,7 @@ router.get('/:id', async function(req, res, next) {
             return res.status(404).json({'message': 'No such venue registered.'});
         }
         
-        res.send(venues);
+        res.status(200).send(venues);
     } catch (error) {
         next(error);
     }
@@ -56,7 +56,7 @@ router.delete('/', async function(req, res, next) {
             return res.status(404).json({'message': 'No venues registered.'});
         }
         await Venue.deleteMany();
-        res.json("Successfully deleted.");
+        res.status(200).json("Successfully deleted.");
     } catch (error) {
         return next(error);
     }
@@ -71,7 +71,7 @@ router.delete('/:id', async function(req, res, next) {
             return res.status(404).json({'message': 'No such venue registered.'});
         }
         await Venue.deleteOne({id: id});
-        res.json("Successfully deleted.");
+        res.status(200).json("Successfully deleted.");
     } catch (error) {
         return next(error);
     }

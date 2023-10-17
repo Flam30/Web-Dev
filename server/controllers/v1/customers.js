@@ -52,20 +52,6 @@ router.post("/login", function (req, res, next) {
     }
 });
 
-// PATCH /customers/:customerId/tickets/:ticketId - add a ticket to a customer
-router.patch('/:customerId/tickets/:ticketId', async function (req, res, next) {
-    try {
-        let customerUsername = req.params.customerId;
-        let ticketId = req.params.ticketId;
-        await Customer.findOneAndUpdate({_id: customerUsername},
-            {$push: {'tickets': ticketId}},
-            {new: true});
-        return res.status(201).json({message: 'Added a ticket to the customer!', ticket: ticketId});
-    } catch (error) {
-        next(error);
-    }
-});
-
 // GET /customers - get all customers
 router.get('/', async function(req, res, next) {
     try {
@@ -74,7 +60,7 @@ router.get('/', async function(req, res, next) {
             return res.status(404).json({'message': 'No customers registered.'});
         }
         
-        res.send(customers);
+        res.status(200).send(customers);
     } catch (error) {
         next(error);
     }
@@ -89,7 +75,7 @@ router.get('/:id', async function(req, res, next) {
             return res.status(404).json({'message': 'No such customer registered.'});
         }
         
-        res.send(customers);
+        res.status(200).send(customers);
     } catch (error) {
         next(error);
     }
@@ -102,7 +88,7 @@ router.put('/:id', async function(req, res, next){
         if (customer === null) {
             return res.status(404).json({'message': 'Customer not found!'});
         }
-        res.json(customer);
+        res.status(200).json(customer);
     } catch (err) {
         return next(err);
     }
@@ -115,9 +101,23 @@ router.patch('/:id', async function(req, res, next){
         if (customer === null) {
             return res.status(404).json({'message': 'Customer not found!'});
         }
-        res.json(customer);
+        res.status(200).json(customer);
     } catch (err) {
         return next(err);
+    }
+});
+
+// PATCH /customers/:customerId/tickets/:ticketId - add a ticket to a customer
+router.patch('/:customerId/tickets/:ticketId', async function (req, res, next) {
+    try {
+        let customerUsername = req.params.customerId;
+        let ticketId = req.params.ticketId;
+        await Customer.findOneAndUpdate({_id: customerUsername},
+            {$push: {'tickets': ticketId}},
+            {new: true});
+        return res.status(201).json({message: 'Added a ticket to the customer!', ticket: ticketId});
+    } catch (error) {
+        next(error);
     }
 });
 
@@ -129,7 +129,7 @@ router.delete('/', async function(req, res, next) {
             return res.status(404).json({'message': 'No customers registered.'});
         }
         await Customer.deleteMany();
-        res.json("Successfully deleted.");
+        res.status(200).json("Successfully deleted.");
     } catch (error) {
         return next(error);
     }
@@ -144,7 +144,7 @@ router.delete('/:id', async function(req, res, next) {
             return res.status(404).json({'message': 'No such customer registered.'});
         }
         await Customer.deleteOne({username: username});
-        res.json("Successfully deleted.");
+        res.status(200).json("Successfully deleted.");
     } catch (error) {
         return next(error);
     }

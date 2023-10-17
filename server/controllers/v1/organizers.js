@@ -88,7 +88,7 @@ router.get('/', async function(req, res, next) {
             return res.status(404).json({'message': 'No organizers registered.'});
         }
         
-        res.send(organizers);
+        res.status(200).send(organizers);
     } catch (error) {
         next(error);
     }
@@ -103,7 +103,7 @@ router.get('/:id', async function(req, res, next) {
             return res.status(404).json({'message': 'No such organizer registered.'});
         }
         
-        res.send(organizers);
+        res.status(200).send(organizers);
     } catch (error) {
         next(error);
     }
@@ -116,7 +116,7 @@ router.put('/:id', async function(req, res, next){
         if (organizer === null) {
             return res.status(404).json({'message': 'Organizer not found!'});
         }
-        res.json(organizer);
+        res.status(200).json(organizer);
     } catch (err) {
         return next(err);
     }
@@ -130,7 +130,7 @@ router.patch('/:id', async function(req, res, next){
             return res.status(404).json({'message': 'Organizer not found!'});
         }
         organizer.save();
-        res.json(organizer);
+        res.status(200).json(organizer);
     } catch (err) {
         return next(err);
     }
@@ -144,7 +144,7 @@ router.delete('/', async function(req, res, next) {
             return res.status(404).json({'message': 'No organizers registered.'});
         }
         await Organizer.deleteMany();
-        res.json("Successfully deleted.");
+        res.status(200).json("Successfully deleted.");
     } catch (error) {
         return next(error);
     }
@@ -159,7 +159,7 @@ router.delete('/:id', async function(req, res, next) {
             return res.status(404).json({'message': 'No such organizer registered.'});
         }
         await Organizer.deleteOne({username: username});
-        res.json("Successfully deleted.");
+        res.status(200).json("Successfully deleted.");
     } catch (error) {
         return next(error);
     }
