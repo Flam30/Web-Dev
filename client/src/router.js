@@ -6,6 +6,7 @@ import Register from './views/Register.vue'
 import Customers from './views/Customers.vue'
 import Account from './views/Account.vue'
 import Success from './views/Success.vue'
+import Failure from './views/Failure.vue'
 import CreateEvent from './views/CreateEvent.vue'
 import OrganizerRegister from './views/OrganizerRegister.vue'
 
@@ -47,6 +48,11 @@ export default new Router({
       props: true,
       name: 'Success!',
       component: Success
+    },
+    {
+      path: '/failure',
+      name: 'Failure',
+      component: Failure
     },
     {
       path: '/create-event',

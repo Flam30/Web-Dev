@@ -6,6 +6,7 @@ var ticketSchema = new Schema({
     id: {type: String, unique: true, required: true},
     seat: {type: String},
     price: {type: String, required: true},
+    priceId: {type: String},
     quantity: {type: Number, required: true},
     event: {type: Schema.Types.String, ref: 'events', required: true}
 });

@@ -52,7 +52,7 @@ router.post("/login", function (req, res, next) {
     }
 });
 
-// POST /customers/:customerId/tickets/:ticketId - add an event to the organizer
+// PATCH /customers/:customerId/tickets/:ticketId - add a ticket to a customer
 router.patch('/:customerId/tickets/:ticketId', async function (req, res, next) {
     try {
         let customerUsername = req.params.customerId;

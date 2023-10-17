@@ -10,7 +10,8 @@ export default {
     this.publishableKey = 'pk_test_51NvnEZIeSorUA2wFzBWTeShkIWHsjqH2DCdIfap6d0YNtG6DNdTZOZHaoDpuV8KtNjD5JWnZvGZIJRTWnAaHI2Nh00MYxPsY4Z'
     return {
       eventInfo: '',
-      venueName: '',
+      ticketInfo: '',
+      venueInfo: '',
       loading: false,
       lineItems: [
         {
@@ -19,7 +20,7 @@ export default {
         }
       ],
       successURL: 'http://localhost:8080/Success',
-      cancelURL: 'https://www.google.com'
+      cancelURL: 'http://localhost:8080/Failure'
     }
   },
   methods: {
@@ -31,8 +32,9 @@ export default {
       Api.get('/v1/events/' + this.id)
         .then(response => {
           const eventInfo = response.data
-          this.eventInfo = eventInfo[0]
+          this.eventInfo = eventInfo
           this.getVenue()
+          this.getTicketData()
           return this.eventInfo
         }).catch(error => {
           console.log(error)
@@ -41,9 +43,19 @@ export default {
     async getVenue() {
       Api.get('/v1/venues/' + this.eventInfo.venue)
         .then(response => {
-          const venueInfo = response.data
-          this.venueName = venueInfo.name
+          const venue = response.data
+          this.venueInfo = venue
           return this.venueName
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+    async getTicketData() {
+      Api.get('/v1/events/' + this.id + '/tickets')
+        .then(response => {
+          const tickets = response.data
+          this.ticketInfo = tickets[0]
+          return this.ticketInfo
         }).catch(err => {
           console.log(err)
         })
@@ -69,7 +81,7 @@ export default {
     <div id="details-wrapper">
         <div id="title-wrapper">
             <h1>{{ eventInfo.name }}</h1>
-            <p id="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p id="description">{{ eventInfo.description }}</p>
             <div>
     <stripe-checkout
       ref="checkoutRef"
@@ -83,14 +95,14 @@ export default {
   </div>
         </div>
         <div id="fact-box">
-            <h2 style="text-align: center; margin: 10px 0;">Scandinavium, Gothenburg</h2>
+            <h2 style="text-align: center; margin: 10px 0;">{{ venueInfo.name }}, {{venueInfo.location}}</h2>
             <div class="fact-line">
                 <h3>Date</h3>
-                <h3>30-09-2023</h3>
+                <h3>{{ eventInfo.date.substring(0, 10) }}</h3>
             </div>
             <div class="fact-line">
                 <h3>Time</h3>
-                <h3>20:00-23:00</h3>
+                <h3>{{ eventInfo.date.substring(11, 16) }}</h3>
             </div>
             <div class="fact-line">
                 <h3>Ages</h3>
@@ -98,7 +110,7 @@ export default {
             </div>
             <div class="fact-line">
                 <h3>Price</h3>
-                <h3>2137kr</h3>
+                <h3>{{ ticketInfo.price }}kr</h3>
             </div>
             <b-button variant="primary" id="tickets-button" v-on:click="submit">Tickets</b-button>
         </div>

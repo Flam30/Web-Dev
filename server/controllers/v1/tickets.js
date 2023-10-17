@@ -16,7 +16,7 @@ router.post('/', async function(req, res, next) {
           });
     
         let ticket = new Ticket(req.body);
-        ticket.price = product.default_price;
+        ticket.priceId = product.default_price;
         ticket._id = ticket.id;
 
         await ticket.save();

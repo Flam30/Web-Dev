@@ -36,11 +36,12 @@ export default {
     },
     async postTickets() {
       this.getUserInfo()
-      Api.post('/v1/customers/' + this.userId + '/tickets/' + this.ticketId).then((res) => {
-        if (res.status === 200) {
+      Api.patch('/v1/customers/' + this.userId + '/tickets/' + this.ticketId).then((res) => {
+        if (res.status === 201) {
           console.log('Ticket added to customer!')
         } else {
           alert('Something went wrong! Please try again.')
+          this.$router.push('/')
         }
       }).catch((_err) => {
         alert('Something went wrong! Please try again.')
