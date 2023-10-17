@@ -3,31 +3,56 @@ export default {
   name: 'Success',
   data() {
     return {
-      message: 'none'
+      message: '5',
+      timerCount: 5
+    }
+  },
+  watch: {
+    timerCount: {
+      handler(value) {
+        if (value > 0) {
+          setTimeout(() => {
+            this.timerCount--
+            if (this.timerCount === 0) {
+              this.$router.push('/')
+            } else {
+              this.message = this.timerCount
+            }
+          }, 1000)
+        }
+      },
+      immediate: true
     }
   }
 }
 </script>
 
 <template >
-  <div id="taylor-bg">
-    <p id="wooo">CONGRATS, YOU GOT THE TICKETS!!!!!!!!!!!!!!!!!!!!!!!</p>
+  <div id="page-wrapper">
+    <HeaderBar></HeaderBar>
+    <div id="confirmation-wrapper">
+    <p id="confirmation-title">Order confirmed!</p>
+    <p id="confirmation-description">Redirecting to the home page <br /> in {{ message }} seconds...</p>
+  </div>
   </div>
 </template>
 
 <style>
-#taylor-bg{
-    text-align: center;
-    width: 100%;
-    height: 100vh;
-    background-size: cover;
-    background-image: url(https://media-cldnry.s-nbcnews.com/image/upload/t_fit-760w,f_auto,q_auto:best/rockcms/2023-07/230711-taylor-swift-se-1258p-62ffe5.jpg);
+#confirmation-title {
+  font-size: 69px;
 }
-#wooo{
-    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
-    font-size: 80px;
-    color: red;
-    position: absolute;
-    top: 30%;
+
+#confirmation-description {
+  font-size: 24px;
+}
+
+#confirmation-wrapper{
+  height: 400px;
+  width: 400px;
+  background-color: #B0FFAD;
+  border: 7px #77DD77 solid;
+  border-radius: 10px;
+  margin: 100px auto;
+  text-align: center;
 }
 </style>
