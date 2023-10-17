@@ -119,10 +119,8 @@ export default {
 
 #filter-sort-buttons{
   position: absolute;
-  padding-top: 1%;
-  padding-left: 0.5%;
-  top: 67px;
-  right: 0;
+  top: 72px;
+  left: 0;
 }
 
 .buttons {

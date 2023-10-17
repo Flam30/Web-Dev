@@ -42,7 +42,7 @@ export default {
     <HeaderBar></HeaderBar>
     <img class="home-background" src="./..\assets\LightViolet.png">
     <div class="title-container">
-      <span v-if="organizerInfo">{{ organizerInfo.username }}</span>
+      <span id="organizer" v-if="organizerInfo">{{ organizerInfo.username }}</span>
     </div>
 </div>
 </template>
@@ -57,10 +57,10 @@ export default {
     object-fit: cover;
     z-index: -1;
   }
-
   .title-container {
     display: flex;
     width: 100%;
     height: 20px;
+    font-size: 24px;
   }
 </style>
