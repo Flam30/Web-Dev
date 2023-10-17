@@ -11,7 +11,11 @@
       </b-navbar-nav>
 
       <b-navbar-nav>
-        <b-nav-item v-if="isLoggedIn" class="header-item" href="/account/RatKing">Account</b-nav-item>
+        <b-nav-item v-if="this.$session.get('account-type') === 'customer'" class="header-item" href="/account/RatKing">Account</b-nav-item>
+      </b-navbar-nav>
+
+      <b-navbar-nav>
+        <b-nav-item v-if="this.$session.get('account-type') === 'organizer'" class="header-item" :href="organizerPageLink">Organizer Panel</b-nav-item>
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
@@ -23,7 +27,7 @@
 
   <b-modal id="modal-login" ok-title="Close" :ok-only=true title="Log In">
     <b-tabs content-class="mt-3">
-      <b-tab title="User" active><p></p>
+      <b-tab title="Customer" active><p></p>
         <b-form @submit="onSubmitUser">
           <b-form-group
             id="input-group-1"
@@ -50,7 +54,7 @@
             </b-form-input>
           </b-form-group>
           <b-button v-on:click="userLogin" type="submit" variant="success">Log in</b-button>
-          <p>Don't have an account yet? <a href="/register">Register here.</a></p>
+          <p style="margin-top: 1rem; margin-bottom: 0;">Don't have an account yet? <a href="/register">Register here.</a></p>
         </b-form>
       </b-tab>
       <b-tab title="Organizer"><p></p>
@@ -80,7 +84,7 @@
             </b-form-input>
           </b-form-group>
           <b-button v-on:click="organizerLogin" type="submit" variant="success">Log in</b-button>
-          <p>Don't have an account yet? <a href="/organizer-register">Register here.</a></p>
+          <p style="margin-top: 1rem; margin-bottom: 0;">Don't have an account yet? <a href="/organizer-register">Register here.</a></p>
         </b-form>
       </b-tab>
     </b-tabs>
@@ -112,11 +116,13 @@ export default {
         username: '',
         password: ''
       },
-      isLoggedIn: false
+      isLoggedIn: false,
+      organizerPageLink: ''
     }
   },
   created() {
     this.checkSession()
+    this.getOrganizerPageLink()
   },
   methods: {
     onSubmitUser(event) {
@@ -164,7 +170,7 @@ export default {
         if (res.status === 200) {
           this.$session.start()
           this.$session.set('jwt', res.data.token)
-          this.$session.set('user-id', res.data.username)
+          this.$session.set('user-id', res.data.organizerId)
           this.$session.set('account-type', 'organizer')
           this.isLoggedIn = true
           console.log('Logged in!')
@@ -180,6 +186,15 @@ export default {
       this.$session.destroy()
       this.isLoggedIn = false
       this.$router.go()
+    },
+    getOrganizerPageLink() {
+      const accountType = this.$session.get('account-type')
+      const userId = this.$session.get('user-id')
+      if (accountType === 'organizer' && userId) {
+        this.organizerPageLink = `/organizer/${userId}`
+      } else {
+        this.organizerPageLink = '/'
+      }
     }
   }
 }

@@ -9,7 +9,6 @@
     img-alt="Event thumbnail"
     img-top
     img-height=200
-    tag="event"
     style="max-width: 20rem;"
     id="card"
   >

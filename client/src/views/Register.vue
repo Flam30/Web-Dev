@@ -29,7 +29,7 @@ export default {
         password: this.form.password,
         name: this.form.name,
         email: this.form.email,
-        address: this.form.address + ' ' + this.form.postalCode + ' ' + this.form.city,
+        address: this.form.address,
         phoneNumber: this.form.phoneNumber,
         tickets: [],
         DOB: '01.01.2000'
@@ -59,7 +59,7 @@ export default {
         <div id="bg-img"></div>
         <b-card id="form-card"
             bg-variant="light"
-            header="Kirby's Ticket Emporium"
+            header="Welcome to Kirby's Ticket Emporium!"
             class="mb-2"
             style="width: 22rem;">
             <div class="form-container">
