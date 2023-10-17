@@ -62,7 +62,7 @@ router.post("/login", function (req, res, next) {
     }
 });
 
-// POST /customers/:customerId/events/:eventId - add an event to the organizer
+// POST /customers/:customerId/tickets/:ticketId - add an event to the organizer
 router.post('/:customerId/tickets/:ticketId', async function (req, res, next) {
     try {
         let customerUsername = req.params.customerId;
