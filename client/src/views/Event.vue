@@ -13,11 +13,8 @@ export default {
       ticketInfo: '',
       venueInfo: '',
       loading: false,
+      priceId: 'price_1NvnpJIeSorUA2wF8Yi0b7GW',
       lineItems: [
-        {
-          price: 'price_1NvnpJIeSorUA2wF8Yi0b7GW', // The id of the one-time price you created in your Stripe dashboard
-          quantity: 1
-        }
       ],
       successURL: 'http://localhost:8080/Success',
       cancelURL: 'http://localhost:8080/Failure'
@@ -55,6 +52,8 @@ export default {
         .then(response => {
           const tickets = response.data
           this.ticketInfo = tickets[0]
+          this.lineItems.push({ price: tickets[0].priceId, quantity: 1 })
+          console.log(this.lineItems)
           return this.ticketInfo
         }).catch(err => {
           console.log(err)

@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Event from './views/Event.vue'
 import Register from './views/Register.vue'
-import Customers from './views/Customers.vue'
 import Account from './views/Account.vue'
 import Success from './views/Success.vue'
 import Failure from './views/Failure.vue'
@@ -32,11 +31,6 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register
-    },
-    {
-      path: '/customers',
-      name: 'Customers',
-      component: Customers
     },
     {
       component: Account,
