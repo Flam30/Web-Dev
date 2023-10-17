@@ -6,8 +6,10 @@ import Register from './views/Register.vue'
 import Customers from './views/Customers.vue'
 import Account from './views/Account.vue'
 import Success from './views/Success.vue'
+import Failure from './views/Failure.vue'
 import CreateEvent from './views/CreateEvent.vue'
 import OrganizerRegister from './views/OrganizerRegister.vue'
+import OrganizerPage from './views/OrganizerPage.vue'
 
 Vue.use(Router)
 
@@ -49,6 +51,11 @@ export default new Router({
       component: Success
     },
     {
+      path: '/failure',
+      name: 'Failure',
+      component: Failure
+    },
+    {
       path: '/create-event',
       name: 'Create event',
       component: CreateEvent
@@ -57,6 +64,12 @@ export default new Router({
       path: '/organizer-register',
       name: 'Organizer register',
       component: OrganizerRegister
+    },
+    {
+      path: '/organizer/:id',
+      props: true,
+      name: 'Organizer',
+      component: OrganizerPage
     }
   ]
 })
