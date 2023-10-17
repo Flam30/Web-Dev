@@ -2,6 +2,7 @@
 import { Api } from '@/Api'
 import HeaderBar from '@/components/HeaderBar'
 import EventCard from '@/components/EventCard'
+import ManageEventCard from '@/components/ManageEventCard'
 
 export default {
   name: 'organizer-page',
@@ -23,7 +24,8 @@ export default {
   },
   components: {
     HeaderBar,
-    EventCard
+    EventCard,
+    ManageEventCard
   },
   props: {
     id: String
@@ -174,6 +176,16 @@ export default {
           </div>
       </b-tab>
       <b-tab title="Manage Events" active>
+        <div class="event-wrapper">
+          <ManageEventCard
+            v-for="event in events" :key="event.id"
+            :id="event.id"
+            :name="event.name"
+            :description="event.description"
+            link="https://previews.123rf.com/images/sanneberg/sanneberg1708/sanneberg170800669/85057705-guy-smiling-and-giving-thumbs-up-portrait.jpg"
+            :URL="'/Event/' + event._id">
+          ></ManageEventCard>
+        </div>
       </b-tab>
     </b-tabs>
 </div>
