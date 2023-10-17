@@ -12,11 +12,12 @@
         </b-navbar-nav>
 
         <b-navbar-nav>
-          <b-nav-item v-if="this.$session.get('account-type') === 'customer'" class="header-item" :href="accountPageLink">Account</b-nav-item>
+          <b-nav-item v-if="this.$session.get('account-type') === 'customer'" class="header-item" :href="accountCustomerPageLink">Account</b-nav-item>
         </b-navbar-nav>
 
         <b-navbar-nav>
           <b-nav-item v-if="this.$session.get('account-type') === 'organizer'" class="header-item" :href="organizerPageLink">Organizer Panel</b-nav-item>
+          <b-nav-item v-if="this.$session.get('account-type') === 'organizer'" class="header-item" :href="accountOrganizerPageLink">Account</b-nav-item>
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
@@ -128,13 +129,15 @@ export default {
       },
       isLoggedIn: false,
       organizerPageLink: '',
-      accountPageLink: ''
+      accountCustomerPageLink: '',
+      accountOrganizerPageLink: ''
     }
   },
   created() {
     this.checkSession()
     this.getOrganizerPageLink()
-    this.getAccountPageLink()
+    this.getAccountOrganizerPageLink()
+    this.getAccountCustomerPageLink()
   },
   methods: {
     onSubmitUser(event) {
@@ -208,13 +211,22 @@ export default {
         this.organizerPageLink = '/'
       }
     },
-    getAccountPageLink() {
+    getAccountOrganizerPageLink() {
+      const accountType = this.$session.get('account-type')
+      const userId = this.$session.get('user-id')
+      if (accountType === 'organizer' && userId) {
+        this.accountOrganizerPageLink = `/account/${userId}`
+      } else {
+        this.accountOrganizerPageLink = '/'
+      }
+    },
+    getAccountCustomerPageLink() {
       const accountType = this.$session.get('account-type')
       const userId = this.$session.get('user-id')
       if (accountType === 'customer' && userId) {
-        this.accountPageLink = `/account/${userId}`
+        this.accountCustomerPageLink = `/account/${userId}`
       } else {
-        this.accountPageLink = '/'
+        this.accountCustomerPageLink = '/'
       }
     }
   }
