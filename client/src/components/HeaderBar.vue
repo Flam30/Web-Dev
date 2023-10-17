@@ -12,7 +12,7 @@
         </b-navbar-nav>
 
         <b-navbar-nav>
-          <b-nav-item v-if="this.$session.get('account-type') === 'customer'" class="header-item" href="/account/RatKing">Account</b-nav-item>
+          <b-nav-item v-if="this.$session.get('account-type') === 'customer'" class="header-item" :href="accountPageLink">Account</b-nav-item>
         </b-navbar-nav>
 
         <b-navbar-nav>
@@ -127,12 +127,14 @@ export default {
         password: ''
       },
       isLoggedIn: false,
-      organizerPageLink: ''
+      organizerPageLink: '',
+      accountPageLink: ''
     }
   },
   created() {
     this.checkSession()
     this.getOrganizerPageLink()
+    this.getAccountPageLink()
   },
   methods: {
     onSubmitUser(event) {
@@ -204,6 +206,15 @@ export default {
         this.organizerPageLink = `/organizer/${userId}`
       } else {
         this.organizerPageLink = '/'
+      }
+    },
+    getAccountPageLink() {
+      const accountType = this.$session.get('account-type')
+      const userId = this.$session.get('user-id')
+      if (accountType === 'customer' && userId) {
+        this.accountPageLink = `/account/${userId}`
+      } else {
+        this.accountPageLink = '/'
       }
     }
   }
