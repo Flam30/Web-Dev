@@ -145,21 +145,21 @@
 }
 
 h1{
-    font-size: 400%;
+    font-size: 300%;
     font-family: monospace;
-    color: black;
-    padding: 2%;
-    padding-top: 5%;
+    color: whitesmoke;
+    padding: 0.5rem;
     text-align: center;
     margin-bottom: 0%;
 }
 
 h3{
-    font-size: 125%;
+    font-size: 100%;
     font-family: 'Comic Sans MS';
+    color: whitesmoke;
     margin: 0px;
-    padding: 2%;
-    padding-top: 0%;
+    padding: 0.5rem;
+    padding-top: 0;
     text-align: center;
 }
 
