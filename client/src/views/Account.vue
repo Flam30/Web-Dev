@@ -17,7 +17,7 @@
                     <b-tab title="Settings" class="main-body">
                         <b-container>
                             <b-row>
-                                <b-col id="text-field" cols="2">
+                                <b-col id="text-field" cols="3">
                                     <p> Username: </p>
                                     <p> Name: </p>
                                     <p> Email: </p>
@@ -25,7 +25,7 @@
                                     <p> Phone number: </p>
                                 </b-col>
 
-                                <b-col id="information" cols="2">
+                                <b-col id="information">
                                     <p> {{form.username}} </p>
                                     <p> {{form.name}} </p>
                                     <p> {{form.email}} </p>
@@ -33,12 +33,12 @@
                                     <p> {{form.phoneNumber}} </p>
                                 </b-col>
 
-                                <b-col>
-                                    <b-button pill variant="primary" v-b-modal.modal-username>Edit</b-button> <br> <!-- Username editor -->
-                                    <b-button pill variant="primary" v-b-modal.modal-name>Edit</b-button> <br> <!-- Name editor -->
-                                    <b-button pill variant="primary" v-b-modal.modal-email>Edit</b-button> <br> <!-- Email editor -->
-                                    <b-button pill variant="primary" v-b-modal.modal-address>Edit</b-button> <br> <!-- Address editor -->
-                                    <b-button pill variant="primary" v-b-modal.modal-phone-number>Edit</b-button> <!-- Phone number editor -->
+                                <b-col cols="3">
+                                    <b-button variant="primary" v-b-modal.modal-username>Edit</b-button> <br> <!-- Username editor -->
+                                    <b-button variant="primary" v-b-modal.modal-name>Edit</b-button> <br> <!-- Name editor -->
+                                    <b-button variant="primary" v-b-modal.modal-email>Edit</b-button> <br> <!-- Email editor -->
+                                    <b-button variant="primary" v-b-modal.modal-address>Edit</b-button> <br> <!-- Address editor -->
+                                    <b-button variant="primary" v-b-modal.modal-phone-number>Edit</b-button> <!-- Phone number editor -->
                                 </b-col>
                             </b-row>
                         </b-container>
@@ -180,6 +180,10 @@ h3{
 #user-info{
     margin: 3%;
     margin-top: 1%;
+}
+
+#information {
+  overflow: auto;
 }
 </style>
 

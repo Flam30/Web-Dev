@@ -69,22 +69,23 @@ export default {
 <template>
   <div>
     <img class="home-background" src="./..\assets\LightViolet.png">
-    <HeaderBar></HeaderBar>
+    <div class="header-container">
+      <HeaderBar></HeaderBar>
+      <div id="filter-sort-buttons">
+        <b-dropdown id="filtering" text="Filter" class="m-md-2 buttons" variant="info">
+          <b-dropdown-item v-on:click="getEvents"> Show all </b-dropdown-item>
+          <b-dropdown-item
+          v-for="venue in venues" :key="venue.id"
+          v-on:click="filterEvents('venue='+venue.id)"> {{ venue.name }} </b-dropdown-item>
+        </b-dropdown>
 
-    <div id="filter-sort-buttons">
-      <b-dropdown id="filtering" text="Filter" class="m-md-2 buttons" variant="info">
-        <b-dropdown-item v-on:click="getEvents"> Show all </b-dropdown-item>
-        <b-dropdown-item
-        v-for="venue in venues" :key="venue.id"
-        v-on:click="filterEvents('venue='+venue.id)"> {{ venue.name }} </b-dropdown-item>
-      </b-dropdown>
-
-      <b-dropdown id="sorting" text="Sort" class="m-md-2 buttons" variant="info">
-        <b-dropdown-item v-on:click="sortEvents('name')"> A - Z </b-dropdown-item>
-        <b-dropdown-item v-on:click="sortEvents('-name')"> Z - A </b-dropdown-item>
-        <b-dropdown-item v-on:click="sortEvents('date')"> Date (closest first) </b-dropdown-item>
-        <b-dropdown-item v-on:click="sortEvents('-date')"> Date (furthest first) </b-dropdown-item>
-      </b-dropdown>
+        <b-dropdown id="sorting" text="Sort" class="m-md-2 buttons" variant="info">
+          <b-dropdown-item v-on:click="sortEvents('name')"> A - Z </b-dropdown-item>
+          <b-dropdown-item v-on:click="sortEvents('-name')"> Z - A </b-dropdown-item>
+          <b-dropdown-item v-on:click="sortEvents('date')"> Date (closest first) </b-dropdown-item>
+          <b-dropdown-item v-on:click="sortEvents('-date')"> Date (furthest first) </b-dropdown-item>
+        </b-dropdown>
+      </div>
     </div>
 
     <div class="event-wrapper">
@@ -118,9 +119,10 @@ export default {
 }
 
 #filter-sort-buttons{
-  position: absolute;
-  top: 72px;
+  position: relative;
+  top: -4.25rem;
   left: 0;
+  z-index: +2;
 }
 
 .buttons {
