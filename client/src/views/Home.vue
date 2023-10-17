@@ -97,12 +97,12 @@ export default {
         :URL="'/Event/' + event._id">
       </EventCard>
 
-      <EventCard
+      <!-- <EventCard
         name="Eurovision 2024"
         description="Lorem ipsum dolor sit"
         link="https://gaybladet.se/wp-content/uploads/2023/05/eurovision-song-contest-2023.webp"
         URL="\Event\TestEvent">
-      </EventCard>
+      </EventCard> -->
     </div>
   </div>
 </template>
