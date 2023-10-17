@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Event = require('../../models/event');
+var Ticket = require('../../models/ticket');
 
 // POST /events - add new event
 router.post('/', async function(req, res, next) {
@@ -22,11 +23,21 @@ router.post('/', async function(req, res, next) {
 // GET /events - get all events
 router.get('/', async function(req, res, next) {
     try {
-        const events = await Event.find({});
-        if(events.length === null) {
+        if(Event.find({}) === null) {
             return res.status(404).json({'message': 'No events registered.'});
         }
+
+        let sortQuery = [];
+        const queryParameters = req.query;
+
+        for (element of [queryParameters["sort"]]) {
+            sortQuery = sortQuery + element + " ";
+        }
         
+        delete queryParameters.sort;
+
+        let events = await Event.find(queryParameters).sort(sortQuery);
+
         res.send(events);
     } catch (error) {
         next(error);
@@ -37,9 +48,9 @@ router.get('/', async function(req, res, next) {
 router.get('/:id', async function(req, res, next) {
     try {
         var id = req.params.id;
-        const events = await Event.find({id: id});
-        if(events.length === null) {
-            return res.status(404).json({'message': 'No events registered.'});
+        const events = await Event.findOne({id: id});
+        if(events === null) {
+            return res.status(404).json({'message': 'No such event registered.'});
         }
         
         res.send(events);
@@ -80,7 +91,7 @@ router.patch('/:id', async function(req, res, next){
 router.delete('/', async function(req, res, next) {
     try {
         const events = await Event.find();
-        if (events === null) {
+        if (events.length < 1) {
             return res.status(404).json({'message': 'No events registered.'});
         }
         await Event.deleteMany();
@@ -94,7 +105,7 @@ router.delete('/', async function(req, res, next) {
 router.delete('/:id', async function(req, res, next) {
     try {
         var id = req.params.id;
-        const events = await Event.find({id: id});
+        const events = await Event.findOne({id: id});
         if (events === null) {
             return res.status(404).json({'message': 'No such event registered.'});
         }
@@ -105,11 +116,80 @@ router.delete('/:id', async function(req, res, next) {
     }
 });
 
-/*
-    Other functions needed for an event:
-    - finding all events in a specific venue
-    - finding all events on a specific date
-    - sorting events by date
-*/
+// GET /events/:eventId/tickets - get specific event's tickets
+router.get('/:eventId/tickets', async function(req, res, next) {
+    try {
+        var eventId = req.params.eventId;
+        const tickets = await Ticket.find({event: eventId});
+        if(tickets.length < 1) {
+            return res.status(404).json({'message': 'No tickets exist.'});
+        }
+        
+        res.send(tickets);
+    } catch (error) {
+        next(error);
+    }
+});
+
+// GET /events/:eventId/tickets/:ticketId - get a specific ticket from an event
+router.get('/:eventId/tickets/:id', async function(req, res, next) {
+    try {
+        var eventId = req.params.eventId;
+        var ticketId = req.params.ticketId;
+        const tickets = await Ticket.findOne({event: eventId, id: ticketId});
+        if(tickets === null) {
+            return res.status(404).json({'message': 'No such ticket exists.'});
+        }
+        
+        res.send(tickets);
+    } catch (error) {
+        next(error);
+    }
+});
+
+// DELETE /events/:eventId/tickets - delete all tickets from an event
+router.delete('/:eventId/tickets/', async function(req, res, next) {
+    try {
+        var eventId = req.params.eventId;
+        const tickets = await Ticket.find({event: eventId});
+        if (tickets.length < 1) {
+            return res.status(404).json({'message': 'No tickets registered.'});
+        }
+        await Ticket.deleteMany({event: eventId});
+        res.json("Successfully deleted.");
+    } catch (error) {
+        return next(error);
+    }
+});
+
+router.delete('/:eventId/tickets/all', async function(req, res, next) {
+    try {
+        var eventId = req.params.eventId;
+        const tickets = await Ticket.find({event: eventId});
+        if (tickets.length < 1) {
+            return res.status(404).json({'message': 'No tickets registered.'});
+        }
+        await Ticket.deleteMany();
+        res.json("Successfully deleted.");
+    } catch (error) {
+        return next(error);
+    }
+});
+
+// DELETE /events/:eventId/tickets/:ticketId - delete a specific ticket from an event
+router.delete('/:eventId/tickets/:id', async function(req, res, next) {
+    try {
+        var eventId = req.params.eventId;
+        var ticketId = req.params.id;
+        const tickets = await Ticket.findOne({id: ticketId, event: eventId});
+        if (tickets === null) {
+            return res.status(404).json({'message': 'No such ticket exists.'});
+        }
+        await Ticket.deleteOne({id: ticketId, event: eventId});
+        res.json("Successfully deleted.");
+    } catch (error) {
+        return next(error);
+    }
+});
 
 module.exports = router;

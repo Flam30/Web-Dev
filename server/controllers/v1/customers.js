@@ -20,7 +20,7 @@ router.post("/register", function (req, res) {
                     res.status(500).json({ success: false, message: er });
                 }
                 else {
-                    res.status(200).json({ success: true, message: "Your account has been registered!" });
+                    res.status(201).json({ success: true, message: "Your account has been registered!" });
                 }
             });
         }
@@ -54,7 +54,7 @@ router.post("/login", function (req, res, next) {
     }
 });
 
-// POST /customers/:customerId/events/:eventId - add an event to the organizer
+// POST /customers/:customerId/tickets/:ticketId - add an event to the organizer
 router.post('/:customerId/tickets/:ticketId', async function (req, res, next) {
     try {
         let customerUsername = req.params.customerId;
@@ -80,7 +80,7 @@ router.post('/:customerId/tickets/:ticketId', async function (req, res, next) {
 router.get('/', async function(req, res, next) {
     try {
         const customers = await Customer.find({});
-        if(customers.length === null) {
+        if(customers.length < 1) {
             return res.status(404).json({'message': 'No customers registered.'});
         }
         
@@ -94,9 +94,9 @@ router.get('/', async function(req, res, next) {
 router.get('/:id', async function(req, res, next) {
     try {
         var username = req.params.id;
-        const customers = await Customer.find({username: username});
-        if(customers.length === null) {
-            return res.status(404).json({'message': 'No customers registered.'});
+        const customers = await Customer.findOne({username: username});
+        if(customers === null) {
+            return res.status(404).json({'message': 'No such customer registered.'});
         }
         
         res.send(customers);
@@ -135,7 +135,7 @@ router.patch('/:id', async function(req, res, next){
 router.delete('/', async function(req, res, next) {
     try {
         const customers = await Customer.find();
-        if (customers === null) {
+        if (customers.length < 1) {
             return res.status(404).json({'message': 'No customers registered.'});
         }
         await Customer.deleteMany();
@@ -149,7 +149,7 @@ router.delete('/', async function(req, res, next) {
 router.delete('/:id', async function(req, res, next) {
     try {
         var username = req.params.id;
-        const customers = await Customer.find({username: username});
+        const customers = await Customer.findOne({username: username});
         if (customers === null) {
             return res.status(404).json({'message': 'No such customer registered.'});
         }
