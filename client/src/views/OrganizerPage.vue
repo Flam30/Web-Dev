@@ -19,6 +19,12 @@ export default {
         organizer: this.id,
         imageURL: ''
       },
+      tickets: {
+        id: '',
+        seat: '',
+        price: 0,
+        quantity: 0
+      },
       venues: []
     }
   },
@@ -81,6 +87,29 @@ export default {
         console.log(res)
         if (res.status === 201) {
           alert('Event created!')
+          this.addTicket()
+        } else {
+          alert('Something went wrong! Please try again.')
+        }
+      }).catch((_err) => {
+        if (_err.response.status === 400) {
+          alert('Something went wrong. Please try again.')
+        } else {
+          console.log(_err.response)
+        }
+      })
+    },
+    async addTicket() {
+      Api.post('/v1/events/' + this.form.id + '/tickets', {
+        id: this.tickets.id,
+        seat: this.tickets.seat,
+        price: this.tickets.price,
+        quantity: this.tickets.quantity,
+        event: this.form.id
+      }).then((res) => {
+        console.log(res)
+        if (res.status === 201) {
+          alert('Tickets created!')
         } else {
           alert('Something went wrong! Please try again.')
         }
@@ -203,6 +232,44 @@ export default {
                     id="img-input"
                     v-model="form.imageURL"
                     placeholder="Enter image URL"
+                    required>
+                  </b-form-input>
+              </b-form-group>
+
+              <hr>
+
+              <b-form-group
+                id="input-group-8"
+                label="Ticket ID:"
+                label-for="ticketID-input">
+                <b-form-input
+                    id="ticketID-input"
+                    v-model="tickets.id"
+                    placeholder="Enter ticket ID"
+                    required>
+                </b-form-input>
+              </b-form-group>
+
+              <b-form-group
+                id="input-group-9"
+                label="Price:"
+                label-for="price-input">
+                <b-form-input
+                    id="price-input"
+                    v-model="tickets.price"
+                    placeholder="Enter price"
+                    required>
+                </b-form-input>
+              </b-form-group>
+
+              <b-form-group
+                id="input-group-10"
+                label="Quantity:"
+                label-for="quantity-input">
+                <b-form-input
+                    id="quantity-input"
+                    v-model="tickets.quantity"
+                    placeholder="Enter ticket quantity"
                     required>
                   </b-form-input>
               </b-form-group>
