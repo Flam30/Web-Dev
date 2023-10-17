@@ -82,16 +82,16 @@ export default {
             <h1>{{ eventInfo.name }}</h1>
             <p id="description">{{ eventInfo.description }}</p>
             <div>
-    <stripe-checkout
-      ref="checkoutRef"
-      mode="payment"
-      :pk="publishableKey"
-      :line-items="lineItems"
-      :success-url="successURL"
-      :cancel-url="cancelURL"
-      @loading="v => loading = v"
-    />
-  </div>
+              <stripe-checkout
+                ref="checkoutRef"
+                mode="payment"
+                :pk="publishableKey"
+                :line-items="lineItems"
+                :success-url="successURL"
+                :cancel-url="cancelURL"
+                @loading="v => loading = v"
+              />
+            </div>
         </div>
         <div id="fact-box">
             <h2 style="text-align: center; margin: 10px 0;">{{ venueInfo.name }}, {{venueInfo.location}}</h2>
@@ -105,11 +105,14 @@ export default {
             </div>
             <div class="fact-line">
                 <h3>Ages</h3>
-                <h3>{{ eventInfo.ageLimit }}+</h3>
+                <h3 v-if="eventInfo.ageLimit !== undefined">{{ eventInfo.ageLimit }}+</h3>
+                <h3 v-else> Anyone </h3>
             </div>
             <div class="fact-line">
                 <h3>Price</h3>
-                <h3>{{ ticketInfo.price }}kr</h3>
+                <h3 v-if="ticketInfo.price === undefined"> Sold out! </h3>
+                <h3 v-else-if="ticketInfo.quantity !== 0">{{ ticketInfo.price }}kr</h3>
+                <h3 v-else> Sold out! </h3>
             </div>
             <b-button variant="primary" id="tickets-button" v-on:click="submit">Tickets</b-button>
         </div>
@@ -126,10 +129,11 @@ export default {
     box-shadow: 0px 0px 8px 2px #000000;
 }
 #title-wrapper{
-    width: 70%;
+    width: 600px;
 }
 #details-wrapper{
     padding: 30px 20px;
+    width: 100dvw;
     display: flex;
     justify-content: space-between;
 }
