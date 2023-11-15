@@ -7,16 +7,15 @@ const stripe = require('stripe')('sk_test_51NvnEZIeSorUA2wFhH58TE9WBEHysbpdbxcdx
 // POST /events - add new event
 router.post('/', async function(req, res, next) {
     try {
-        let event = new Event(req.body);
+        let duplicateEvent = await Event.findOne({id: req.body.id});
 
-        let duplicateEvent = Event.findOne({id: event.id});
-
-        if (duplicateEvent) {
+        if (duplicateEvent !== null) {
             res.status(400).json({'message': 'Id already in use.'});
+        } else {
+            let event = new Event(req.body);
+            await event.save();
+            res.status(201).json(event);
         }
-
-        await event.save();
-        res.status(201).json(event);
 
     } catch (error) {
         next(error);
@@ -175,22 +174,19 @@ router.post('/:eventId/tickets/', async function(req, res, next) {
             }
           });
     
-        let ticket = new Ticket(req.body);
-        ticket.priceId = product.default_price;
+        let duplicateTicket = await Ticket.findOne({event: eventId, id: req.body.id});
 
-        let duplicateTicket = Ticket.findOne({event: eventId, id: ticket.id});
+        if (duplicateTicket !== null) {
+              res.status(400).json({'message': 'Id already in use.'});
+        } else {
+            let ticket = new Ticket(req.body);
+            ticket.priceId = product.default_price;
 
-        if (duplicateTicket) {
-            res.status(400).json({'message': 'Id already in use.'});
+            await ticket.save();
+            res.status(201).json(ticket);
         }
-
-        await ticket.save();
-        res.status(201).json(ticket);
 
     } catch (error) {
-        if (error.status === 500) {
-            res.status(400).json({'message': 'Id already in use.'});
-        }
         next(error);
     }
 });

@@ -5,21 +5,16 @@ var Venue = require('../../models/venue');
 // POST /venues - add new venue
 router.post('/', async function(req, res, next) {
     try {
-        let venue = new Venue(req.body);
+        let duplicateVenue = await Venue.findOne({id: req.body.id});
 
-        let duplicateVenue = Venue.findOne({id: venue.id});
-
-        if (duplicateVenue) {
+        if (duplicateVenue !== null) {
             res.status(400).json({'message': 'Id already in use.'});
+        } else {
+            let venue = new Venue(req.body);
+            await venue.save();
+            res.status(201).json(venue);
         }
-
-        await venue.save();
-        res.status(201).json(venue);
-
     } catch (error) {
-        if (error.status === 500) {
-            res.status(400).json({'message': 'Id already in use.'});
-        }
         next(error);
     }
 });
