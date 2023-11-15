@@ -173,10 +173,15 @@ router.post('/:eventId/tickets/', async function(req, res, next) {
                 unit_amount_decimal: req.body.price * 100
             }
           });
+        console.log(product);
     
-        let ticket = new Ticket(req.body);
-        ticket.priceId = product.default_price;
-        ticket._id = ticket.id;
+        let ticket = new Ticket({
+            id: req.body.id,
+            price: req.body.price,
+            priceId: product.default_price,
+            quantity: req.body.quantity,
+            event: req.body.event
+        });
 
         await ticket.save();
         res.status(201).json(ticket);

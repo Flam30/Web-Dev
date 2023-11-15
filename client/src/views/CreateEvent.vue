@@ -9,6 +9,7 @@ export default {
   data() {
     return {
       form: {
+        id: '',
         name: 'Example Event',
         description: 'Write something about your event here!',
         ageLimit: 0,
@@ -17,7 +18,11 @@ export default {
         venue: '',
         imageUrl: 'https://thumbs.dreamstime.com/b/crowd-concert-summer-music-festival-crowd-concert-summer-music-festival-89546129.jpg'
       },
-      price: 0,
+      ticketForm: {
+        id: '',
+        price: 0,
+        quantity: 0
+      },
       venues: []
     }
   },
@@ -40,8 +45,9 @@ export default {
           console.log(err)
         })
     },
-    createEvent() {
+    async createEvent() {
       Api.post('/v1/events', {
+        id: this.form.id,
         name: this.form.name,
         description: this.form.description,
         ageLimit: this.form.ageLimit,
@@ -62,6 +68,31 @@ export default {
           console.log(_err.response)
         }
       })
+    },
+    async addTickets() {
+      Api.post('/v1/events/' + this.name + '/tickets/', {
+        id: this.ticketForm.id,
+        price: this.ticketForm.price,
+        quantity: this.ticketForm.quantity,
+        event: this.form.id
+      }).then((res) => {
+        console.log(res)
+        if (res.status === 200) {
+          alert('Event created!')
+        } else {
+          alert('Something went wrong! Please try again.')
+        }
+      }).catch((_err) => {
+        if (_err.response.status === 400) {
+          alert('Something went wrong. Please try again.')
+        } else {
+          console.log(_err.response)
+        }
+      })
+    },
+    submitForm() {
+      this.createEvent()
+      this.addTickets()
     }
   }
 }
@@ -72,6 +103,20 @@ export default {
     <HeaderBar></HeaderBar>
     <div class="form-wrapper">
       <b-form id="form">
+        <b-form-group
+            label-cols-lg="4"
+            content-cols-lg="8"
+            id="input-group-0"
+            label="Event id:"
+            label-for="event-id-input">
+            <b-form-input
+                id="event-id-input"
+                v-model="form.id"
+                placeholder="Enter a unique event ID..."
+                required>
+            </b-form-input>
+        </b-form-group>
+
         <b-form-group
             label-cols-lg="4"
             content-cols-lg="8"
@@ -156,15 +201,43 @@ export default {
         </b-form-group>
 
         <b-form-group
+            id="input-group-10"
+            label-cols-lg="4"
+            content-cols-lg="8"
+            label="Ticket id:"
+            label-for="event-ticketid-input">
+              <b-form-input
+                id="event-ticketid-input"
+                v-model="ticketForm.id"
+                placeholder="Enter a unique ticket ID..."
+                rows="3"
+              ></b-form-input>
+        </b-form-group>
+
+        <b-form-group
             id="input-group-8"
             label-cols-lg="4"
             content-cols-lg="8"
             label="Ticket price:"
-            label-for="event-image-input">
+            label-for="event-price-input">
               <b-form-input
                 id="event-price-input"
-                v-model="price"
+                v-model="ticketForm.price"
                 placeholder="Enter tickets price..."
+                rows="3"
+              ></b-form-input>
+        </b-form-group>
+
+        <b-form-group
+            id="input-group-9"
+            label-cols-lg="4"
+            content-cols-lg="8"
+            label="Ticket quantity:"
+            label-for="event-quantity-input">
+              <b-form-input
+                id="event-quantity-input"
+                v-model="ticketForm.quantity"
+                placeholder="Enter available tickets quantity..."
                 rows="3"
               ></b-form-input>
         </b-form-group>
