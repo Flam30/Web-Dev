@@ -2437,41 +2437,6 @@
 					"response": []
 				},
 				{
-					"name": "All tickets",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/events/{{eventId}}/tickets/all",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"events",
-								"{{eventId}}",
-								"tickets",
-								"all"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "All tickets for an event",
 					"event": [
 						{
