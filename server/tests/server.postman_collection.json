@@ -2221,8 +2221,14 @@
 						}
 					],
 					"request": {
-						"method": "DELETE",
-						"header": [],
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-HTTP-Method-Override",
+								"value": "delete",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/api/v1/venues/venue123",
 							"host": [
@@ -2233,38 +2239,13 @@
 								"v1",
 								"venues",
 								"venue123"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "All venues",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/venues",
-							"host": [
-								"{{host}}"
 							],
-							"path": [
-								"api",
-								"v1",
-								"venues"
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -2431,41 +2412,6 @@
 								"{{eventId}}",
 								"tickets",
 								"ticket123"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "All tickets",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/events/{{eventId}}/tickets/all",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"events",
-								"{{eventId}}",
-								"tickets",
-								"all"
 							]
 						}
 					},

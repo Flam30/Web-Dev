@@ -134,7 +134,7 @@ router.get('/:eventId/tickets', async function(req, res, next) {
 });
 
 // GET /events/:eventId/tickets/:ticketId - get a specific ticket from an event
-router.get('/:eventId/tickets/:id', async function(req, res, next) {
+router.get('/:eventId/tickets/:ticketId', async function(req, res, next) {
     try {
         var eventId = req.params.eventId;
         var ticketId = req.params.ticketId;
