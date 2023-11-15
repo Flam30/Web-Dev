@@ -62,11 +62,11 @@
         <b-tab title="Organizer"><p></p>
           <b-form @submit="onSubmitOrganizer">
             <b-form-group
-              id="input-group-1"
+              id="org-input-group-1"
               label="Username:"
               label-for="username-input">
               <b-form-input
-                id="username-input"
+                id="org-username-input"
                 v-model="form.username"
                 placeholder="Enter username"
                 required>
@@ -74,11 +74,11 @@
             </b-form-group>
 
             <b-form-group
-              id="input-group-2"
+              id="org-input-group-2"
               label="Password:"
               label-for="password-input">
               <b-form-input
-                id="password-input"
+                id="org-password-input"
                 v-model="form.password"
                 type="password"
                 placeholder="Enter password"

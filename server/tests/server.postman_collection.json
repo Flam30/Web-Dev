@@ -612,10 +612,6 @@
 									"    pm.expect(responseData.price).to.exist.and.to.be.a('string');\r",
 									"    pm.expect(responseData.quantity).to.exist.and.to.be.a('number');\r",
 									"    pm.expect(responseData.event).to.exist.and.to.be.a('string');\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Seat number should be a String\", function () {\r",
-									"    pm.expect(pm.response.json().seat).to.be.a('string');\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -627,7 +623,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"ticket123\",\r\n    \"seat\": \"12A\",\r\n    \"price\": \"234\",\r\n    \"quantity\": \"350\",\r\n    \"event\": \"{{eventId}}\"\r\n}",
+							"raw": "{\r\n    \"id\": \"ticket123\",\r\n    \"price\": \"234\",\r\n    \"quantity\": \"350\",\r\n    \"event\": \"{{eventId}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -889,7 +885,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"star@entertainment.com\",\r\n    \"password\": \"aStarIsB0rn\"\r\n}",
+							"raw": "{\r\n    \"username\": \"starEntertainment\",\r\n    \"password\": \"aStarIsB0rn\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -933,7 +929,7 @@
 									"  const responseData = pm.response.json();\r",
 									"  \r",
 									"  pm.expect(responseData).to.be.an('object');\r",
-									"  pm.expect(responseData.message).to.exist.and.to.be.a('string').and.to.equal(\"Email or password incorrect\");\r",
+									"  pm.expect(responseData.message).to.exist.and.to.be.a('string').and.to.equal(\"Username or password incorrect\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -945,7 +941,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"uhh what's our company email\",\r\n    \"password\": \"aStarIsB0rn\"\r\n}",
+							"raw": "{\r\n    \"username\": \"uhh what's our company email\",\r\n    \"password\": \"aStarIsB0rn\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1621,7 +1617,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"user123\",\r\n    \"name\": \"Jane Doe\",\r\n    \"email\": \"janedoe@gmail.com\",\r\n    \"phoneNumber\": \"0888444333\"\r\n}",
+							"raw": "{\r\n    \"username\": \"user123\",\r\n    \"name\": \"Jane Doe\",\r\n    \"email\": \"janedoe@gmail.com\",\r\n    \"phoneNumber\": \"9888444333\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1987,38 +1983,6 @@
 			"name": "DELETE",
 			"item": [
 				{
-					"name": "All customers",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/customers",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"customers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Specific customer",
 					"event": [
 						{
@@ -2055,6 +2019,38 @@
 								"v1",
 								"customers",
 								"ratKing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All customers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/customers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers"
 							]
 						}
 					},
@@ -2103,38 +2099,6 @@
 					"response": []
 				},
 				{
-					"name": "All organizers",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/organizers",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"organizers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Specific organizer",
 					"event": [
 						{
@@ -2177,6 +2141,38 @@
 					"response": []
 				},
 				{
+					"name": "All organizers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/organizers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Organizer not found",
 					"event": [
 						{
@@ -2204,38 +2200,6 @@
 								"v1",
 								"organizers",
 								"MEGAPOWER"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "All venues",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/venues",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"venues"
 							]
 						}
 					},
@@ -2275,6 +2239,38 @@
 					"response": []
 				},
 				{
+					"name": "All venues",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/venues",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"venues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Venue not found",
 					"event": [
 						{
@@ -2302,38 +2298,6 @@
 								"v1",
 								"venues",
 								"MEGAPOWER"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "All events",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/events",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"events"
 							]
 						}
 					},
@@ -2373,6 +2337,38 @@
 					"response": []
 				},
 				{
+					"name": "All events",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/events",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Event not found",
 					"event": [
 						{
@@ -2400,6 +2396,41 @@
 								"v1",
 								"events",
 								"MEGAPOWER"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific ticket for an event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/events/{{eventId}}/tickets/ticket123",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"events",
+								"{{eventId}}",
+								"tickets",
+								"ticket123"
 							]
 						}
 					},
@@ -2469,41 +2500,6 @@
 								"events",
 								"{{eventId}}",
 								"tickets"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Specific ticket for an event",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/events/{{eventId}}/tickets/ticket123",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"events",
-								"{{eventId}}",
-								"tickets",
-								"ticket123"
 							]
 						}
 					},
