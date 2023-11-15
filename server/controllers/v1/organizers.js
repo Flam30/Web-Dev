@@ -8,7 +8,6 @@ var jwt = require('jsonwebtoken');
 // POST /organizers/register - register a new organizer
 router.post("/register", function (req, res) {
     var organizer = new Organizer(req.body);
-    organizer._id = organizer.username;
     Organizer.register(organizer, req.body.password, function (err, organizer) {
         if (err) {
             res.status(400).json({ success: false, message: "Your account could not be registered. Error: " + err });
@@ -58,7 +57,7 @@ router.post('/:organizerId/events/', async function (req, res, next) {
     try {
         let organizerId = req.params.organizerId;
         let event = req.body;
-        await Organizer.findOneAndUpdate({_id: organizerId},
+        await Organizer.findOneAndUpdate({username: organizerId},
             {$push: {'events': event.id}},
             {new: true});
         return res.status(201).json({message: 'Added the event to the organizer!', event: event.id});

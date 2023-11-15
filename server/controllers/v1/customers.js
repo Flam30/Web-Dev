@@ -7,7 +7,6 @@ var jwt = require('jsonwebtoken');
 // POST /customers/register - register a new customer
 router.post("/register", function (req, res) {
     var customer = new Customer(req.body);
-    customer._id = customer.username;
     Customer.register(customer, req.body.password, function (err, customer) {
         if (err) {
             res.status(400).json({ success: false, message: "Your account could not be registered. Error: " + err });

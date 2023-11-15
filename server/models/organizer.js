@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
 
 var organizerSchema = new Schema({
-    _id: String,
     username: {type: String, unique: true, required: true},
     name: {type: String, required: true},
     email: {type: String, required: true},
