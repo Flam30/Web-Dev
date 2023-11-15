@@ -2221,8 +2221,14 @@
 						}
 					],
 					"request": {
-						"method": "DELETE",
-						"header": [],
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-HTTP-Method-Override",
+								"value": "delete",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/api/v1/venues/venue123",
 							"host": [
@@ -2233,6 +2239,13 @@
 								"v1",
 								"venues",
 								"venue123"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
 							]
 						}
 					},
