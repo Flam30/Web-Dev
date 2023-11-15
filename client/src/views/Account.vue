@@ -168,7 +168,7 @@ export default {
 </script>
 
 <template>
-  <div id="test">
+  <div>
     <img class="home-background" src="./..\assets\LightViolet.png">
     <HeaderBar></HeaderBar>
     <div id="jumbotron" class="container">
@@ -213,14 +213,14 @@ export default {
               <div class="list-item">
                 <b-list-group horizontal="sm">
                   <b-list-group-item>Address:</b-list-group-item>
-                  <b-list-group-item>{{ formO.email }}</b-list-group-item>
+                  <b-list-group-item>{{ formO.address }}</b-list-group-item>
                   <b-list-group-item><b-button size="sm" variant="primary" v-b-modal.o-address>Edit</b-button></b-list-group-item>
                 </b-list-group>
               </div>
               <div class="list-item">
                 <b-list-group horizontal="sm">
                   <b-list-group-item>Phone number:</b-list-group-item>
-                  <b-list-group-item>{{ formO.email }}</b-list-group-item>
+                  <b-list-group-item>{{ formO.phoneNumber }}</b-list-group-item>
                   <b-list-group-item><b-button size="sm" variant="primary" v-b-modal.o-phone-number>Edit</b-button></b-list-group-item>
                 </b-list-group>
               </div>
@@ -314,32 +314,42 @@ export default {
           </b-modal>
 
           <b-container class="list-container" v-if="accountType==='customer'">
-            <b-row>
-              <b-col id="text-field" cols="2">
-                <p> Username: </p>
-                <p> Name: </p>
-                <p> Email: </p>
-                <p> Address: </p>
-                <p> Phone number: </p>
-              </b-col>
+            <div class="list-item">
+              <b-list-group horizontal="sm">
+                <b-list-group-item>Username:</b-list-group-item>
+                <b-list-group-item>{{ form.username }}</b-list-group-item>
+                <b-list-group-item><b-button size="sm" variant="primary" v-b-modal.modal-username>Edit</b-button></b-list-group-item>
+                </b-list-group>
+              </div>
+              <div class="list-item">
+                <b-list-group horizontal="sm">
+                  <b-list-group-item>Name:</b-list-group-item>
+                  <b-list-group-item>{{ form.name }}</b-list-group-item>
+                  <b-list-group-item><b-button size="sm" variant="primary" v-b-modal.modal-name>Edit</b-button></b-list-group-item>
+                </b-list-group>
+              </div>
+              <div class="list-item">
+                <b-list-group horizontal="sm">
+                  <b-list-group-item>Email:</b-list-group-item>
+                  <b-list-group-item>{{ form.email }}</b-list-group-item>
+                  <b-list-group-item><b-button size="sm" variant="primary" v-b-modal.modal-email>Edit</b-button></b-list-group-item>
+                </b-list-group>
+              </div>
+              <div class="list-item">
+                <b-list-group horizontal="sm">
+                  <b-list-group-item>Address:</b-list-group-item>
+                  <b-list-group-item>{{ form.address }}</b-list-group-item>
+                  <b-list-group-item><b-button size="sm" variant="primary" v-b-modal.modal-address>Edit</b-button></b-list-group-item>
+                </b-list-group>
+              </div>
+              <div class="list-item">
+                <b-list-group horizontal="sm">
+                  <b-list-group-item>Phone number:</b-list-group-item>
+                  <b-list-group-item>{{ form.phoneNumber }}</b-list-group-item>
+                  <b-list-group-item><b-button size="sm" variant="primary" v-b-modal.modal-phone-number>Edit</b-button></b-list-group-item>
+                </b-list-group>
+              </div>
 
-              <b-col id="information" cols="2">
-                <p> {{form.username}} </p>
-                <p> {{form.name}} </p>
-                <p> {{form.email}} </p>
-                <p> {{form.address}} </p>
-                <p> {{form.phoneNumber}} </p>
-              </b-col>
-
-              <b-col>
-                <b-button pill variant="primary" v-b-modal.modal-username>Edit</b-button> <br> <!-- Username editor -->
-                <b-button pill variant="primary" v-b-modal.modal-name>Edit</b-button> <br> <!-- Name editor -->
-                <b-button pill variant="primary" v-b-modal.modal-email>Edit</b-button> <br> <!-- Email editor -->
-                <b-button pill variant="primary" v-b-modal.modal-address>Edit</b-button> <br> <!-- Address editor -->
-                <b-button pill variant="primary" v-b-modal.modal-phone-number>Edit</b-button> <!-- Phone number editor -->
-              </b-col>
-            </b-row>
-            <br>
             <b-button variant="danger" @click="deleteAccount(form.username)"> Delete account </b-button>
           </b-container>
 
