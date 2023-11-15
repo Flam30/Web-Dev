@@ -6,7 +6,12 @@ var Venue = require('../../models/venue');
 router.post('/', async function(req, res, next) {
     try {
         let venue = new Venue(req.body);
-        venue._id = venue.id;
+
+        let duplicateVenue = Venue.findOne({id: venue.id});
+
+        if (duplicateVenue) {
+            res.status(400).json({'message': 'Id already in use.'});
+        }
 
         await venue.save();
         res.status(201).json(venue);

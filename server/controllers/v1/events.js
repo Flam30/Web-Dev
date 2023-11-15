@@ -9,13 +9,16 @@ router.post('/', async function(req, res, next) {
     try {
         let event = new Event(req.body);
 
+        let duplicateEvent = Event.findOne({id: event.id});
+
+        if (duplicateEvent) {
+            res.status(400).json({'message': 'Id already in use.'});
+        }
+
         await event.save();
         res.status(201).json(event);
 
     } catch (error) {
-        if (error.status === 500) {
-            res.status(400).json({'message': 'Id already in use.'});
-        }
         next(error);
     }
 });
@@ -143,7 +146,6 @@ router.get('/:eventId/tickets/:id', async function(req, res, next) {
         
         const response = {
             id: ticketId,
-            seat: tickets.seat,
             price: tickets.price,
             priceId: tickets.priceId,
             quantity: tickets.quantity,
@@ -175,6 +177,12 @@ router.post('/:eventId/tickets/', async function(req, res, next) {
     
         let ticket = new Ticket(req.body);
         ticket.priceId = product.default_price;
+
+        let duplicateTicket = Ticket.findOne({event: eventId, id: ticket.id});
+
+        if (duplicateTicket) {
+            res.status(400).json({'message': 'Id already in use.'});
+        }
 
         await ticket.save();
         res.status(201).json(ticket);
