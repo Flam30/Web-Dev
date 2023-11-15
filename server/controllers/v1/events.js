@@ -7,16 +7,17 @@ const stripe = require('stripe')('sk_test_51NvnEZIeSorUA2wFhH58TE9WBEHysbpdbxcdx
 // POST /events - add new event
 router.post('/', async function(req, res, next) {
     try {
-        let event = new Event(req.body);
-        event._id = event.id;
+        let duplicateEvent = await Event.findOne({id: req.body.id});
 
-        await event.save();
-        res.status(201).json(event);
+        if (duplicateEvent !== null) {
+            res.status(400).json({'message': 'Id already in use.'});
+        } else {
+            let event = new Event(req.body);
+            await event.save();
+            res.status(201).json(event);
+        }
 
     } catch (error) {
-        if (error.message.includes("E11000 duplicate key error collection")) {
-            res.status(400).json({'message': 'Id already in use.'});
-        }
         next(error);
     }
 });
@@ -35,7 +36,7 @@ router.get('/', async function(req, res, next) {
             sortQuery = sortQuery + element + " ";
         }
         
-        delete queryParameters.sort;
+        // delete queryParameters.sort;
 
         let events = await Event.find(queryParameters).sort(sortQuery);
 
@@ -78,7 +79,7 @@ router.put('/:id', async function(req, res, next){
 router.patch('/:id', async function(req, res, next){
     var id = req.params.id;
     try {
-        const event = await Event.findOneAndUpdate({_id: id}, req.body, { new: true });
+        const event = await Event.findOneAndUpdate({id: id}, req.body, { new: true });
         if (event === null) {
             return res.status(404).json({'message': 'Event not found!'});
         }
@@ -144,7 +145,6 @@ router.get('/:eventId/tickets/:id', async function(req, res, next) {
         
         const response = {
             id: ticketId,
-            seat: tickets.seat,
             price: tickets.price,
             priceId: tickets.priceId,
             quantity: tickets.quantity,
@@ -173,18 +173,31 @@ router.post('/:eventId/tickets/', async function(req, res, next) {
                 unit_amount_decimal: req.body.price * 100
             }
           });
+        console.log(product);
     
-        let ticket = new Ticket(req.body);
-        ticket.priceId = product.default_price;
-        ticket._id = ticket.id;
 
-        await ticket.save();
-        res.status(201).json(ticket);
+        let ticket = new Ticket({
+            id: req.body.id,
+            price: req.body.price,
+            priceId: product.default_price,
+            quantity: req.body.quantity,
+            event: req.body.event
+        });
+
+        let duplicateTicket = await Ticket.findOne({event: eventId, id: req.body.id});
+
+
+        if (duplicateTicket !== null) {
+              res.status(400).json({'message': 'Id already in use.'});
+        } else {
+            let ticket = new Ticket(req.body);
+            ticket.priceId = product.default_price;
+
+            await ticket.save();
+            res.status(201).json(ticket);
+        }
 
     } catch (error) {
-        if (error.message.includes("E11000 duplicate key error collection")) {
-            res.status(400).json({'message': 'Id already in use.'});
-        }
         next(error);
     }
 });

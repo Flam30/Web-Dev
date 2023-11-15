@@ -5,16 +5,16 @@ var Venue = require('../../models/venue');
 // POST /venues - add new venue
 router.post('/', async function(req, res, next) {
     try {
-        let venue = new Venue(req.body);
-        venue._id = venue.id;
+        let duplicateVenue = await Venue.findOne({id: req.body.id});
 
-        await venue.save();
-        res.status(201).json(venue);
-
-    } catch (error) {
-        if (error.message.includes("E11000 duplicate key error collection")) {
+        if (duplicateVenue !== null) {
             res.status(400).json({'message': 'Id already in use.'});
+        } else {
+            let venue = new Venue(req.body);
+            await venue.save();
+            res.status(201).json(venue);
         }
+    } catch (error) {
         next(error);
     }
 });
