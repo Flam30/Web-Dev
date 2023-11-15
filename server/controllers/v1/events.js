@@ -8,13 +8,12 @@ const stripe = require('stripe')('sk_test_51NvnEZIeSorUA2wFhH58TE9WBEHysbpdbxcdx
 router.post('/', async function(req, res, next) {
     try {
         let event = new Event(req.body);
-        event._id = event.id;
 
         await event.save();
         res.status(201).json(event);
 
     } catch (error) {
-        if (error.message.includes("E11000 duplicate key error collection")) {
+        if (error.status === 500) {
             res.status(400).json({'message': 'Id already in use.'});
         }
         next(error);
@@ -35,7 +34,7 @@ router.get('/', async function(req, res, next) {
             sortQuery = sortQuery + element + " ";
         }
         
-        delete queryParameters.sort;
+        // delete queryParameters.sort;
 
         let events = await Event.find(queryParameters).sort(sortQuery);
 
@@ -78,7 +77,7 @@ router.put('/:id', async function(req, res, next){
 router.patch('/:id', async function(req, res, next){
     var id = req.params.id;
     try {
-        const event = await Event.findOneAndUpdate({_id: id}, req.body, { new: true });
+        const event = await Event.findOneAndUpdate({id: id}, req.body, { new: true });
         if (event === null) {
             return res.status(404).json({'message': 'Event not found!'});
         }
@@ -176,13 +175,12 @@ router.post('/:eventId/tickets/', async function(req, res, next) {
     
         let ticket = new Ticket(req.body);
         ticket.priceId = product.default_price;
-        ticket._id = ticket.id;
 
         await ticket.save();
         res.status(201).json(ticket);
 
     } catch (error) {
-        if (error.message.includes("E11000 duplicate key error collection")) {
+        if (error.status === 500) {
             res.status(400).json({'message': 'Id already in use.'});
         }
         next(error);

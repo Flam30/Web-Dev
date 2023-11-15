@@ -12,7 +12,7 @@ router.post('/', async function(req, res, next) {
         res.status(201).json(venue);
 
     } catch (error) {
-        if (error.message.includes("E11000 duplicate key error collection")) {
+        if (error.status === 500) {
             res.status(400).json({'message': 'Id already in use.'});
         }
         next(error);
