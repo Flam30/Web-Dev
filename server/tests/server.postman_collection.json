@@ -2252,38 +2252,6 @@
 					"response": []
 				},
 				{
-					"name": "All venues",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/venues",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"venues"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Venue not found",
 					"event": [
 						{
