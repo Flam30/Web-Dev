@@ -173,8 +173,19 @@ router.post('/:eventId/tickets/', async function(req, res, next) {
                 unit_amount_decimal: req.body.price * 100
             }
           });
+        console.log(product);
     
+
+        let ticket = new Ticket({
+            id: req.body.id,
+            price: req.body.price,
+            priceId: product.default_price,
+            quantity: req.body.quantity,
+            event: req.body.event
+        });
+
         let duplicateTicket = await Ticket.findOne({event: eventId, id: req.body.id});
+
 
         if (duplicateTicket !== null) {
               res.status(400).json({'message': 'Id already in use.'});

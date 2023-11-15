@@ -44,7 +44,7 @@ router.post("/login", function (req, res, next) {
                 else {
                     // Change secretkey to an actual secret key (env variable)
                     const token = jwt.sign({ customerId: customer._id, username: customer.username }, "secretkey", { expiresIn: "24h" });
-                    res.json({ success: true, message: "Authentication successful", customerId: customer._id, token: token});
+                    res.json({ success: true, message: "Authentication successful", customerId: customer.username, token: token});
                 }
             }
         })(req, res, next);
