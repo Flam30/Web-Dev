@@ -65,7 +65,8 @@ router.get('/:id', async function(req, res, next) {
 router.put('/:id', async function(req, res, next){
     var id = req.params.id;
     try {
-        const event = await Event.findOneAndReplace({id: id});
+        const event = await Event.findOneAndReplace({id: id}, req.body, { new: true });
+        console.log(event);
         if (event === null) {
             return res.status(404).json({'message': 'Event not found!'});
         }

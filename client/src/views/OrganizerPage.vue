@@ -143,7 +143,7 @@ export default {
             :name="event.name"
             :description="event.description"
             link="https://previews.123rf.com/images/sanneberg/sanneberg1708/sanneberg170800669/85057705-guy-smiling-and-giving-thumbs-up-portrait.jpg"
-            :URL="'/Event/' + event._id">
+            :URL="'/Event/' + event.id">
           </EventCard>
         </div>
       </b-tab>
@@ -288,7 +288,7 @@ export default {
             :name="event.name"
             :description="event.description"
             link="https://previews.123rf.com/images/sanneberg/sanneberg1708/sanneberg170800669/85057705-guy-smiling-and-giving-thumbs-up-portrait.jpg"
-            :URL="'/Event/' + event._id">
+            :URL="'/Event/' + event.id">
           ></ManageEventCard>
         </div>
       </b-tab>
