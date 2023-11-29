@@ -38,8 +38,6 @@ router.get('/:id', async function(req, res, next) {
     try {
         const httpOverride = req.headers['x-http-method-override'];
 
-        console.log(httpOverride);
-
         var id = req.params.id;
         const venues = await Venue.findOne({id: id});
         if(venues === null) {
