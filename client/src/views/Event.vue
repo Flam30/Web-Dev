@@ -102,7 +102,7 @@ export default {
             </div>
             <div class="fact-line">
                 <h3>Time</h3>
-                <h3>{{ eventInfo.date.substring(11, 16) }}</h3>
+                <h3>{{ new Date(eventInfo.date).toTimeString().split(' ')[0].substring(0, 5) }}</h3>
             </div>
             <div class="fact-line">
                 <h3>Ages</h3>

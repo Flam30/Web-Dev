@@ -14,6 +14,7 @@
     </div>
     <template #footer>
         <div class="button-container">
+            <b-button v-bind:href="'/edit-event/' + id" variant="info">Edit</b-button>
             <b-button @click="deleteEvent" variant="danger">Delete</b-button>
         </div>
     </template>
