@@ -37,7 +37,7 @@ router.get('/', async function(req, res, next) {
             sortQuery = sortQuery + element + " ";
         }
         
-        // delete queryParameters.sort;
+        delete queryParameters.sort;
 
         let events = await Event.find(queryParameters).sort(sortQuery);
 

@@ -345,7 +345,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									" pm.globals.set(\"venueId\", pm.response.json()._id);\r",
+									" pm.globals.set(\"venueId\", pm.response.json().id);\r",
 									"\r",
 									"\r",
 									"pm.test(\"Response status code is 201\", function () {\r",
