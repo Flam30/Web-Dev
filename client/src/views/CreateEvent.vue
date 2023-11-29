@@ -38,23 +38,23 @@ export default {
       Api.get('/v1/venues/')
         .then(response => {
           const venuesInfo = response.data
-          venuesInfo.forEach((venue) => this.venues.push(venue.name))
+          venuesInfo.forEach((venue) => this.venues.push({ name: venue.name, id: venue.id }))
           return this.venues
         }).catch(err => {
           console.log(err)
         })
     },
     async createEvent() {
+      const venueID = this.venues.filter(venue => venue.name === this.form.venue)[0].id
       Api.post('/v1/events', {
         id: this.form.id,
         name: this.form.name,
         description: this.form.description,
         ageLimit: this.form.ageLimit,
-        date: this.form.date + ' ' + this.form.time,
-        venue: this.form.venue,
+        date: this.form.date.substring(0, 10) + ' ' + this.form.time,
+        venue: venueID,
         imageUrl: this.form.imageUrl
       }).then((res) => {
-        console.log(res)
         if (res.status === 200) {
           alert('Event created!')
         } else {

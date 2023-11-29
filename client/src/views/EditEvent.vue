@@ -67,7 +67,7 @@ export default {
       }).then((res) => {
         console.log(res)
         if (res.status === 200) {
-          alert('Event edited!')
+          alert('Event successfully edited!')
         } else {
           alert('Something went wrong! Please try again.')
         }
@@ -188,7 +188,7 @@ export default {
               ></b-form-input>
         </b-form-group>
 
-        <b-button v-on:click="editEvent" type="submit" variant="primary">Submit</b-button>
+        <b-button v-on:click="editEvent" variant="primary">Submit</b-button>
     </b-form>
 
   </div>
