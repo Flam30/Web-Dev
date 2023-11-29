@@ -53,7 +53,7 @@ export default {
           const tickets = response.data
           this.ticketInfo = tickets[0]
           this.lineItems.push({ price: tickets[0].priceId, quantity: 1 })
-          this.successURL = 'http://localhost:8080/Success/' + tickets[0]._id
+          this.successURL = 'http://localhost:8080/Success/' + tickets[0].id
           console.log(this.lineItems)
           return this.ticketInfo
         }).catch(err => {

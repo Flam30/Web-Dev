@@ -13,7 +13,7 @@
                 <b-tabs>
                   <b-tab v-if="accountType === 'customer'" title="Your Tickets" active class="main-body">
                         <MyTickets
-                          v-for="ticket in form.tickets" :key="ticket._id"
+                          v-for="ticket in form.tickets" :key="ticket.id"
                           :id="ticket"
                           imageUrl="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cmFuZG9tfGVufDB8fDB8fHww&w=1000&q=80"
                         ></MyTickets>
