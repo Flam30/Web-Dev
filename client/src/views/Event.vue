@@ -75,55 +75,145 @@ export default {
 
 <template>
 <div>
+    <img class="home-background" src="./..\assets\LightViolet.png">
     <HeaderBar></HeaderBar>
     <img src="https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?cs=srgb&dl=pexels-wolfgang-2747449.jpg&fm=jpg" alt="Event cover image" id="event-photo">
     <div id="details-wrapper">
-        <div id="title-wrapper">
-            <h1>{{ eventInfo.name }}</h1>
-            <p id="description">{{ eventInfo.description }}</p>
-            <div>
-              <stripe-checkout
-                ref="checkoutRef"
-                mode="payment"
-                :pk="publishableKey"
-                :line-items="lineItems"
-                :success-url="successURL"
-                :cancel-url="cancelURL"
-                @loading="v => loading = v"
-              />
-            </div>
+      <div id="title-wrapper">
+        <span id="event-name">{{ eventInfo.name }}</span>
+        <p id="description">{{ eventInfo.description }}</p>
+        <div>
+          <stripe-checkout
+            ref="checkoutRef"
+            mode="payment"
+            :pk="publishableKey"
+            :line-items="lineItems"
+            :success-url="successURL"
+            :cancel-url="cancelURL"
+            @loading="v => loading = v"
+          />
         </div>
-        <div id="fact-box">
-            <h2 style="text-align: center; margin: 10px 0;">{{ venueInfo.name }}, {{venueInfo.location}}</h2>
-            <div class="fact-line">
-                <h3>Date</h3>
-                <h3 v-if="eventInfo !== ''">{{ eventInfo.date.substring(0, 10) }}</h3>
-                <h3 v-else> N/A </h3>
-            </div>
-            <div class="fact-line">
-                <h3>Time</h3>
-                <h3 v-if="eventInfo !== ''">{{ new Date(eventInfo.date).toTimeString().split(' ')[0].substring(0, 5) }}</h3>
-                <h3 v-else> N/A </h3>
-            </div>
-            <div class="fact-line">
-                <h3>Ages</h3>
-                <h3 v-if="eventInfo.ageLimit !== undefined">{{ eventInfo.ageLimit }}+</h3>
-                <h3 v-else> Anyone </h3>
-            </div>
-            <div class="fact-line">
-                <h3>Price</h3>
-                <h3 v-if="ticketInfo.price === undefined"> Sold out! </h3>
-                <h3 v-else-if="ticketInfo.quantity !== 0">{{ ticketInfo.price }}kr</h3>
-                <h3 v-else> Sold out! </h3>
-            </div>
-            <b-button disabled variant="primary" id="tickets-button" v-if="ticketInfo.price === undefined">Sold out!</b-button>
-            <b-button variant="primary" id="tickets-button" v-on:click="submit" v-else>Tickets</b-button>
+      </div>
+      <div id="fact-box">
+        <h2 style="text-align: center; margin: 10px 0;">{{ venueInfo.name }}, {{venueInfo.location}}</h2>
+        <div class="fact-line">
+          <h3>Date:</h3>
+          <h3 v-if="eventInfo !== ''">{{ eventInfo.date.substring(0, 10) }}</h3>
+          <h3 v-else> N/A </h3>
         </div>
+        <div class="fact-line">
+          <h3>Time</h3>
+          <h3 v-if="eventInfo !== ''">{{ new Date(eventInfo.date).toTimeString().split(' ')[0].substring(0, 5) }}</h3>
+          <h3 v-else> N/A </h3>
+        </div>
+        <div class="fact-line">
+          <h3>Ages:</h3>
+          <h3 v-if="eventInfo.ageLimit !== undefined">{{ eventInfo.ageLimit }}+</h3>
+          <h3 v-else> Anyone </h3>
+        </div>
+        <div class="fact-line">
+          <h3>Price:</h3>
+          <h3 v-if="ticketInfo.price === undefined"> Sold out! </h3>
+          <h3 v-else-if="ticketInfo.quantity !== 0">{{ ticketInfo.price }}kr</h3>
+          <h3 v-else> Sold out! </h3>
+        </div>
+        <b-button disabled variant="primary" id="tickets-button" v-if="ticketInfo.price === undefined">Sold out!</b-button>
+        <b-button variant="primary" id="tickets-button" v-on:click="submit" v-else>Tickets</b-button>
+      </div>
+    </div>
+    <div id="mobile-wrapper">
+      <div style="display: flex">
+        <b-card
+          v-bind:header=eventInfo.name
+          :header-tag="'h1'"
+          style="width: 20rem;"
+          id="card"
+          class="text-left"
+        >
+          <div class="card-content">
+            <b-card-text>
+              <div id="mobile-description">
+                <h4>{{ eventInfo.description }}</h4>
+              </div>
+              <div id="mobile-fact-box">
+                <div class="fact-line">
+                  <h4>Venue:</h4>
+                  <h4>{{ venueInfo.name }}</h4>
+                </div>
+                <div class="fact-line">
+                  <h4>Location:</h4>
+                  <h4>{{ venueInfo.location }}</h4>
+                </div>
+                <div class="fact-line">
+                  <h4>Date:</h4>
+                  <h4>{{ eventInfo.date.substring(0, 10) }}</h4>
+                </div>
+                <div class="fact-line">
+                  <h4>Time:</h4>
+                  <h4>{{ eventInfo.date.substring(11, 16) }}</h4>
+                </div>
+                <div class="fact-line">
+                  <h4>Ages:</h4>
+                  <h4 v-if="eventInfo.ageLimit !== undefined">{{ eventInfo.ageLimit }}+</h4>
+                  <h4 v-else> Anyone </h4>
+                </div>
+                <div class="fact-line">
+                  <h4>Price:</h4>
+                  <h4 v-if="ticketInfo.price === undefined"> Sold out! </h4>
+                  <h4 v-else-if="ticketInfo.quantity !== 0">{{ ticketInfo.price }}kr</h4>
+                  <h4 v-else> Sold out! </h4>
+                </div>
+              </div>
+            </b-card-text>
+          </div>
+          <template #footer>
+            <div class="button-container">
+              <b-button variant="primary" id="tickets-button" v-on:click="submit">Tickets</b-button>
+            </div>
+          </template>
+        </b-card>
+      </div>
     </div>
 </div>
 </template>
 
 <style>
+
+@media only screen and (max-width: 640px) {
+  #details-wrapper {
+    display: none;
+  }
+  #event-photo {
+    display: none;
+  }
+  #title-wrapper {
+    display: none;
+  }
+  #fact-box {
+    display: none;
+  }
+  #event-name {
+    display:none;
+  }
+  #description {
+    display: none;
+  }
+}
+@media only screen and (min-width: 768px) {
+  #mobile-wrapper #card{
+    display: none;
+  }
+}
+
+.home-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
 
 #event-photo{
     width: 100%;
@@ -131,8 +221,32 @@ export default {
     object-fit: cover;
     box-shadow: 0px 0px 8px 2px #000000;
 }
+
 #title-wrapper{
     width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    flex-wrap: wrap;
+}
+
+#event-name{
+  font-size: 40px;
+  margin-bottom: 0;
+}
+#description{
+  font-size: 25px;
+}
+#mobile-description{
+  margin-bottom: 1.5rem;
+}
+#mobile-wrapper{
+  display: flex;
+  justify-content: center;
+}
+#card h1 {
+  font-size: 25px;
+  text-align: left;
 }
 #details-wrapper{
     padding: 30px 20px;
@@ -140,6 +254,7 @@ export default {
     display: flex;
     justify-content: space-between;
 }
+
 #fact-box{
     text-align: center;
     width: 300px;
@@ -147,8 +262,10 @@ export default {
     border: 1px solid black;
     padding: 20px;
 }
+
 .fact-line{
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 </style>
