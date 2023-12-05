@@ -90,6 +90,7 @@ export default {
         if (res.status === 201) {
           alert('Event created!')
           this.addTicket()
+          this.$router.go()
         } else {
           alert('Something went wrong! Please try again.')
         }
@@ -142,7 +143,7 @@ export default {
             v-for="event in events" :key="event.id"
             :name="event.name"
             :description="event.description"
-            link="https://previews.123rf.com/images/sanneberg/sanneberg1708/sanneberg170800669/85057705-guy-smiling-and-giving-thumbs-up-portrait.jpg"
+            :link="event.imageURL"
             :URL="'/Event/' + event.id">
           </EventCard>
         </div>
@@ -287,7 +288,7 @@ export default {
             :id="event.id"
             :name="event.name"
             :description="event.description"
-            link="https://previews.123rf.com/images/sanneberg/sanneberg1708/sanneberg170800669/85057705-guy-smiling-and-giving-thumbs-up-portrait.jpg"
+            :link="event.imageURL"
             :URL="'/Event/' + event.id">
           ></ManageEventCard>
         </div>
