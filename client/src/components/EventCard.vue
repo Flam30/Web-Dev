@@ -13,7 +13,7 @@
   >
     <div class="card-content">
       <b-card-text>
-        {{ description.substring(0, 100) + '...' }}
+        {{ this.description.substring(0, 100) + (this.description.length > 100 ? '...' : '') }}
       </b-card-text>
     </div>
     <template #footer>
