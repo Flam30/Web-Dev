@@ -12,9 +12,10 @@
     id="card"
   >
     <div class="card-content">
-      <b-card-text>
+      <b-card-text v-if="this.description">
         {{ this.description.substring(0, 100) + (this.description.length > 100 ? '...' : '') }}
       </b-card-text>
+      <b-card-text v-else>Loading...</b-card-text>
     </div>
     <template #footer>
       <b-button v-bind:href=URL variant="info">Details</b-button>
