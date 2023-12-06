@@ -111,7 +111,7 @@ router.patch('/:customerId/tickets/:ticketId', async function (req, res, next) {
     try {
         let customerUsername = req.params.customerId;
         let ticketId = req.params.ticketId;
-        await Customer.findOneAndUpdate({username: customerUsername},
+        await Customer.findOneAndUpdate({_id: customerUsername},
             {$push: {'tickets': ticketId}},
             {new: true});
         return res.status(201).json({message: 'Added a ticket to the customer!', ticket: ticketId});

@@ -144,7 +144,7 @@ export default {
             :name="event.name"
             :description="event.description"
             :link="event.imageURL"
-            :URL="'/Event/' + event.id">
+            :URL="'/Event/' + event._id">
           </EventCard>
         </div>
       </b-tab>
@@ -289,7 +289,7 @@ export default {
             :name="event.name"
             :description="event.description"
             :link="event.imageURL"
-            :URL="'/Event/' + event.id">
+            :URL="'/Event/' + event._id">
           ></ManageEventCard>
         </div>
       </b-tab>

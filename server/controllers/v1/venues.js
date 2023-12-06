@@ -37,7 +37,6 @@ router.get('/', async function(req, res, next) {
 router.get('/:id', async function(req, res, next) {
     try {
         const httpOverride = req.headers['x-http-method-override'];
-
         var id = req.params.id;
         const venues = await Venue.findOne({id: id});
         if(venues === null) {

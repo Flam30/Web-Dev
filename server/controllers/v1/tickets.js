@@ -6,7 +6,7 @@ var Ticket = require('../../models/ticket');
 router.get('/:id', async function(req, res, next) {
     try {
         var ticketId = req.params.id;
-        const ticket = await Ticket.findOne({id: ticketId});
+        const ticket = await Ticket.findById(ticketId);
         if(ticket === null) {
             return res.status(404).json({'message': 'No such ticket found.'});
         }
