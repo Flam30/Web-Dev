@@ -3,7 +3,7 @@ import { Api } from '@/Api'
 import HeaderBar from '@/components/HeaderBar'
 
 export default {
-  name: 'create-event',
+  name: 'edit-event',
   data() {
     return {
       form: {
@@ -37,9 +37,18 @@ export default {
           this.form = eventInfo
           const date = new Date(eventInfo.date)
           this.form.time = date.toLocaleTimeString()
+          Api.get('/v1/venues/' + eventInfo.venue)
+            .then(response => {
+              const venueInfo = response.data
+              this.form.venue = venueInfo.name
+            }).catch(err => {
+              console.log(err)
+              alert('Something went wrong. Please try again.')
+            })
           return this.eventInfo
         }).catch(error => {
           console.log(error)
+          alert('Something went wrong. Please try again.')
         })
     },
     async getVenues() {
@@ -72,11 +81,8 @@ export default {
           alert('Something went wrong! Please try again.')
         }
       }).catch((_err) => {
-        if (_err.response.status === 400) {
-          alert('Something went wrong. Please try again.')
-        } else {
-          console.log(_err.response)
-        }
+        console.log(_err.response)
+        alert('Something went wrong. Please try again.')
       })
     },
     submitForm() {
@@ -95,7 +101,7 @@ export default {
             label-cols-lg="4"
             content-cols-lg="8"
             id="input-group-0"
-            label="Event id:"
+            label="Event ID:"
             label-for="event-id-input">
             <b-form-input
                 id="event-id-input"
@@ -171,7 +177,7 @@ export default {
             content-cols-lg="8"
             label="Event venue:"
             label-for="event-venue-input">
-              <b-form-select v-model="form.venue" :options="this.venues.map(venue => venue.name)"></b-form-select>
+              <b-form-select required v-model="form.venue" :options="this.venues.map(venue => venue.name)" ></b-form-select>
         </b-form-group>
 
         <b-form-group
@@ -200,12 +206,12 @@ h1{
   text-align: center;
 }
 .form-wrapper{
-  width: 80%;
+  width: 100%;
   justify-content: space-around;
-  margin: 0 auto;
+  margin: 5% auto;
   display: flex;
 }
 #form{
-  width: 40%;
+  width: 60%;
 }
 </style>
