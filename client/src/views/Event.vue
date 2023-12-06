@@ -205,7 +205,7 @@ export default {
   }
 }
 
-.home-background {
+[class="home-background"] {
   position: fixed;
   top: 0;
   left: 0;
@@ -214,6 +214,16 @@ export default {
   object-fit: cover;
   z-index: -1;
 }
+
+/* .home-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  z-index: -1;
+} */
 
 #event-photo{
     width: 100%;
