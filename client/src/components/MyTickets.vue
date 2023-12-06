@@ -5,7 +5,8 @@
       </b-col>
       <b-col class="ticket-info">
         <p class="ticket-title">{{ this.eventInfo.name }}</p>
-        <p class="ticket-description">{{ this.eventInfo.description }}</p>
+        <p v-if="this.eventInfo.description" class="ticket-description">{{ this.eventInfo.description.substring(0, 100) + (this.eventInfo.description.length > 100 ? '...' : '') }}</p>
+        <p v-else class="ticket-description">Loading...</p>
       </b-col>
       <b-col style="text-align: center; margin: auto;">
         <b-button v-b-modal="modalID" variant="info">View Ticket</b-button>
@@ -36,7 +37,7 @@
 }
 
 .ticket-wrapper{
-  height: 150px;
+  height: 250px;
   margin: 0;
   background-color: white;
 }

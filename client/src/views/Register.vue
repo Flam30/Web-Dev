@@ -60,7 +60,6 @@ export default {
         <div id="bg-img"></div>
         <b-card id="form-card"
             bg-variant="light"
-            header="Welcome to Kirby's Ticket Emporium!"
             class="mb-2"
             style="width: 22rem;">
             <div class="form-container">

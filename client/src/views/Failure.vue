@@ -3,8 +3,8 @@ export default {
   name: 'Failure',
   data() {
     return {
-      message: '5',
-      timerCount: 5
+      message: '3',
+      timerCount: 3
     }
   },
   watch: {
@@ -39,7 +39,7 @@ export default {
 
 <style>
 #failure-title {
-  font-size: 69px;
+  font-size: 60px;
 }
 
 #failure-description {
@@ -47,8 +47,8 @@ export default {
 }
 
 #failure-wrapper{
-  height: 400px;
-  width: 400px;
+  height: 40%;
+  width: 80%;
   background-color: #FF6961;
   border: 7px #CC0A00 solid;
   border-radius: 10px;

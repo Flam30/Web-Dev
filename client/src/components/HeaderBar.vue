@@ -200,7 +200,11 @@ export default {
     logout() {
       this.$session.destroy()
       this.isLoggedIn = false
-      this.$router.go()
+      if (this.$route.path === '/') {
+        this.$router.go()
+      } else {
+        this.$router.push('/')
+      }
     },
     getOrganizerPageLink() {
       const accountType = this.$session.get('account-type')
