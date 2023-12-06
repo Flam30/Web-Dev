@@ -13,11 +13,21 @@
     </b-row>
     <b-modal :id="modalID" title="Your ticket QR code">
       <qrcode-vue :value="ticketQR" size="300"></qrcode-vue>
-  </b-modal>
+      <b-button class="mt-3" block @click="this._links.event">Go to Event</b-button>
+    </b-modal>
   </div>
 </template>
 
 <style>
+.modal-body {
+    position: relative;
+    flex: 1 1 auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .tickets{
     height: 150px;
     width: 80%;

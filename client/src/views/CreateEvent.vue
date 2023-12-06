@@ -55,6 +55,7 @@ export default {
         venue: venueID,
         imageUrl: this.form.imageUrl
       }).then((res) => {
+        console.log(res)
         if (res.status === 200) {
           alert('Event created!')
         } else {

@@ -7,7 +7,6 @@ var cors = require('cors');
 var history = require('connect-history-api-fallback');
 var LocalStrategy = require('passport-local');
 var methodOverride = require('method-override');
-
 // version 1 controllers
 var customersControllerV1 = require('./controllers/v1/customers');
 var eventsControllerV1 = require('./controllers/v1/events');
