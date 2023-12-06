@@ -29,7 +29,6 @@ export default {
 
 <template >
   <div id="page-wrapper">
-    <HeaderBar></HeaderBar>
     <div id="failure-wrapper">
     <p id="failure-title">Payment failed!</p>
     <p id="failure-description">Redirecting to the home page <br /> in {{ message }} seconds...</p>
