@@ -38,6 +38,7 @@ export default {
         if (res.status === 201) {
           alert('Account registered!')
           console.log('Registered!')
+          this.$router.push('/')
         } else {
           alert('Something went wrong! Please try again.')
         }
@@ -149,7 +150,7 @@ export default {
                     required>
                   </b-form-input>
                 </b-form-group>
-                <b-button v-on:click="login" type="submit" variant="success">Register</b-button>
+                <b-button type="submit" variant="success">Register</b-button>
               </b-form>
             </div>
         </b-card>

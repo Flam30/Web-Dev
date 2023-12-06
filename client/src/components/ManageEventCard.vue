@@ -36,9 +36,12 @@ export default {
   methods: {
     async deleteEvent() {
       const id = this.id
+      Api.delete('/v1/events/' + id + 'tickets')
+        .catch(err => {
+          console.log(err)
+        })
       Api.delete('/v1/events/' + id)
         .then(res => {
-          this.$session.destroy()
           this.$router.go()
         })
     }

@@ -13,6 +13,7 @@ router.post('/', async function(req, res, next) {
             res.status(400).json({'message': 'Id already in use.'});
         } else {
             let event = new Event(req.body);
+            event.imageURL = req.body.imageURL || "https://http.dog/201.jpg";
             await event.save();
             res.status(201).json(event);
         }
@@ -36,7 +37,7 @@ router.get('/', async function(req, res, next) {
             sortQuery = sortQuery + element + " ";
         }
         
-        // delete queryParameters.sort;
+        delete queryParameters.sort;
 
         let events = await Event.find(queryParameters).sort(sortQuery);
 
