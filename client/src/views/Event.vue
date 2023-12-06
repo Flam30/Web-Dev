@@ -22,6 +22,7 @@ export default {
   },
   methods: {
     submit() {
+      // You will be redirected to Stripe's secure checkout page
       this.$refs.checkoutRef.redirectToCheckout()
     },
     async getEvent() {
@@ -52,7 +53,7 @@ export default {
           const tickets = response.data
           this.ticketInfo = tickets[0]
           this.lineItems.push({ price: tickets[0].priceId, quantity: 1 })
-          this.successURL = 'http://localhost:8080/Success/' + tickets[0].id
+          this.successURL = 'http://localhost:8080/Success/' + tickets[0]._id
           console.log(this.lineItems)
           return this.ticketInfo
         }).catch(err => {
@@ -93,40 +94,12 @@ export default {
             @loading="v => loading = v"
           />
         </div>
-<<<<<<< HEAD
       </div>
       <div id="fact-box">
         <h2 style="text-align: center; margin: 10px 0;">{{ venueInfo.name }}, {{venueInfo.location}}</h2>
         <div class="fact-line">
           <h3>Date:</h3>
           <h3>{{ eventInfo.date.substring(0, 10) }}</h3>
-=======
-        <div id="fact-box">
-            <h2 style="text-align: center; margin: 10px 0;">{{ venueInfo.name }}, {{venueInfo.location}}</h2>
-            <div class="fact-line">
-                <h3>Date</h3>
-                <h3 v-if="eventInfo !== ''">{{ eventInfo.date.substring(0, 10) }}</h3>
-                <h3 v-else> N/A </h3>
-            </div>
-            <div class="fact-line">
-                <h3>Time</h3>
-                <h3 v-if="eventInfo !== ''">{{ new Date(eventInfo.date).toTimeString().split(' ')[0].substring(0, 5) }}</h3>
-                <h3 v-else> N/A </h3>
-            </div>
-            <div class="fact-line">
-                <h3>Ages</h3>
-                <h3 v-if="eventInfo.ageLimit !== undefined">{{ eventInfo.ageLimit }}+</h3>
-                <h3 v-else> Anyone </h3>
-            </div>
-            <div class="fact-line">
-                <h3>Price</h3>
-                <h3 v-if="ticketInfo.price === undefined"> Sold out! </h3>
-                <h3 v-else-if="ticketInfo.quantity !== 0">{{ ticketInfo.price }}kr</h3>
-                <h3 v-else> Sold out! </h3>
-            </div>
-            <b-button disabled variant="primary" id="tickets-button" v-if="ticketInfo.price === undefined">Sold out!</b-button>
-            <b-button variant="primary" id="tickets-button" v-on:click="submit" v-else>Tickets</b-button>
->>>>>>> master
         </div>
         <div class="fact-line">
           <h3>Time:</h3>

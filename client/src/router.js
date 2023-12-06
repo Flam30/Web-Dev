@@ -9,7 +9,6 @@ import Failure from './views/Failure.vue'
 import CreateEvent from './views/CreateEvent.vue'
 import OrganizerRegister from './views/OrganizerRegister.vue'
 import OrganizerPage from './views/OrganizerPage.vue'
-import EditEvent from './views/EditEvent.vue'
 
 Vue.use(Router)
 
@@ -65,12 +64,6 @@ export default new Router({
       props: true,
       name: 'Organizer',
       component: OrganizerPage
-    },
-    {
-      path: '/edit-event/:id',
-      props: true,
-      name: 'Edit event',
-      component: EditEvent
     }
   ]
 })

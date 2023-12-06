@@ -36,8 +36,7 @@ router.get('/', async function(req, res, next) {
 // GET /venues/:id - get a specific venue
 router.get('/:id', async function(req, res, next) {
     try {
-        const httpOverride = req.headers['x-http-method-override'];
-
+        const httpOverride = req.headers['X-HTTP-Method-Override'];
         var id = req.params.id;
         const venues = await Venue.findOne({id: id});
         if(venues === null) {
@@ -47,9 +46,9 @@ router.get('/:id', async function(req, res, next) {
         if (httpOverride && httpOverride.toLocaleLowerCase() === 'delete'){
             await Venue.deleteOne({id: id});
             res.status(200).json("Successfully deleted.");
-        } else {
-            res.status(200).send(venues);
         }
+        
+        res.status(200).send(venues);
     } catch (error) {
         next(error);
     }
