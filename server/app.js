@@ -6,6 +6,7 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 var LocalStrategy = require('passport-local');
+var methodOverride = require('method-override');
 // version 1 controllers
 var customersControllerV1 = require('./controllers/v1/customers');
 var eventsControllerV1 = require('./controllers/v1/events');
@@ -36,6 +37,7 @@ const Organizer = require('./models/organizer');
 
 // Create Express app
 var app = express();
+app.use(methodOverride('X-HTTP-Method-Override', ['GET']));
 // Parse requests of content-type 'application/json'
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

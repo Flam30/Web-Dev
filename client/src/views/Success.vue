@@ -57,7 +57,6 @@ export default {
 
 <template >
   <div id="page-wrapper">
-    <HeaderBar></HeaderBar>
     <div id="confirmation-wrapper">
     <p id="confirmation-title">Order confirmed!</p>
     <p id="confirmation-description">Redirecting to the home page <br /> in {{ message }} seconds...</p>

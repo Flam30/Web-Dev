@@ -18,8 +18,7 @@ router.post("/register", function (req, res) {
                     res.status(500).json({ success: false, message: er });
                 }
                 else {
-                    res.status(201).json({ success: true, message: "Your account has been registered!" });
-                }
+                    res.status(201).json({ success: true, message: "Your account has been registered!", username: req.body.username });                }
             });
         }
     });

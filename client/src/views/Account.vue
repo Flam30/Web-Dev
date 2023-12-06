@@ -485,8 +485,4 @@ h3 {
 .list-item {
   margin-bottom: 10px;
 }
-
-#jumbotron {
-  background-color: #DF77D4;
-}
 </style>

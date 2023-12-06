@@ -14,6 +14,7 @@
     </div>
     <template #footer>
         <div class="button-container">
+            <b-button v-bind:href="'/edit-event/' + id" variant="info">Edit</b-button>
             <b-button @click="deleteEvent" variant="danger">Delete</b-button>
         </div>
     </template>
@@ -35,9 +36,12 @@ export default {
   methods: {
     async deleteEvent() {
       const id = this.id
+      Api.delete('/v1/events/' + id + 'tickets')
+        .catch(err => {
+          console.log(err)
+        })
       Api.delete('/v1/events/' + id)
         .then(res => {
-          this.$session.destroy()
           this.$router.go()
         })
     }
