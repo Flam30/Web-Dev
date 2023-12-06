@@ -345,7 +345,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									" pm.globals.set(\"venueId\", pm.response.json()._id);\r",
+									" pm.globals.set(\"venueId\", pm.response.json().id);\r",
 									"\r",
 									"\r",
 									"pm.test(\"Response status code is 201\", function () {\r",
@@ -476,7 +476,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"event123\",\r\n    \"name\": \"Amazing Concert\",\r\n    \"description\": \"The most amazing concert ever!!!\",\r\n    \"ageLimit\": \"18\",\r\n    \"date\": \"2023-06-13\",\r\n    \"venue\": \"{{venueId}}\",\r\n    \"organizer\": \"{{organizerId}}\",\r\n    \"imageURL\": \"https://www.google.com\"\r\n}",
+							"raw": "{\r\n    \"id\": \"event123\",\r\n    \"name\": \"Amazing Concert\",\r\n    \"description\": \"The most amazing concert ever!!!\",\r\n    \"ageLimit\": \"18\",\r\n    \"date\": \"2023-06-13\",\r\n    \"venue\": \"{{venueId}}\",\r\n    \"organizer\": \"{{organizerId}}\",\r\n    \"imageURL\": \"https://http.dog/218.jpg\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1803,6 +1803,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Specific event",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"event123\",\r\n    \"name\": \"Amazing Dog Concert\",\r\n    \"description\": \"The most amazing dog concert ever!!!\",\r\n    \"ageLimit\": \"18\",\r\n    \"date\": \"2023-06-13\",\r\n    \"venue\": \"{{venueId}}\",\r\n    \"organizer\": \"{{organizerId}}\",\r\n    \"imageURL\": \"https://http.dog/200.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/events/{{eventId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"events",
+								"{{eventId}}"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -2221,8 +2250,14 @@
 						}
 					],
 					"request": {
-						"method": "DELETE",
-						"header": [],
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-HTTP-Method-Override",
+								"value": "delete",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/api/v1/venues/venue123",
 							"host": [
@@ -2233,38 +2268,13 @@
 								"v1",
 								"venues",
 								"venue123"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "All venues",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/venues",
-							"host": [
-								"{{host}}"
 							],
-							"path": [
-								"api",
-								"v1",
-								"venues"
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -2431,41 +2441,6 @@
 								"{{eventId}}",
 								"tickets",
 								"ticket123"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "All tickets",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/events/{{eventId}}/tickets/all",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"events",
-								"{{eventId}}",
-								"tickets",
-								"all"
 							]
 						}
 					},

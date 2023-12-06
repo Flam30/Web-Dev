@@ -82,3 +82,13 @@ The system (*Kirby's Ticket Emporium*) will provide users with a place to centra
 ## Teaser (MS3)
 
 ![Teaser](./images/teaser.png)
+
+## Learning outcomes
+
+In this project, we learned quite a few new languages and frameworks, as well as some valuable lessons in features for web development, Model-View-Controller (MVC) architecture, and project scoping.
+
+For the backend, we learned how to code in Javascript (JS) and use NodeJS and Express. We implemented a RESTful API that takes advantage of API versioning and HATEOAS, and how to connect to a Mongo database using Mongoose. Here, we defined the schemas for the objects in the database (the *models* in MVC architecture) and the endpoints that the frontend would communicate with in the *controllers* (MVC).
+
+For the frontend, we learned about Vue and how it enhances HTML, CSS, and JS to create more accessible and complex user interfaces (*views* in MVC), and how to implement sessions, authentification, and online payments. BootstrapVue was used to have responsiveness in our project to allow any user to enjoy the application, regardless of device.
+
+We also learned a bit about project scoping. Our project was a lot to undertake for beginners in web development, and we realized that a little too late. We had advanced functionalities (online payments) while lacking some of the basic requirements of the system. Therefore, from now on, we will focus more on delivering the MVP of the project before being able to deliver all the advanced functionalities that we want.
