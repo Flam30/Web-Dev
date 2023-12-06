@@ -22,7 +22,6 @@ export default {
   },
   methods: {
     submit() {
-      // You will be redirected to Stripe's secure checkout page
       this.$refs.checkoutRef.redirectToCheckout()
     },
     async getEvent() {
@@ -103,7 +102,7 @@ export default {
             </div>
             <div class="fact-line">
                 <h3>Time</h3>
-                <h3 v-if="eventInfo !== ''">{{ eventInfo.date.substring(11, 16) }}</h3>
+                <h3 v-if="eventInfo !== ''">{{ new Date(eventInfo.date).toTimeString().split(' ')[0].substring(0, 5) }}</h3>
                 <h3 v-else> N/A </h3>
             </div>
             <div class="fact-line">
