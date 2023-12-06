@@ -13,7 +13,6 @@ router.post('/', async function(req, res, next) {
             res.status(400).json({'message': 'Id already in use.'});
         } else {
             let event = new Event(req.body);
-            event.imageURL = req.body.imageURL || "https://http.dog/201.jpg";
             await event.save();
             res.status(201).json(event);
         }
@@ -37,7 +36,7 @@ router.get('/', async function(req, res, next) {
             sortQuery = sortQuery + element + " ";
         }
         
-        delete queryParameters.sort;
+        // delete queryParameters.sort;
 
         let events = await Event.find(queryParameters).sort(sortQuery);
 
@@ -66,8 +65,7 @@ router.get('/:id', async function(req, res, next) {
 router.put('/:id', async function(req, res, next){
     var id = req.params.id;
     try {
-        const event = await Event.findOneAndReplace({id: id}, req.body, { new: true });
-        console.log(event);
+        const event = await Event.findOneAndReplace({id: id});
         if (event === null) {
             return res.status(404).json({'message': 'Event not found!'});
         }
@@ -136,7 +134,7 @@ router.get('/:eventId/tickets', async function(req, res, next) {
 });
 
 // GET /events/:eventId/tickets/:ticketId - get a specific ticket from an event
-router.get('/:eventId/tickets/:ticketId', async function(req, res, next) {
+router.get('/:eventId/tickets/:id', async function(req, res, next) {
     try {
         var eventId = req.params.eventId;
         var ticketId = req.params.ticketId;
