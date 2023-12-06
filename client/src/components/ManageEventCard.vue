@@ -9,7 +9,7 @@
   >
     <div class="card-content">
       <b-card-text>
-        {{ description }}
+        {{ description.substring(0, 100) + '...' }}
       </b-card-text>
     </div>
     <template #footer>
