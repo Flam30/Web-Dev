@@ -22,6 +22,7 @@ export default {
   },
   methods: {
     submit() {
+      // You will be redirected to Stripe's secure checkout page
       this.$refs.checkoutRef.redirectToCheckout()
     },
     async getEvent() {
@@ -52,7 +53,7 @@ export default {
           const tickets = response.data
           this.ticketInfo = tickets[0]
           this.lineItems.push({ price: tickets[0].priceId, quantity: 1 })
-          this.successURL = 'http://localhost:8080/Success/' + tickets[0].id
+          this.successURL = 'http://localhost:8080/Success/' + tickets[0]._id
           console.log(this.lineItems)
           return this.ticketInfo
         }).catch(err => {
