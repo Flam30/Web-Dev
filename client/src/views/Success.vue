@@ -5,8 +5,8 @@ export default {
   name: 'Success',
   data() {
     return {
-      message: '5',
-      timerCount: 5,
+      message: '3',
+      timerCount: 3,
       userId: ''
     }
   },
@@ -66,7 +66,7 @@ export default {
 
 <style>
 #confirmation-title {
-  font-size: 69px;
+  font-size: 60px;
 }
 
 #confirmation-description {
@@ -74,8 +74,8 @@ export default {
 }
 
 #confirmation-wrapper{
-  height: 400px;
-  width: 400px;
+  height: 40%;
+  width: 80%;
   background-color: #B0FFAD;
   border: 7px #77DD77 solid;
   border-radius: 10px;

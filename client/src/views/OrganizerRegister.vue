@@ -57,7 +57,6 @@ export default {
         <div id="bg-img"></div>
         <b-card id="form-card"
           bg-variant="light"
-          header="Organizer"
           class="mb-2"
           style="width: 22rem;">
           <div class="form-container">
@@ -136,7 +135,7 @@ export default {
                 </b-form-input>
               </b-form-group>
 
-              <b-button v-on:click="login" type="submit" variant="success">Register</b-button>
+              <b-button type="submit" variant="success">Register</b-button>
             </b-form>
           </div>
         </b-card>

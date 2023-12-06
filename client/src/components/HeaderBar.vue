@@ -200,7 +200,6 @@ export default {
     logout() {
       this.$session.destroy()
       this.isLoggedIn = false
-      console.log(this.$router)
       if (this.$route.path === '/') {
         this.$router.go()
       } else {
