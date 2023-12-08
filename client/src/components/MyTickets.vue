@@ -1,22 +1,28 @@
 <template>
-  <div class="tickets">
-    <b-row class="ticket-wrapper">
-      <b-col class="ticket-image" v-bind:style="{ backgroundImage: 'url(' + this.eventInfo.imageURL + ')' }">
-      </b-col>
-      <b-col class="ticket-info">
-        <p class="ticket-title">{{ this.eventInfo.name }}</p>
-        <p v-if="this.eventInfo.description" class="ticket-description">{{ this.eventInfo.description.substring(0, 100) + (this.eventInfo.description.length > 100 ? '...' : '') }}</p>
-        <p v-else class="ticket-description">Loading...</p>
-      </b-col>
-      <b-col style="text-align: center; margin: auto;">
-        <b-button v-b-modal="modalID" variant="info">View Ticket</b-button>
-      </b-col>
-    </b-row>
+<div style="display: flex">
+  <b-card
+    v-bind:title= "this.eventInfo.name"
+    v-bind:img-src="this.eventInfo.imageURL"
+    img-alt="Event thumbnail"
+    img-top
+    img-height=200
+    style="max-width: 16rem; min-width: 16rem;"
+    id="card"
+  >
+    <div class="card-content">
+      <b-card-text v-if="this.eventInfo.description">
+        {{ this.eventInfo.description.substring(0, 100) + (this.eventInfo.description.length > 100 ? '...' : '') }}      </b-card-text>
+      <b-card-text v-else>Loading...</b-card-text>
+    </div>
+    <template #footer>
+      <b-button v-b-modal="modalID" variant="info">View Ticket</b-button>
+    </template>
     <b-modal :id="modalID" title="Your ticket QR code">
       <qrcode-vue :value="ticketQR" size="300"></qrcode-vue>
       <b-button class="mt-3" block v-if="eventLinkAvailable" @click="goToEvent">Go to Event</b-button>
     </b-modal>
-  </div>
+  </b-card>
+</div>
 </template>
 
 <style>
@@ -29,31 +35,16 @@
     align-items: center;
 }
 
-.tickets{
-    height: 150px;
-    width: 80%;
-    margin: 15px auto;
-    padding: 10px;
+#card{
+    margin: 20px 10px;
 }
 
-.ticket-wrapper{
-  height: 250px;
-  margin: 0;
-  background-color: white;
+#thumbnail{
+    width: 100%;
 }
-
-.ticket-image{
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-}
-
-.ticket-info{
-  padding: 10px 0;
-}
-
-.ticket-title{
-  font-size: 28px;
+.card-content {
+  display: flex; /* Apply flex layout to the content */
+  flex-direction: column; /* Stack children vertically */
 }
 </style>
 
@@ -99,7 +90,6 @@ export default {
           const ticketInfo = response.data
           this.ticketInfo = ticketInfo
           this.getEvent(ticketInfo.event)
-          console.log(this.ticketInfo)
         }).catch(error => {
           console.log(error)
         })

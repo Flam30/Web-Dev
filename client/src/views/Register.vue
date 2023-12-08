@@ -34,7 +34,6 @@ export default {
         DOB: this.form.DOB,
         tickets: []
       }).then((res) => {
-        console.log(res)
         if (res.status === 201) {
           alert('Account registered!')
           console.log('Registered!')

@@ -47,7 +47,6 @@ export default {
         .then(response => {
           const userInfo = response.data
           this.form = userInfo
-          console.log(userInfo)
         }).catch(error => {
           console.log(error)
         })
@@ -92,7 +91,6 @@ export default {
         .then(response => {
           const userInfo = response.data
           this.formO = userInfo
-          console.log(userInfo)
         }).catch(error => {
           console.log(error)
         })
@@ -145,7 +143,6 @@ export default {
         })
     },
     async deleteAccount(username) {
-      console.log(username)
       if (username === undefined) {
         return
       }
@@ -180,11 +177,13 @@ export default {
     <div class="container">
       <b-tabs pills card>
         <b-tab v-if="accountType === 'customer'" title="Your Tickets" active class="main-body">
-          <MyTickets
+          <div class="ticket-wrapper">
+            <MyTickets
             v-for="ticket in form.tickets" :key="ticket._id"
             :id="ticket"
             imageUrl="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cmFuZG9tfGVufDB8fDB8fHww&w=1000&q=80"
-          ></MyTickets>
+            ></MyTickets>
+          </div>
         </b-tab>
 
         <b-tab title="Settings" class="main-body">
@@ -484,5 +483,13 @@ h3 {
 
 .list-item {
   margin-bottom: 10px;
+}
+
+.ticket-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-evenly;
+  width: 100%;
+  height: 100%;
 }
 </style>
