@@ -153,6 +153,12 @@ export default {
             this.$router.push('/')
           })
       } else {
+        for (let i = 0; i < this.formO.events.length; i++) {
+          Api.delete('/v1/events/' + this.formO.events[i])
+            .then(res => {
+              console.log(res)
+            })
+        }
         Api.delete('/v1/organizers/' + username)
           .then(res => {
             this.$session.destroy()

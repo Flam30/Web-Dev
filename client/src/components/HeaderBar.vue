@@ -55,7 +55,7 @@
                 required>
               </b-form-input>
             </b-form-group>
-            <b-button v-on:click="userLogin" type="submit" variant="success">Log in</b-button>
+            <b-button v-on:click="userLogin" variant="success">Log in</b-button>
             <p style="margin-top: 1rem; margin-bottom: 0;">Don't have an account yet? <a href="/register">Register here.</a></p>
           </b-form>
         </b-tab>
@@ -85,7 +85,7 @@
                 required>
               </b-form-input>
             </b-form-group>
-            <b-button v-on:click="organizerLogin" type="submit" variant="success">Log in</b-button>
+            <b-button v-on:click="organizerLogin" variant="success">Log in</b-button>
             <p style="margin-top: 1rem; margin-bottom: 0;">Don't have an account yet? <a href="/organizer-register">Register here.</a></p>
           </b-form>
         </b-tab>
@@ -174,7 +174,7 @@ export default {
           alert('Something went wrong! Please try again.')
         }
       }).catch((_err) => {
-        console.log(_err.response.data.message)
+        alert(_err.response.data.message)
       })
     },
     organizerLogin() {
@@ -193,7 +193,7 @@ export default {
           alert('Something went wrong! Please try again.')
         }
       }).catch((_err) => {
-        console.log(_err.response.data.message)
+        alert(_err.response.data.message)
       })
     },
     logout() {
