@@ -18,7 +18,7 @@
     <template #footer>
         <div class="button-container">
             <b-button v-bind:href="'/edit-event/' + id" variant="info">Edit</b-button>
-            <b-button @click="deleteEvent" variant="danger">Delete</b-button>
+            <b-button @click="deleteEvent" variant="danger" id="delete-button">Delete</b-button>
         </div>
     </template>
   </b-card>
@@ -63,5 +63,8 @@ export default {
 .card-content {
   display: flex; /* Apply flex layout to the content */
   flex-direction: column; /* Stack children vertically */
+}
+#delete-button {
+    margin-left: 10px;
 }
 </style>
