@@ -119,6 +119,7 @@ export default {
           <h3 v-else> Sold out! </h3>
         </div>
         <b-button disabled variant="primary" id="tickets-button" v-if="ticketInfo.price === undefined">Sold out!</b-button>
+        <b-button disabled variant="primary" id="tickets-button" v-else-if="!$session.exists()">Log in first</b-button>
         <b-button variant="primary" id="tickets-button" v-on:click="submit" v-else>Tickets</b-button>
       </div>
     </div>
@@ -147,11 +148,13 @@ export default {
                 </div>
                 <div class="fact-line">
                   <h4>Date:</h4>
-                  <h4>{{ eventInfo.date.substring(0, 10) }}</h4>
+                  <h4 v-if="eventInfo !== ''">{{ eventInfo.date.substring(0, 10) }}</h4>
+                  <h4 v-else> N/A </h4>
                 </div>
                 <div class="fact-line">
                   <h4>Time:</h4>
-                  <h4>{{ eventInfo.date.substring(11, 16) }}</h4>
+                  <h4 v-if="eventInfo !== ''">{{ new Date(eventInfo.date).toTimeString().split(' ')[0].substring(0, 5) }}</h4>
+                  <h4 v-else> N/A </h4>
                 </div>
                 <div class="fact-line">
                   <h4>Ages:</h4>
@@ -169,7 +172,9 @@ export default {
           </div>
           <template #footer>
             <div class="button-container">
-              <b-button variant="primary" id="tickets-button" v-on:click="submit">Tickets</b-button>
+              <b-button disabled variant="primary" id="tickets-button" v-if="ticketInfo.price === undefined">Sold out!</b-button>
+              <b-button disabled variant="primary" id="tickets-button" v-else-if="!$session.exists()">Log in first</b-button>
+              <b-button variant="primary" id="tickets-button" v-on:click="submit" v-else>Tickets</b-button>
             </div>
           </template>
         </b-card>

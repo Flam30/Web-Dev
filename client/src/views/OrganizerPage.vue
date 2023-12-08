@@ -16,6 +16,7 @@ export default {
         description: '',
         ageLimit: '',
         date: '',
+        time: '',
         venue: '',
         organizer: this.id,
         imageURL: ''
@@ -81,10 +82,10 @@ export default {
         name: this.form.name,
         description: this.form.description,
         ageLimit: this.form.ageLimit,
-        date: this.form.date,
+        date: this.form.date.substring(0, 10) + ' ' + this.form.time,
         venue: this.form.venue,
         organizer: this.form.organizer,
-        imageUrl: this.form.imageUrl
+        imageURL: this.form.imageURL
       }).then((res) => {
         console.log(res)
         if (res.status === 201) {
@@ -154,12 +155,12 @@ export default {
             <b-form id="form">
               <b-form-group
                 id="input-group-1"
-                label="ID:"
+                label="Event ID:"
                 label-for="id-input">
                 <b-form-input
                     id="id-input"
                     v-model="form.id"
-                    placeholder="Enter id"
+                    placeholder="Enter a unique ID"
                     required>
                   </b-form-input>
               </b-form-group>
@@ -213,6 +214,13 @@ export default {
                     placeholder="YYYY-MM-DD"
                     required>
                 </b-form-input>
+              </b-form-group>
+
+              <b-form-group
+                  id="input-group-time"
+                  label="Start time:"
+                  label-for="event-time-input">
+                    <b-form-timepicker v-model="form.time" locale="de" id="event-time-input"></b-form-timepicker>
               </b-form-group>
 
               <b-form-group

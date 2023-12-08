@@ -33,9 +33,10 @@ export default {
         events: []
       }).then((res) => {
         console.log(res)
-        if (res.status === 200) {
+        if (res.status === 201) {
           alert('Account registered!')
           console.log('Registered!')
+          this.$router.push('/')
         } else {
           alert('Something went wrong! Please try again.')
         }
