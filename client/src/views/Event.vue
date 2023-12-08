@@ -266,7 +266,7 @@ export default {
 }
 #details-wrapper{
     padding: 30px 20px;
-    width: 100dvw;
+    width: 100%;
     display: flex;
     justify-content: space-between;
 }

@@ -96,7 +96,7 @@ export default {
   <div>
     <HeaderBar></HeaderBar>
     <div class="form-wrapper">
-      <b-form id="form">
+      <b-form id="event-form">
         <b-form-group
             label-cols-lg="4"
             content-cols-lg="8"
@@ -211,7 +211,7 @@ h1{
   margin: 5% auto;
   display: flex;
 }
-#form{
+#event-form{
   width: 60%;
 }
 </style>
