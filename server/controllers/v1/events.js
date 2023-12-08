@@ -10,7 +10,7 @@ router.post('/', async function(req, res, next) {
         let duplicateEvent = await Event.findOne({id: req.body.id});
 
         if (duplicateEvent !== null) {
-            res.status(400).json({'message': 'Id already in use.'});
+            res.status(400).json({'message': 'ID already in use. Please choose another one.'});
         } else {
             let event = new Event(req.body);
             event.imageURL = req.body.imageURL || "https://http.dog/201.jpg";

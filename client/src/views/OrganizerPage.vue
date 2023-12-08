@@ -94,7 +94,7 @@ export default {
         }
       }).catch((_err) => {
         if (_err.response.status === 400) {
-          alert('Something went wrong. Please try again.')
+          alert('Event ID already exists! Please choose a different one.')
         } else {
           console.log(_err.response)
         }
@@ -115,7 +115,7 @@ export default {
         }
       }).catch((_err) => {
         if (_err.response.status === 400) {
-          alert('Something went wrong. Please try again.')
+          alert('Ticket ID already exists! Please choose a different one.')
         } else {
           console.log(_err.response)
         }
