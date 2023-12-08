@@ -14,7 +14,7 @@
     </b-row>
     <b-modal :id="modalID" title="Your ticket QR code">
       <qrcode-vue :value="ticketQR" size="300"></qrcode-vue>
-      <b-button class="mt-3" block @click="this._links.event">Go to Event</b-button>
+      <b-button class="mt-3" block v-if="eventLinkAvailable" @click="goToEvent">Go to Event</b-button>
     </b-modal>
   </div>
 </template>
@@ -87,6 +87,11 @@ export default {
   components: {
     QrcodeVue
   },
+  computed: {
+    eventLinkAvailable() {
+      return this.ticketInfo._links.eventPage.href
+    }
+  },
   methods: {
     async getTicket() {
       Api.get('/v1/tickets/' + this.id)
@@ -94,6 +99,7 @@ export default {
           const ticketInfo = response.data
           this.ticketInfo = ticketInfo
           this.getEvent(ticketInfo.event)
+          console.log(this.ticketInfo)
         }).catch(error => {
           console.log(error)
         })
@@ -106,6 +112,12 @@ export default {
         }).catch(error => {
           console.log(error)
         })
+    },
+    async goToEvent() {
+      if (this.eventLinkAvailable) {
+        // Redirect to the event page using the href
+        window.location.href = this.ticketInfo._links.eventPage.href
+      }
     }
   }
 }
