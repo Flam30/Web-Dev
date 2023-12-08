@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 var eventSchema = new Schema({
     id: {type: String, unique: true, required: true},
     name: {type: String, required: true},
+    normalized: String,
     description: {type: String, required: true},
     ageLimit: Number,
     date: {type: Date, required: true},

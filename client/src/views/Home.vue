@@ -80,8 +80,10 @@ export default {
         </b-dropdown>
 
         <b-dropdown id="sorting" text="Sort" class="m-md-2 buttons" variant="info">
-          <b-dropdown-item v-on:click="sortEvents('name')"> A - Z </b-dropdown-item>
-          <b-dropdown-item v-on:click="sortEvents('-name')"> Z - A </b-dropdown-item>
+          <!-- We are sorting by name_lowercase because Mongoose and MongoDB sort words that start with
+            uppercase letters and lowercase letters separately, and it was causing our sorting on the home page to not work. -->
+          <b-dropdown-item v-on:click="sortEvents('normalized')"> A - Z </b-dropdown-item>
+          <b-dropdown-item v-on:click="sortEvents('-normalized')"> Z - A </b-dropdown-item>
           <b-dropdown-item v-on:click="sortEvents('date')"> Date (closest first) </b-dropdown-item>
           <b-dropdown-item v-on:click="sortEvents('-date')"> Date (furthest first) </b-dropdown-item>
         </b-dropdown>
