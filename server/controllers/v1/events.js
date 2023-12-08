@@ -14,6 +14,8 @@ router.post('/', async function(req, res, next) {
         } else {
             let event = new Event(req.body);
             event.imageURL = req.body.imageURL || "https://http.dog/201.jpg";
+            event.normalized = req.body.name.toLowerCase();
+            console.log(event.normalized)
             await event.save();
             res.status(201).json(event);
         }

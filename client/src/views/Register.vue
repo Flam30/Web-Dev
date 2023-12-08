@@ -177,7 +177,7 @@ export default {
     }
 
     #form {
-      width: auto;
+      width: 100%;
     }
 
     #form-card {
