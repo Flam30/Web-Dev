@@ -162,10 +162,6 @@ export default {
         z-index: 1; /* Place the form above the background */
     }
 
-    #form {
-      width: auto;
-    }
-
     #form-card {
         position: absolute;
         top: 50%; /* Center vertically */
