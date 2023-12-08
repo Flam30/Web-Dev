@@ -54,7 +54,6 @@ export default {
           this.ticketInfo = tickets[0]
           this.lineItems.push({ price: tickets[0].priceId, quantity: 1 })
           this.successURL = 'http://localhost:8080/Success/' + tickets[0]._id
-          console.log(this.lineItems)
           return this.ticketInfo
         }).catch(err => {
           console.log(err)
@@ -78,7 +77,7 @@ export default {
 <div>
     <img class="home-background" src="./..\assets\LightViolet.png">
     <HeaderBar></HeaderBar>
-    <img src="https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?cs=srgb&dl=pexels-wolfgang-2747449.jpg&fm=jpg" alt="Event cover image" id="event-photo">
+    <img src="../assets/event-background.jpeg" alt="Event cover image" id="event-photo">
     <div id="details-wrapper">
       <div id="title-wrapper">
         <span id="event-name">{{ eventInfo.name }}</span>

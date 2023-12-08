@@ -56,7 +56,6 @@ export default {
         .then(response => {
           const venuesInfo = response.data
           venuesInfo.forEach((venue) => this.venues.push({ name: venue.name, id: venue.id }))
-          console.log(this.venues)
           return this.venues
         }).catch(err => {
           console.log(err)
@@ -74,7 +73,6 @@ export default {
         imageURL: this.form.imageURL,
         organizer: this.$session.get('user-id')
       }).then((res) => {
-        console.log(res)
         if (res.status === 200) {
           alert('Event successfully edited!')
         } else {
