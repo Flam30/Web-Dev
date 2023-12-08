@@ -75,6 +75,7 @@ export default {
       }).then((res) => {
         if (res.status === 200) {
           alert('Event successfully edited!')
+          this.$router.push('/organizer/' + this.$session.get('user-id'))
         } else {
           alert('Something went wrong! Please try again.')
         }

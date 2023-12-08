@@ -121,6 +121,20 @@ router.patch('/:id', async function(req, res, next){
     }
 });
 
+// PATCH /organizers/:organizerId/events/:eventId - add an event to an organizer
+router.patch('/:id/events/:eventId', async function (req, res, next) {
+    try {
+        let organizerUsername = req.params.id;
+        let eventId = req.params.eventId;
+        await Organizer.findOneAndUpdate({username: organizerUsername},
+            {$push: {'events': eventId}},
+            {new: true});
+        return res.status(201).json({message: 'Added an event to the organizer!', event: eventId});
+    } catch (error) {
+        next(error);
+    }
+});
+
 // DELETE /organizers - delete all organizers
 router.delete('/', async function(req, res, next) {
     try {

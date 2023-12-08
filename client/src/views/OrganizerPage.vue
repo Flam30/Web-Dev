@@ -74,6 +74,18 @@ export default {
           this.events = events
         }).catch(error => console.log(error))
     },
+    async addEvent() {
+      Api.patch('/v1/organizers/' + this.id + '/events/' + this.form.id).then((res) => {
+        if (res.status === 201) {
+          console.log('Event added to the organizer!')
+        } else {
+          alert('Something went wrong! Please try again.')
+        }
+      }).catch((_err) => {
+        alert('Something went wrong! Please try again.')
+        console.log('Error: ' + _err)
+      })
+    },
     async createEvent() {
       Api.post('/v1/events', {
         id: this.form.id,
@@ -88,6 +100,7 @@ export default {
         if (res.status === 201) {
           alert('Event created!')
           this.addTicket()
+          this.addEvent()
           this.$router.go()
         } else {
           alert('Something went wrong! Please try again.')
