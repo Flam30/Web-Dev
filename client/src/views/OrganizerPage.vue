@@ -144,7 +144,7 @@ export default {
     <img class="home-background" src="./..\assets\LightViolet.png">
     <div class="title-container">
       <span id="organizer" v-if="organizerInfo">
-        <h1 style="margin: 0;"> Hello, {{ organizerInfo.username }}!</h1></span>
+        <h1 style="margin: 0;"> Hello, {{ organizerInfo.name }}!</h1></span>
     </div>
     <b-tabs pills card>
       <b-tab title="Your Events" active>
