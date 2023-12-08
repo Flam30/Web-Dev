@@ -8,7 +8,7 @@
     img-alt="Event thumbnail"
     img-top
     img-height=200
-    style="max-width: 20rem;"
+    style="max-width: 16rem; min-width: 16rem;"
     id="card"
   >
     <div class="card-content">
