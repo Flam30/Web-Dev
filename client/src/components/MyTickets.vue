@@ -89,7 +89,7 @@ export default {
   },
   computed: {
     eventLinkAvailable() {
-      return this.ticketInfo._links.eventPage.href
+      return this.ticketInfo ? this.ticketInfo._links.eventPage.href : null
     }
   },
   methods: {
