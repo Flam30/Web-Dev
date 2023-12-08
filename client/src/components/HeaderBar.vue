@@ -28,7 +28,7 @@
     </b-navbar>
 
     <b-modal id="modal-login" ok-title="Close" :ok-only=true title="Log In">
-      <b-tabs content-class="mt-3">
+      <b-tabs content-class="mt-3" id="login-tabs">
         <b-tab title="Customer" active><p></p>
           <b-form @submit="onSubmitUser">
             <b-form-group
@@ -113,7 +113,10 @@
     object-fit: cover;
     margin: auto;
     padding: 0%;
-  }
+}
+#login-tabs {
+  width: 100%;
+}
 </style>
 
 <script>
