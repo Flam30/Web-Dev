@@ -32,7 +32,6 @@ export default {
         phoneNumber: this.form.phoneNumber,
         events: []
       }).then((res) => {
-        console.log(res)
         if (res.status === 201) {
           alert('Account registered!')
           console.log('Registered!')

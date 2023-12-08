@@ -163,14 +163,12 @@ export default {
         username: this.form.username,
         password: this.form.password
       }).then((res) => {
-        console.log(res)
         if (res.status === 200) {
           this.$session.start()
           this.$session.set('jwt', res.data.token)
           this.$session.set('user-id', res.data.customerId)
           this.$session.set('account-type', 'customer')
           this.isLoggedIn = true
-          console.log('Logged in!')
           this.$router.go()
         } else {
           alert('Something went wrong! Please try again.')
@@ -184,14 +182,12 @@ export default {
         username: this.form.username,
         password: this.form.password
       }).then((res) => {
-        console.log(res)
         if (res.status === 200) {
           this.$session.start()
           this.$session.set('jwt', res.data.token)
           this.$session.set('user-id', res.data.organizerId)
           this.$session.set('account-type', 'organizer')
           this.isLoggedIn = true
-          console.log('Logged in!')
           this.$router.go()
         } else {
           alert('Something went wrong! Please try again.')

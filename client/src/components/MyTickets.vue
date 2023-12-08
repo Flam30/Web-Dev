@@ -99,7 +99,6 @@ export default {
           const ticketInfo = response.data
           this.ticketInfo = ticketInfo
           this.getEvent(ticketInfo.event)
-          console.log(this.ticketInfo)
         }).catch(error => {
           console.log(error)
         })

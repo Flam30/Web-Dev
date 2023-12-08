@@ -54,7 +54,6 @@ export default {
         email: this.form.email,
         password: this.form.password
       }).then((res) => {
-        console.log(res)
         if (res.status === 200) {
           alert('Logged in!')
         } else {

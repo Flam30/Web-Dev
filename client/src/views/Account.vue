@@ -47,7 +47,6 @@ export default {
         .then(response => {
           const userInfo = response.data
           this.form = userInfo
-          console.log(userInfo)
         }).catch(error => {
           console.log(error)
         })
@@ -92,7 +91,6 @@ export default {
         .then(response => {
           const userInfo = response.data
           this.formO = userInfo
-          console.log(userInfo)
         }).catch(error => {
           console.log(error)
         })
@@ -145,7 +143,6 @@ export default {
         })
     },
     async deleteAccount(username) {
-      console.log(username)
       if (username === undefined) {
         return
       }

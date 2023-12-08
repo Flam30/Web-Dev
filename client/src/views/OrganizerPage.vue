@@ -49,7 +49,6 @@ export default {
         .then(response => {
           const organizerInfo = response.data
           this.organizerInfo = organizerInfo
-          console.log(organizerInfo)
           return this.organizerInfo
         }).catch(error => {
           console.log(error)
@@ -60,7 +59,6 @@ export default {
         .then(response => {
           const venuesInfo = response.data
           venuesInfo.forEach((venue) => this.venues.push({ value: venue.id, text: venue.name }))
-          console.log(this.venues)
           return this.venues
         }).catch(err => {
           console.log(err)
@@ -87,7 +85,6 @@ export default {
         organizer: this.form.organizer,
         imageURL: this.form.imageURL
       }).then((res) => {
-        console.log(res)
         if (res.status === 201) {
           alert('Event created!')
           this.addTicket()
@@ -111,7 +108,6 @@ export default {
         quantity: this.tickets.quantity,
         event: this.form.id
       }).then((res) => {
-        console.log(res)
         if (res.status === 201) {
           alert('Tickets created!')
         } else {
